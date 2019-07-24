@@ -1,0 +1,65 @@
+
+# /etc/screenrc
+#
+
+# ------------------------------------------------------------------------------
+# SCREEN SETTINGS
+# ------------------------------------------------------------------------------
+# Allow to use mouse scrolling and maj+shitf scrolling
+termcapinfo xterm* ti@:te@
+#allow to delete persistant screen on vim close
+altscreen on    
+escape ^Xx
+startup_message off
+#nethack on
+  
+# navigating regions with Ctrl-arrows
+bindkey "^[[1;5D" focus left
+bindkey "^[[1;5C" focus right
+bindkey "^[[1;5A" focus up
+bindkey "^[[1;5B" focus down
+
+
+bind c copy 
+#bind v paste
+bind n screen
+bind ^C copy
+
+bindkey -m ' ' eval 'stuff \040' 'writebuf' 'exec sh -c "/usr/bin/clipit < /tmp/screen-exchange"'
+bind v eval 'stuff \040'  'exec sh -c "clipit -c > /tmp/screen-exchange" 'readbuf''
+bind , stuff "bash screen -X chdir \$PWD;screen^M"
+
+ # look and feel
+# caption always "%{= bb}%{+b w}%h %=%{=b rw} %l %{= db} ${USER}@%H %{= dg}%c"
+
+# setenv:w
+# PROMPT_COMMAND 'echo -n -e "\033k\033\134"'
+# shell $SHELL
+ # shelltitle %t
+# shelltitle printf "%-Lw%{= RW}%50>%n%f %h%{-}%+Lw%<"
+
+activity "Activity in window %n%="
+# shelltitle "$PROMPT_COMMAND"
+ hardstatus alwayslastline "%-Lw%{= RW}%50>%n%f %h%{-}%+Lw%<"
+# hardstatus alwayslastline "%-Lw %h %+Lw"
+# hardstatus alwayslastline "%h%-Lw%{= BW}%50>%n%h%f* %h%t%{-}%+Lw%<%h"
+#shell -$SHELL
+# function settitle() {
+#  if [ -n "$STY" ] ; then         # We are in a screen session
+#   echo "Setting screen titles to $@"
+#   printf "\033k%s\033\\" "$@"
+#   # screen -X eval "at \\# title $@" "shelltitle $@"
+#  else
+#   printf "\033]0;%s\007" "$@"
+#  fi
+# }
+
+# # If running in screen, set the window title to the command about to be executed
+# preexec() {
+#     [ -n "$WINDOW" ] && print -Pn "^[k$2^[\\"
+# }
+
+# # If in screen, blank the window title when displaying the prompt
+# premd() {
+#     [ -n "$WINDOW" ] && print -Pn "^[k ^[\\"
+# }
