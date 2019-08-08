@@ -12,7 +12,7 @@ if empty(glob('~/.vim/autoload/plug.vim'))
 endif
 call plug#begin('~/vimDebugPlugin')
 "Plug 'VundleVim/Vundle.vim'
-Plug 'vim-scripts/Conque-GDB' " debuguer for GDB
+"Plug 'vim-scripts/Conque-GDB' " debuguer for GDB
 Plug 'scrooloose/nerdtree' "nerdTree = file explorer
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
 Plug 'gregsexton/gitv', {'on': ['Gitv']} "top git log
@@ -23,7 +23,6 @@ Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 " youcompleme
 " Plug 'humiaozuzu/TabBar'
 Plug 'majutsushi/tagbar' "display a menu with tag in file
-Plug 'nathanaelkane/vim-indent-guides'
 "Plug 'vim-scripts/Gundo' "Gundo.vim is Vim plugin to visualize your Vim undo tree
 Plug 'mbbill/undotree' "show vim history
 Plug 'Konfekt/FastFold' "empeche les lag avec syntaxe fold method
@@ -40,7 +39,7 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>'
 "Plug 'idanarye/vim-vebugger' "include somes debugguer for vim (better as conqueGDB?)
 "Plug 'Shougo/vimproc.vim', {'do' : 'make'} "prerequi fo vebugger
-Plug 'ludovicchabant/vim-gutentags' "auto tag git project
+"Plug 'ludovicchabant/vim-gutentags' "auto tag git project
 Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
 " Plug 'xolox/vim-easytags'
 " Plug 'xolox/vim-misc' "prerequis for easytag
@@ -58,8 +57,8 @@ Plug 'Raimondi/delimitMate'
 "Plug 'Shougo/deoplete.nvim'
 "Plug 'w0rp/ale'
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
+Plug 'ericcurtin/CurtineIncSw.vim' "switch between .h .c
 Plug 'airblade/vim-gitgutter' 
-Plug 'tpope/vim-unimpaired'
 
 call plug#end()
 
@@ -94,21 +93,21 @@ augroup Foo
   au InsertLeave * let &updatetime=updaterestore
 augroup END
 autocmd! Foo
-
-"-----------------
-"" Plugin indent-guide
-"-----------------
-let g:indent_guides_enable_on_vim_startup = 1
 "-----------------
 "" Plugin DEOPLETE
 "-----------------
 "let g:deoplete#enable_at_startup = 1
 "-----------------
+"" Plugin Curtline
+"-----------------
+noremap <leader>gh :call CurtineIncSw()<CR>
+"
+"-----------------
 "" Plugin Autoformat
 "-----------------
 "au BufWrite * :Autoformat "autoformat on save
-noremap <F12> :Autoformat<CR>
-autocmd FileType f,tex let b:autoformat_autoindent=0
+"noremap <F12> :Autoformat<CR>
+"autocmd FileType f,tex let b:autoformat_autoindent=0
 "-----------------
 "" Plugin FZF
 "-----------------
@@ -124,7 +123,6 @@ let g:fzf_tags_command = 'ctags -R'
 "" Plugin gutentag
 "-----------------
 "let g:gutentags_exclude_filetypes = "cxx,hxx"
-let g:gutentags_dont_load = 1
 
 " [Commands] --expect expression for directly executing the command
 let g:fzf_commands_expect = 'alt-enter,ctrl-x'
@@ -139,7 +137,7 @@ map <c-b> :Buffers<cr>
 " \   'rust': ['rls', 'cargo']
 " \}
 " let g:ale_linters={'python': ['pylint', 'pydocstyle', 'mypy']}
-"let g:ale_cpp_clangd_executable = '~/vimDebugPlugin/YouCompleteMe/third_party/ycmd/third_party/clangd/output/bin/clangd'
+
 "-----------------
 "" Plugin fugitive
 "-----------------
@@ -237,16 +235,19 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 let g:ycm_clangd_binary_path = exepath("clangd")
 let g:ycm_autoclose_preview_window_after_insertion = 1
 "let g:ycm_autoclose_preview_window_after_completion = 1
-"
-nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
-nnoremap <leader>gt :YcmCompleter GoTo<CR>
-nnoremap <leader>gi :YcmCompleter GoToInclude<CR>
-"
-"""""""""""""""""""
+
+noremap <leader>gr :YcmCompleter GoToReferences <CR>
+nnoremap <leader>gg :YcmCompleter GoTo<CR>
+nnoremap <leader>ge :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gt :YcmCompleter GetType<CR>
+nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+nnoremap <leader>gf :YcmCompleter FixIt<CR>
+nnoremap <F9> :YcmForceCompileAndDiagnostics<CR>
+nnoremap <F12> :YcmCompleter Format<CR>
+
+"-----------------
 "" Plugin solarized
-"""""""""""""""""""
+"-----------------
 syntax enable
 set background=dark
 set guifont=Monospace\ Bold\ 16
@@ -441,6 +442,7 @@ map <leader>cd :cd %:p:h<cr>:pwd<cr>
 " enable fold methode
 """"""""""""""""""""""
 set foldmethod=syntax
+"set foldmethod=indent
 set foldenable
 set foldlevel=99
 ""enable fortran folding
