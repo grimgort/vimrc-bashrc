@@ -31,7 +31,8 @@ Plug 'Konfekt/FastFold' "empeche les lag avec syntaxe fold method
 Plug 'Chiel92/vim-autoformat' "autoformat
 Plug 'vim-latex/vim-latex' " plugin latex
 "Plug 'ervandew/supertab' "allow autocompletion with tab key (replaced by
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clangd-completer --clang-completer --clang-tidy'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
+Plug 'Valloric/YouCompleteMe'
+"{ 'do': 'git submodule update --init --recursive', 'do': './install.py  --clangd-completer --clang-completer --clang-tidy'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 "Plug 'justmao945/vim-clang'
 "Plug 'Rip-Rip/clang_complete'
@@ -251,9 +252,9 @@ nnoremap <F12> :YcmCompleter Format<CR>
 "-----------------
 syntax enable
 set background=dark
-set guifont=Monospace\ Bold\ 16
+"set guifont="Courier new Bold 30"
 colorscheme solarized
-
+set guifont=Consolas:b:h16:cANSI
 
 "-----------------
 "" Plugin Ctrlp
@@ -308,15 +309,6 @@ let g:tagbar_width=30
 "" Plugin UndotreeToggle
 "-----------------
 nnoremap <F4> :UndotreeToggle<CR>
-
-"-----------------
-"" Plugin Solarized
-"-----------------
-":colorscheme default
-syntax enable
-set background=dark
-set guifont=Monospace\ Bold\ 16
-colorscheme solarized
 
 """"""""""""""""""""""""""""""
 " commentary plugin
