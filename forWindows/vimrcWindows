@@ -1,16 +1,11 @@
 set nocompatible            " be iMproved, required
 filetype off                " required, so vundle will be loaded properly
 
-let g:mapleader = ","
+"let g:mapleader = ","
+let mapleader=" "
 
 set rtp+=~/vimDebugPlugin
 set rtp+=~/vimOther
-if empty(glob('~/vimfiles/autoload/plug.vim'))
-  cd ~
-  silent !curl -fLo vimfiles/autoload/plug.vim --create-dirs
-        \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
 call plug#begin('~/vimDebugPlugin')
 "Plug 'VundleVim/Vundle.vim'
 "Plug 'vim-scripts/Conque-GDB' " debuguer for GDB
@@ -31,9 +26,8 @@ Plug 'Konfekt/FastFold' "empeche les lag avec syntaxe fold method
 Plug 'Chiel92/vim-autoformat' "autoformat
 Plug 'vim-latex/vim-latex' " plugin latex
 "Plug 'ervandew/supertab' "allow autocompletion with tab key (replaced by
-Plug 'Valloric/YouCompleteMe'
-"{ 'do': 'git submodule update --init --recursive', 'do': './install.py  --clangd-completer --clang-completer --clang-tidy'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
-"Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clangd-completer --clang-completer --clang-tidy'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
+Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 "Plug 'justmao945/vim-clang'
 "Plug 'Rip-Rip/clang_complete'
 Plug 'vim-airline/vim-airline' "light bar. slow severly conque GDB!!!!
@@ -59,13 +53,29 @@ Plug 'Raimondi/delimitMate'
 "Plug 'Shougo/deoplete.nvim'
 "Plug 'w0rp/ale'
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
-Plug 'ericcurtin/CurtineIncSw.vim' "switch between .h .c
-Plug 'airblade/vim-gitgutter' 
+"Plug 'ericcurtin/CurtineIncSw.vim' "switch between .h .c
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-scripts/DoxygenToolkit.vim'
+"Plug 'dpelle/vim-Grammalecte'
 
+"Plug 'vim-scripts/a.vim' map leader in inser mode its really disapoiting!!
+"Plug 'vim-vdebug/vdebug'
+
+Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
+Plug 'dpelle/vim-LanguageTool'
+Plug 'rhysd/vim-grammarous'
+Plug 'junegunn/vim-easy-align' "align text
+Plug 'skywind3000/asyncrun.vim'
+Plug 'vhdirk/vim-cmake'
+Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'jeaye/color_coded'
+"Plug 'bbchung/clighter8'
+"Plug 'bbchung/clighter'
+"Plug 'davits/DyeVim'
+Plug 'pakutoma/toggle-terminal'
+Plug 'uplus/vim-clang-rename'
+Plug 'puremourning/vimspector'
 call plug#end()
-
-
-
 """"""""""""""""""""""""""""""""""""
 " disable to print FX on insert mode
 """"""""""""""""""""""""""""""""""""
@@ -80,7 +90,7 @@ map! <F8> <Nop>
 map! <F7> <Nop>
 map! <F6> <Nop>
 map! <F4> <Nop>
-
+packadd termdebug " add gdb to vim
 syntax on                   " syntax highlighting
 filetype on                 " try to detect filetypes
 filetype plugin indent on   " enable loading indent file for filetype
@@ -95,6 +105,25 @@ augroup Foo
   au InsertLeave * let &updatetime=updaterestore
 augroup END
 autocmd! Foo
+"""""""""""""""""
+" set powershell by terminal default
+"""""""""""""""""
+"set shell=powershell  "create a bug on plug install !!! be careful
+"set shellcmdflag=-command
+"""""""""""""""""""
+" asyncrun
+""""""""""""""""""""
+let g:asyncrun_wrapper = 'powershell -command'
+
+"""""""""""""""""""
+" a.vim
+"""""""""""""""""""
+"unmap leader is who provoque a bug  
+"-----------------
+"" Plugin GRAMMALECT
+"-----------------
+let g:grammalecte_cli_py='D:/ftarroux/Logiciel/Grammalecte-fr-v1.5.0/grammalecte-cli.py'
+"let g:grammalecte_cli_py='D:\ftarroux\Logiciel\Grammalecte-fr-v1.5.0\build\scripts-3.7\grammalecte-cli.py'
 "-----------------
 "" Plugin DEOPLETE
 "-----------------
@@ -111,6 +140,46 @@ noremap <leader>gh :call CurtineIncSw()<CR>
 "noremap <F12> :Autoformat<CR>
 "autocmd FileType f,tex let b:autoformat_autoindent=0
 "-----------------
+"" Plugin delimitMate
+"-----------------
+let loaded_delimitMate = 1
+
+"-----------------
+"" Plugin languageTool
+"-----------------
+"let g:grammarous#languagetool_cmd = 'D:/ftarroux/Logiciel/LanguageTool-4.7/languagetool-commandline.jar'
+:let g:languagetool_jar='D:/ftarroux/Logiciel/LanguageTool-4.7/languagetool-commandline.jar'
+"____________________
+"vdebug
+"---------------------
+"let g:vdebug_keymap = {
+      "\    "run" : "<Leader><F5>",
+      "\    "run_to_cursor" : "<Leader><F9>",
+      "\    "step_over" : "<Leader><F2>",
+      "\    "step_into" : "<Leader><F3>",
+      "\    "step_out" : "<Leader><F4>",
+      "\    "close" : "<Leader><F6>",
+      "\    "detach" : "<Leader><F7>",
+      "\    "set_breakpoint" : "<Leader><F10>",
+      "\    "get_context" : "<Leader><F11>",
+      "\    "eval_under_cursor" : "<Leader><F12>",
+      "\    "eval_visual" : "<Leader>e",
+      "\}
+"
+"-----------------
+"" toggle terminal
+"-----------------
+" map <C-@> to toggle
+tnoremap <silent> <C-@> <C-w>:ToggleTerminal<CR>
+nnoremap <silent> <C-@> :ToggleTerminal<CR>
+
+" set your favorite shell
+let g:toggle_terminal#command = 'powershell'
+
+" set terminal window position
+" (see possible options at :help vertical)
+let g:toggle_terminal#position = 'topleft'
+"-----------------
 "" Plugin FZF
 "-----------------
 " [Buffers] Jump to the existing window if possible
@@ -121,6 +190,8 @@ let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %
 
 " [Tags] Command to generate tags file
 let g:fzf_tags_command = 'ctags -R'
+
+nnoremap <leader>z :call  HeaderFile()<cr>
 "-----------------
 "" Plugin gutentag
 "-----------------
@@ -146,7 +217,6 @@ map <c-b> :Buffers<cr>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd QuickFixCmdPost *grep* cwindow "alow to choose file in quickFiXList whit :Ggrep command
 " let g:EasyGrepOpenWindowOnMatch=0
-command! GTuleapPush :Gpush --repo="https://codev-tuleap.intra.cea.fr/plugins/git/cathare/cathare3.git"
 
 """"""""""""""""""""""
 " Configure ctags for vim
@@ -206,6 +276,19 @@ autocmd FileType conque_term autocmd! Foo CursorHoldI *
 ":colorscheme default
 
 """""""""""""""""""
+"markdown
+"""""""""""""""""""
+"let g:instant_markdown_slow = 1
+"let g:instant_markdown_autostart = 0
+"let g:instant_markdown_open_to_the_world = 1
+"let g:instant_markdown_allow_unsafe_content = 1
+"let g:instant_markdown_allow_external_content = 0
+"let g:instant_markdown_mathjax = 1
+"let g:instant_markdown_logfile = '/tmp/instant_markdown.log'
+"let g:instant_markdown_autoscroll = 0
+"let g:instant_markdown_port = 8888
+"let g:instant_markdown_python = 1
+"""""""""""""""""""
 "Rip-rip clang-completion
 """""""""""""""""""
 
@@ -225,6 +308,7 @@ autocmd FileType conque_term autocmd! Foo CursorHoldI *
 let g:ycm_key_list_select_completion = ['<TAB>']
 let g:ycm_key_list_previous_completion = ['<S-TAB>']
 let g:ycm_key_list_stop_completion = ['<C-y>', '<UP>', '<DOWN>']
+let g:ycm_global_ycm_extra_conf = '~/vimDebugPlugin/YouCompleteMe/cpp/ycm/.ycm_global_ycm_extra_conf'
 "let g:ycm_clangd_binary_path = exepath('clangd')
 "let g:loaded_youcompleteme = 1
 "-----------------
@@ -236,7 +320,8 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = exepath("clangd")
 let g:ycm_autoclose_preview_window_after_insertion = 1
-"let g:ycm_autoclose_preview_window_after_completion = 1
+set pythondll=D:\ftarroux\Logiciel\Python2\python27.dll
+set pythonthreedll=D:\ftarroux\Logiciel\Python36\python36.dll
 
 noremap <leader>gr :YcmCompleter GoToReferences <CR>
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
@@ -246,15 +331,19 @@ nnoremap <leader>gd :YcmCompleter GetDoc<CR>
 nnoremap <leader>gf :YcmCompleter FixIt<CR>
 nnoremap <F9> :YcmForceCompileAndDiagnostics<CR>
 nnoremap <F12> :YcmCompleter Format<CR>
+nnoremap ² :YcmCompleter Format<CR>
 
 "-----------------
 "" Plugin solarized
 "-----------------
 syntax enable
 set background=dark
-"set guifont="Courier new Bold 30"
+"set guifont=Monospace\ Bold\ 16
 colorscheme solarized
-set guifont=Consolas:b:h16:cANSI
+set guifont=Source_Code_Pro:h13
+"set guifont=Source_Code_Pro:b:h13.5
+
+" let g:ctrlp_by_filename = 1
 
 "-----------------
 "" Plugin Ctrlp
@@ -285,7 +374,7 @@ set guifont=Consolas:b:h16:cANSI
 "" Plugin NerdTree
 "-----------------
 let NERDChristmasTree=1
-let NERDTreeWinSize=25
+let NERDTreeWinSize=100
 map <F2> :NERDTreeToggle<CR>
 map <leader><F2> :NERDTreeFind<cr>
 
@@ -295,9 +384,11 @@ map <leader><F2> :NERDTreeFind<cr>
 "" Plugin Tagbar
 "-----------------
 map <F3> :Tagbar<CR>
-let g:tagbar_ctags_bin='ctags'
+let g:tagbar_ctags_bin = 'D:\ftarroux\Logiciel\ctags58\ctags.exe'
+"let g:tagbar_ctags_bin='ctags'
 let g:tagbar_width=30
-
+let g:tagbar_autofocus = 1
+let g:tagbar_sort = 1
 
 "-----------------
 "" Plugin Gundo
@@ -309,19 +400,6 @@ let g:tagbar_width=30
 "" Plugin UndotreeToggle
 "-----------------
 nnoremap <F4> :UndotreeToggle<CR>
-
-""""""""""""""""""""""""""""""
-" commentary plugin
-""""""""""""""""""""""""""""""
-" map <C-d> gc <enter>
-" imap <C-d> gc <enter>
-"cathare syntax file
-autocmd BufNewFile,BufRead *.dat set syntax=cathare3
-"comment string on first ligne of cathare jdd
-autocmd syntax cathare set commentstring=*%s
-autocmd syntax cathare3 set commentstring=*%s
-" autocmd syntax fortran set fortranComment=ls0:*
-
 
 
 
@@ -340,9 +418,10 @@ set guioptions-=r   " remove Right bar
 set guioptions-=L   " remove Left bar
 set guioptions=c
 " you can copy with maj in insert modeuu
-:set guioptions+=a keymodel=startsel,stopsel
+" cause big lag on visual mode (set guioption+=a
+":set guioptions+=a keymodel=startsel,stopsel
 "use system clipboard
-set clipboard=unnamedplus
+set clipboard=unnamed
 "correct cursor bug for gnome terminal
 let &t_SI = "\<Esc>[6 q"
 let &t_SR = "\<Esc>[4 q"
@@ -367,12 +446,14 @@ set expandtab
 set mouse=a
 set nu
 map <C-a> GVgg
-map <F5> :w <cr>
-inoremap <F5> <c-o>:w<cr>
+nnoremap <C-s> :w<cr>
+inoremap <C-s> <c-o>:w<cr>
 noremap <leader>h :history<cr>
 nmap q: <Nop>
 map <C-c> y
-map <C-h> :%s/
+imap <C-h> :%s/
+nmap <C-h> :%s/
+vmap <C-h> :s/
 " vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>map <C-f> /
 "Allow to shearch visula selection with *
 vnoremap * y/\V<C-r>=escape(@",'/\')<CR><CR>
@@ -385,16 +466,19 @@ map <C-S-Down> <C-W>j
 " Common Configuration for Vim
 "================================
 set encoding=utf-8      " utf-8 default  (others: big5, gbk, euc-jp)
-set fencs=utf-8,big5    " fileencodings: utf-8 default (others:gbk,ucs-bom)
+set fencs=utf-8 " fileencodings: utf-8 default (others:gbk,ucs-bom)
 set showcmd
 set noshowmode          " not show `Insert,Normal` at bottom left
 set wildmenu
 set number              " Show line number
 set cursorline          " Show underline in current cursor
-highlight CursorLine cterm=underline
+highlight CursorLine cterm=underline gui=underline
 set cursorcolumn        " Show highlight in current column
-" set nowrap              " not wrap the long line
-" set colorcolumn=80      " Display the limit of text width.
+" red line to 80 column
+"highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+"match OverLength /\%81v.\+/"
+set wrap              " not wrap the long line
+set colorcolumn=80      " Display the limit of text width.
 "set textwidth=79        " Restrict text width.
 set mouse=a             " Enable mouse to use (all mode)
 set scrolloff=2         " Keep space from top and bottom
@@ -412,16 +496,22 @@ set hlsearch        " Highlight search by default.
 set smarttab        " handle tab more intelligently.
 set incsearch       " search pattern when still typing
 set backspace=indent,eol,start
+"size of commande line
+set cmdheight=1
 "set autochdir "move repository to current buffer
 """"""""""""""""""""""""""""""""""
 "history and backup functionality"
 """"""""""""""""""""""""""""""""""
-set nobackup
-set nowb
-set noswapfile
-set undodir=/export/home/ftarroux/tmp/.vim/.undo//
-set backupdir=/export/home/ftarroux/tmp/.vim/.backup//
-set directory=/export/home/ftarroux/tmp/.vim/.swp//
+"set nobackup
+"set nowb
+"set noswapfile
+set backup
+set wb
+set swapfile
+
+"set undodir=/export/home/ftarroux/tmp/.vim/.undo//
+"set backupdir=/export/home/ftarroux/tmp/.vim/.backup//
+"set directory=/export/home/ftarroux/tmp/.vim/.swp//
 set autoread
 
 " Set 7 lines to the cursor - when moving vertically using j/k
@@ -455,12 +545,23 @@ let fortran_do_enddo=1
 set foldcolumn=2
 
 
+""DOXYGEN syntaxe
+let g:load_doxygen_syntax=1
+autocmd FileType c,cpp,h set comments-=://
+autocmd FileType c,cpp,h set comments+=:///<
+autocmd FileType c,cpp,h set comments+=://
+autocmd FileType c,cpp,h set comments+=://!<
+"set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,bO:///,O://,bO://!<
 """"""""""""""""""""""""""""
 " Add fr and en dictionary
 """"""""""""""""""""""""""""
 setlocal spell spelllang=fr
-map <silent> <F7> "<Esc>:silent setlocal spell! spelllang=en<CR>"
-map <silent> <F6> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
+"map <silent> <F7> "<Esc>:silent setlocal spell! spelllang=en<CR>"
+"map <silent> <F6> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
+map <silent> <F7> :GrammarousCheck --lang=en<cr>
+map <silent> <F6> :GrammarousCheck --lang=fr<cr>
+map <silent> <F8> :GrammarousReset<cr>
+
 set nospell "disable spell on vim start (push F6 or F7 for enable)"
 set keymodel-=stopsel
 
@@ -478,18 +579,41 @@ nnoremap >> <<
 vnoremap << >gv
 vnoremap >> <gv
 
+"black hole register by default for d keyword
+nnoremap dd "_dd
+nnoremap d "_d
+vnoremap d "_d
 
+"c use register by default
+nnoremap cc dd
+nnoremap c d
+vnoremap c d
+
+"use black hole for suppr key map
+noremap <Del> "_x
+
+"grep word under cursor
+nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+"Clear highlight on pressing ESC
+nnoremap <esc> :noh<return><esc>
+nnoremap <silent> <leader>a :Gstatus<cr>
+
+"show hidden char
+set listchars=nbsp:☠,tab:▸␣
+set list
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function to allow to quit all secondary window.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CloseAll()
-  silent! ccl
-  silent! helpclose
-  silent! call MyCloseDiff()
-  call DeleteBufferByExtension(".git")
+  silent! pclose "close preview YCM
+  silent! ccl "close result ggrep
+  silent! helpclose "close help
+  silent! call Close_gstatus() "close gstatu
+  silent! call MyCloseDiff() "close git diff
+  call DeleteBufferByExtension(".git") "close git windows
 endfunction
 noremap  <silent>  q :call CloseAll()<cr>
-
 "function! MyCloseFugitive()
 "if &filetype('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
 
@@ -533,33 +657,45 @@ function! MyCloseDiff()
   endif
 endfunction
 
+function! Close_gstatus()
+  for l:winnr in range(1, winnr('$'))
+    if !empty(getwinvar(l:winnr, 'fugitive_status'))
+      execute l:winnr.'close'
+    endif
+  endfor
+endfunction
+
+
+function! HeaderFile()
+call fzf#vim#files('.', {'options':['--query', expand("%:r").' h$ | hpp$ | cpp$ | c$']})<CR>
+endfunction
 """
 " Permet d'afficher la sortie shell
 """
-command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
-function! s:RunShellCommand(cmdline)
-  let isfirst = 1
-  let words = []
-  for word in split(a:cmdline)
-    if isfirst
-      let isfirst = 0  " don't change first word (shell command)
-    else
-      if word[0] =~ '\v[%#<]'
-        let word = expand(word)
-      endif
-      let word = shellescape(word, 1)
-    endif
-    call add(words, word)
-  endfor
-  let expanded_cmdline = join(words)
-  botright new
-  setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
-  call setline(1, 'You entered:  ' . a:cmdline)
-  call setline(2, 'Expanded to:  ' . expanded_cmdline)
-  call append(line('$'), substitute(getline(2), '.', '=', 'g'))
-  silent execute '$read !'. expanded_cmdline
-  1
-endfunction
+"command! -complete=shellcmd -nargs=+ Shell call s:RunShellCommand(<q-args>)
+"function! s:RunShellCommand(cmdline)
+"let isfirst = 1
+"let words = []
+"for word in split(a:cmdline)
+"if isfirst
+"let isfirst = 0  " don't change first word (shell command)
+"else
+"if word[0] =~ '\v[%#<]'
+"let word = expand(word)
+"endif
+"let word = shellescape(word, 1)
+"endif
+"call add(words, word)
+"endfor
+"let expanded_cmdline = join(words)
+"botright new
+"setlocal buftype=nofile bufhidden=wipe nobuflisted noswapfile nowrap
+"call setline(1, 'You entered:  ' . a:cmdline)
+"call setline(2, 'Expanded to:  ' . expanded_cmdline)
+"call append(line('$'), substitute(getline(2), '.', '=', 'g'))
+"silent execute '$read !'. expanded_cmdline
+"1
+"endfunction
 
 
 
