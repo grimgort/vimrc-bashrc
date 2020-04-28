@@ -55,6 +55,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'will133/vim-dirdiff' "diff between directory
 Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
+Plug 'lambdalisue/gina.vim'
 Plug 'gregsexton/gitv', {'on': ['Gitv']} "top git log
 Plug 'altercation/vim-colors-solarized' " solarized color for vim
 Plug 'morhetz/gruvbox'
@@ -143,6 +144,20 @@ autocmd FocusLost * call feedkeys("\<esc>")
 """""""""""""""""
 "set shell=powershell  "create a bug on plug install !!! be careful
 "set shellcmdflag=-command
+"
+"set shell=powershell.exe
+"set shellcmdflag=-NoProfile\ -NoLogo\ -NonInteractive\ -Command
+"set shellpipe=|
+"set shellredir=>
+"set shell=powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
+" if shellcmdflag starts with '-' then tempname() uses forward slashes, see 
+" https://groups.google.com/forum/#!topic/vim_dev/vTR05EZyfE0
+"set shellcmdflag=\ -Command
+"set shellquote=
+"set shellxquote=(
+"let &shellpipe='| Out-File -Encoding UTF8 %s'
+"let &shellredir='| Out-File -Encoding UTF8 %s'
+"set noshellslash
 """""""""""""""""""
 " asyncrun
 """"""""""""""""""""
@@ -234,6 +249,7 @@ if has('nvim')
   map <leader>à  :call Term_toggle(15)<cr>
   tmap <leader>à  <C-\><C-n>:call Term_toggle(15)<cr>
   tmap <Esc> <C-\><C-n>
+  tmap <C-w> <C-\><C-n><C-w>
   au BufEnter * if &buftype == 'terminal' | :startinsert | endif
 
 else
