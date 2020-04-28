@@ -5,6 +5,7 @@
   /*"python.jediEnabled": false*/
   /*"suggest.noselect": false,*/
   /*"html.filetypes": ["html", "handlebars", "htmldjango", "markdown"],*/
+  "explorer.file.showHiddenFiles": true,
   "snippets.userSnippetsDirectory": "~/Documents/FRED/baseGit/vimrc-bashrc/cocExtension",
   "tslint.enable": true,
   "tslint.autoFixOnSave": true,
@@ -94,4 +95,5 @@
     /*"line_length": false*/
   },
   "coc.preferences.bracketEnterImprove": true
+  /*"git.enableGutters": true*/
 }
