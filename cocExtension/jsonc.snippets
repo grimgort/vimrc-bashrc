@@ -1,0 +1,74 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+snippet ref " create reference" w
+,{ "$ref": "#/$def/${1:refName}" }$2
+endsnippet
+
+snippet objetRef "create object in reference" w
+"${1:objName}": {
+	"type": "object",
+		"properties": {
+			"$1": { "type": "object", "additionalProperties": false,$2 }
+		}
+}
+endsnippet
+
+
+snippet complexeDependency "dependency with condition" w
+"dependencies": {
+	"${1:propName}": {
+		"required": ["$1"],
+		"properties": {
+			"${2:propName2}": { ${3:condition} },
+		}
+	}
+}
+endsnippet
+
+snippet simpledependency "dependency of one parameter" w
+"dependencies": {	"${1:propName}": ["${2:propName2}"]	}
+endsnippet
+
+snippet propTrue "far add true additionalProperties" w
+"${1:propName}" : true${2:,}
+endsnippet
+
+snippet noContrainte "comment fo say no contrainte" w
+"$comment": "no contrainte",
+endsnippet
+
+snippet objetProp "objet de propriété" w
+"${1:propName}": {
+	"type": "object",
+		"properties": {
+			"$1": { "title": "${2:title}", "description": "${3:description}", "type": "${4:type}","${5:value}","default":${6:default} }
+		}
+	}${7:,}
+endsnippet
+
+snippet enumFr "enum" w
+ "enum": ["${1:mot}"] 
+endsnippet
