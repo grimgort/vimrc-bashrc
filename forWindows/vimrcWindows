@@ -9,6 +9,7 @@ set rtp+=~/.vim
 let g:coc_global_extensions = [
       \ 'coc-ultisnips',
       \ 'coc-json',
+      \ 'coc-prettier',
       \ 'coc-tsserver',
       \ 'coc-html',
       \ 'coc-css',
@@ -27,10 +28,14 @@ let g:coc_global_extensions = [
       \ 'coc-spell-checker',
       \ 'coc-browser', 
       \ 'cspell-dict-vimlang',
-      \'coc-bookmark'
+      \'coc-pairs',
+      \'coc-dictionary',
+      \'coc-bookmark',
+      \'coc-cmake'
       \]
 
 call plug#begin('~/vimDebugPlugin')
+Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-surround' "surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' "color pair of bracket for better lisibility
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
@@ -41,107 +46,47 @@ Plug 'easymotion/vim-easymotion'
 Plug 'jreybert/vimagit'
 Plug 'liuchengxu/vim-which-key'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
-if has('nvim')
-  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'pocari/vim-denite-command-history'
-else
-  "Plug 'Shougo/denite.nvim'
-  "Plug 'roxma/nvim-yarp'
-  "Plug 'roxma/vim-hug-neovim-rpc'
-endif
 Plug 'neoclide/jsonc.vim'
-"if has('nvim')
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-"else
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'roxma/nvim-yarp'
-"Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-"let g:deoplete#enable_at_startup = 1
 if has('nvim')
 else
   Plug 'pakutoma/toggle-terminal'
 endif
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'will133/vim-dirdiff' "diff between directory
-"""""""""""""""""""""""""""""""
-" nerdtree plugin
-Plug 'preservim/nerdtree' "nerdTree = file explorer
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
-Plug 'ryanoasis/vim-devicons'
-Plug 'Linfee/nerdtree-open' "open file with default editor system with c-o mapping
-"""""""""""""""""""""""""""
 Plug 'rstacruz/vim-closer'
-"Plug 'scrooloose/nerdtree' "nerdTree = file explorer
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
 Plug 'gregsexton/gitv', {'on': ['Gitv']} "top git log
 Plug 'altercation/vim-colors-solarized' " solarized color for vim
 Plug 'morhetz/gruvbox'
-" Plug 'kien/ctrlp.vim' "replaced by fzf
-"Plug 'jlanzarotta/bufexplorer'
-" youcompleme
-" Plug 'humiaozuzu/TabBar'
 Plug 'majutsushi/tagbar' "display a menu with tag in file
 "Plug 'vim-scripts/Gundo' "Gundo.vim is Vim plugin to visualize your Vim undo tree
 Plug 'mbbill/undotree' "show vim history
 Plug 'Konfekt/FastFold' "empeche les lag avec syntaxe fold method
 Plug 'Shougo/echodoc' "Displays function signatures from completions in the command line
 Plug 'Chiel92/vim-autoformat' "autoformat
-"Plug 'vim-latex/vim-latex' " plugin latex
-"Plug 'ervandew/supertab' "allow autocompletion with tab key (replaced by
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clangd-completer --clang-completer --clang-tidy --js-completer'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-"Plug 'justmao945/vim-clang'
-"Plug 'Rip-Rip/clang_complete'
-"Plug 'vim-airline/vim-airline' "light bar. slow severly conque GDB!!!!
-"Plug 'vim-airline/vim-airline-themes'
 Plug 'itchyny/lightline.vim'
 Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>'
-
-"Plug 'Shougo/vimproc.vim', {'do' : 'make'} "prerequi fo vebugger
-Plug 'ludovicchabant/vim-gutentags' "auto tag git project
+"Plug 'ludovicchabant/vim-gutentags' "auto tag git project
 Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
-" Plug 'xolox/vim-easytags'
-" Plug 'xolox/vim-misc' "prerequis for easytag
 "Plug 'sjl/splice.vim' "tool for resolve threeMerge conflict
 "Plug 'sirver/ultisnips' "UltiSnips is the ultimate solution for snippets in Vim (coc_ultisnip used but documentation available here)
-"Plug 'w0rp/ale'
 Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
-" Plug 'tpope/vim-commentary' "allow commentary gcc command
-Plug 'junegunn/fzf', { 'dir': '~/.fzf','do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-"Plug 'kablamo/vim-git-log' "allowGitLog
-
-"Plug 'samoshkin/vim-mergetool'
 Plug 'Raimondi/delimitMate'
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'w0rp/ale'
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
-"Plug 'ericcurtin/CurtineIncSw.vim' "switch between .h .c
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 "Plug 'dpelle/vim-Grammalecte'
 Plug 'mhinz/vim-grepper'
-"Plug 'vim-scripts/a.vim' map leader in inser mode its really disapoiting!!
-"Plug 'vim-vdebug/vdebug'
-
-"Plug 'suan/vim-instant-markdown', {'for': 'markdown'}
 Plug 'dpelle/vim-LanguageTool'
 "Plug 'rhysd/vim-grammarous'
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim'
-"Plug 'vhdirk/vim-cmake'
 Plug 'octol/vim-cpp-enhanced-highlight'
-"Plug 'jeaye/color_coded'
-"Plug 'bbchung/clighter8'
-"Plug 'bbchung/clighter'
-"Plug 'davits/DyeVim'
-"Plug 'uplus/vim-clang-rename'
 Plug 'puremourning/vimspector'
 "Plug 'mphe/grayout.vim'
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-"Plug 'weirongxu/coc-explorer' , {'do': 'yarn install --frozen-lockfile'}
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
 "Plug 'MaskRay/ccls', {'do': 'yarn install --frozen-lockfile'}
 "Note: You may need to execute these commands in the "Developer Command Prompt for VS"
@@ -214,7 +159,7 @@ let g:asyncrun_wrapper = 'powershell -command'
 """""""""""""""""""
 " set to 1, nvim will open the preview window after entering the markdown buffer
 " default: 0
-let g:mkdp_auto_start = 1
+let g:mkdp_auto_start = 0
 
 "-----------------
 "" Plugin GRAMMALECT
@@ -267,37 +212,6 @@ let loaded_delimitMate = 1
 "" toggle terminal
 "-----------------
 if has('nvim')
-
-  "set shell=pwsh.exe shellquote=( shellpipe=\| shellxquote=
-  "set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
-  "set shellredir=\|\ Out-File\ -Encoding\ UTF8
-  ""terminal toggle
-  "map <leader>à <Plug>(coc-terminal-toggle)
-  "tmap <leader>à  <C-\><C-n><Plug>(coc-terminal-toggle)
-  "" Terminal go back to normal mode
-  "tmap <Esc> <C-\><C-n>
-  "" When switching to terminal windows it goes into insert mode automatically
-  "au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-
-  "let g:term_buf = 0
-  "function! Term_toggle()
-  "1wincmd w
-  "if g:term_buf == bufnr("")
-  "setlocal bufhidden=hide
-  "close
-  "else
-  "rightbelow new
-  "12winc -
-  "try
-  "exec "buffer ".g:term_buf
-  "catch
-  "call termopen("pwsh", {"detach": 0})
-  "let g:term_buf = bufnr("")
-  "endtry
-  ""set laststatus=0
-  "startinsert!
-  "endif
-  "endfunction
   let g:term_buf = 0
   let g:term_win = 0
   function! Term_toggle(height)
@@ -309,7 +223,7 @@ if has('nvim')
       try
         exec "buffer " . g:term_buf
       catch
-        call termopen("pwsh", {"detach": 0})
+        call termopen("powershell", {"detach": 0})
         let g:term_buf = bufnr("")
       endtry
       startinsert!
@@ -317,37 +231,10 @@ if has('nvim')
     endif
   endfunction
 
-
-  "nnoremap <f4> :call Term_toggle()<cr>
   map <leader>à  :call Term_toggle(15)<cr>
   tmap <leader>à  <C-\><C-n>:call Term_toggle(15)<cr>
   tmap <Esc> <C-\><C-n>
   au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-  "let g:term_buf = 0
-  "let g:term_win = 0
-
-  "function! Term_toggle()
-  "1wincmd w
-  "if g:term_buf == bufnr("")
-  "setlocal bufhidden=hide
-  "close
-  "else
-  "topleft vnew
-  "try
-  "exec "buffer ".g:term_buf
-  "catch
-  "call termopen("pwsh", {"detach": 0})
-  "let g:term_buf = bufnr("")
-  "endtry
-  "startinsert!
-  "endif
-  "endfunction
-  "nnoremap <f4> :call Term_toggle()<cr>
-
-
-  "nnoremap <M-t> :call Term_toggle(10)<cr>
-  "tnoremap <M-t> <C-\><C-n>:call Term_toggle(10)<cr>
-
 
 else
   " map <C-@> to toggle
@@ -358,37 +245,11 @@ else
   "let g:toggle_terminal#command = 'pwsh'
   let g:toggle_terminal#command = 'powershell'
 
-
   " set terminal window position
   " (see possible options at :help vertical)
   let g:toggle_terminal#position = 'topleft'
 endif
-"-----------------
-"" Plugin FZF
-"-----------------
-" [Buffers] Jump to the existing window if possible
-let g:fzf_buffers_jump = 1
-
-" [[B]Commits] Customize the options used by 'git log':
-let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
-
-" [Tags] Command to generate tags file
-let g:fzf_tags_command = 'ctags -R'
-"close fzf with escape
-if has("nvim")
-  au TermOpen * tnoremap <Esc> <c-\><c-n>
-  au FileType fzf tunmap <Esc>
-endif
-
-nnoremap <leader>fh :call  HeaderFile()<cr>
-
-
-" [Commands] --expect expression for directly executing the command
-"let g:fzf_commands_expect = 'alt-enter,ctrl-x'
-map <leader>fg :GFiles<cr>
-map <leader>fb :Buffers<cr>
-map <C-:> :History:<cr>
-
+"
 "-----------------
 "" Plugin gutentag
 "-----------------
@@ -424,12 +285,6 @@ set tags=./tags;,tags;
 " let g:splice_prefix = "<leader>t "
 
 """""""""""""""""""""""""""""""""""
-" Vebugger setting
-"""""""""""""""""""""""""""""""""""
-let g:vebugger_leader=';'
-let g:vebugger_path_gdb="/usr/bin/gdb"
-
-"""""""""""""""""""""""""""""""""""
 " lightline setting
 """""""""""""""""""""""""""""""""""
 let g:lightline = {
@@ -458,28 +313,6 @@ let g:lightline.tabline = {
       \ }
 set showtabline=2  " Show tabline
 set guioptions-=e  " Don't use GUI tabline
-"""""""""""""""""""""""""""""""""""
-" Air-line Setting
-"""""""""""""""""""""""""""""""""""
-"let g:airline_powerline_fonts = 1
-"if !exists('g:airline_symbols')
-"let g:airline_symbols = {}
-"endif
-"let g:airline_theme='murmur'    " change theme of airline 'wombot'
-"" enable tabline
-"" let g:airline#extensions#tabline#enabled = 1
-"" set left separator
-"let g:airline#extensions#tabline#left_sep = ' '
-"" set left separator which are not editting
-"let g:airline#extensions#tabline#left_alt_sep = '|'
-"" show buffer number
-"let g:airline#extensions#tabline#buffer_nr_show = 1
-""show servername to left airline
-"function! AirlineInit()
-"let g:airline_section_b = airline#section#create(['%{v:servername}   ','hunks','branch'])
-"endfunction
-"autocmd VimEnter * call AirlineInit()
-
 """""""""""""""""""
 "markdown
 """""""""""""""""""
@@ -529,7 +362,6 @@ if has('nvim')
 else
   "set pythondll=D:\ftarroux\Logiciel\Python2\python27.dll
   "set pythonthreedll=D:\ftarroux\Logiciel\Python36\python36.dll
-
   "set pythonthreedll=D:\LOGICELW7\Python3.7.7\python37.dll
 endif
 
@@ -693,7 +525,7 @@ set cursorcolumn        " Show highlight in current column
 set wrap              " not wrap the long line
 set colorcolumn=80      " Display the limit of text width.
 "au BufRead,BufNewFile CMakeLists.txt setlocal textwidth=80"
-"set textwidth=79        " Restrict text width.
+set textwidth=79        " Restrict text width.
 set mouse=a             " Enable mouse to use (all mode)
 
 set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
@@ -785,10 +617,10 @@ map <silent> <F6> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
 map <silent> <leader>ze :GrammarousCheck --lang=en<cr>
 map <silent> <leader>zf :GrammarousCheck --lang=fr<cr>
 map <silent> <leader>zr :GrammarousReset<cr>
- hi clear SpellBad "disable udernlined error for spell"
- hi clear SpellCap "disable udernlined error for spell"
- hi clear SpellRare "disable udernlined error for spell"
- hi clear SpellLocal "disable udernlined error for spell"
+ "hi clear SpellBad "disable udernlined error for spell"
+ "hi clear SpellCap "disable udernlined error for spell"
+ "hi clear SpellRare "disable udernlined error for spell"
+ "hi clear SpellLocal "disable udernlined error for spell"
 
  "hi SpellBad   cterm=underline ctermfg=9  ctermbg=0 gui=undercurl
  "hi SpellCap   cterm=underline ctermfg=14 ctermbg=0 gui=undercurl
@@ -903,11 +735,6 @@ function! Close_gstatus()
       execute l:winnr.'close'
     endif
   endfor
-endfunction
-
-
-function! HeaderFile()
-  call fzf#vim#files('.', {'options':['--query', expand("%:r").' h$ | hpp$ | cpp$ | c$']})
 endfunction
 
 "pip install cmake_format to launch for this command
@@ -1167,21 +994,32 @@ let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowTo
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""
-" coc-bookmark"
+" coc-bookmark"" to use when debugged
 """"""""""""""""""""""""""""""""""""""""""""""""
-nmap <Leader>bl <Plug>(coc-bookmark-next)
-nmap <Leader>bh <Plug>(coc-bookmark-prev)
-nmap <leader>bt <plug>(coc-bookmark-toggle)
-nmap <leader>ba <plug>(coc-bookmark-annotate)
+"nmap <Leader>bl <Plug>(coc-bookmark-next)
+"nmap <Leader>bh <Plug>(coc-bookmark-prev)
+"nmap <leader>bt <plug>(coc-bookmark-toggle)
+"nmap <leader>ba <plug>(coc-bookmark-annotate)
+"nmap <leader>bz :CocList -A --tab bookmark<cr>
 
-nmap <leader>bz :CocList -A --tab bookmark<cr>
+"""""""""""""""""""""""""""""""""""""""""""""""
+" vim-bookmark"
+"""""""""""""""""""""""""""""""""""""""""""""""
+nmap <Leader>bi <Plug>BookmarkAnnotate
+nmap <Leader>ba <Plug>BookmarkShowAll
+nmap <Leader>bj <Plug>BookmarkNext
+nmap <Leader>bk <Plug>BookmarkPrev
+nmap <Leader>bc <Plug>BookmarkClear
+nmap <Leader>bx <Plug>BookmarkClearAll
+nmap <Leader>bkk <Plug>BookmarkMoveUp
+nmap <Leader>bjj <Plug>BookmarkMoveDown
+nmap <Leader>bg <Plug>BookmarkMoveToLine
 
-
-
-
-
-"let g:coc_user_config = ["./coc_config.json"]
-
-
+"""""""""""""""""""""""""""""""""""""""""""""""
+" coc-list" replace fzf
+"""""""""""""""""""""""""""""""""""""""""""""""
+nmap <leader>fb :CocList -A buffers<cr>
+nmap <leader>fg :CocList -A gfiles<cr>
+nmap <C-:> :CocList cmdhistory<cr>
 
 
