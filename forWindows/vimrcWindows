@@ -35,6 +35,9 @@ let g:coc_global_extensions = [
       \]
 
 call plug#begin('~/vimDebugPlugin')
+Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
+Plug 'lifepillar/vim-cheat40'
+"Plug 'vim-scripts/sherlock.vim'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-surround' "surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' "color pair of bracket for better lisibility
@@ -73,7 +76,7 @@ Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
 "Plug 'sjl/splice.vim' "tool for resolve threeMerge conflict
 "Plug 'sirver/ultisnips' "UltiSnips is the ultimate solution for snippets in Vim (coc_ultisnip used but documentation available here)
 Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
-Plug 'Raimondi/delimitMate'
+"Plug 'Raimondi/delimitMate'
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -290,7 +293,7 @@ set tags=./tags;,tags;
 let g:lightline = {
       \   'active': {
       \     'left':[ [ 'mode', 'paste' ],
-      \              [ 'gitbranch', 'readonly', 'filename', 'modified' ]
+      \              [ 'gitbranch', 'cocstatus','readonly', 'filename', 'modified' ]
       \     ]
       \   },
       \   'component': {
@@ -311,6 +314,21 @@ let g:lightline.tabline = {
       \   'left': [ ['tabs'] ],
       \   'right': [ ['close'] ]
       \ }
+
+
+  let g:lightline = {
+	\ 'colorscheme': 'wombat',
+	\ 'active': {
+	\   'left': [ [ 'mode', 'paste' ],
+	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+	\ },
+	\ 'component_function': {
+	\   'cocstatus': 'coc#status'
+	\ },
+	\ }
+
+  " Use auocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 set showtabline=2  " Show tabline
 set guioptions-=e  " Don't use GUI tabline
 """""""""""""""""""
@@ -525,7 +543,7 @@ set cursorcolumn        " Show highlight in current column
 set wrap              " not wrap the long line
 set colorcolumn=80      " Display the limit of text width.
 "au BufRead,BufNewFile CMakeLists.txt setlocal textwidth=80"
-set textwidth=79        " Restrict text width.
+"set textwidth=79        " Restrict text width.
 set mouse=a             " Enable mouse to use (all mode)
 
 set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
@@ -806,9 +824,11 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 nmap <leader>na <Plug>(coc-rename)
 
 " Formatting selected code.
-xmap <leader>nf  <Plug>(coc-format-selected)
-nmap <leader>nf  <Plug>(coc-format-selected)
+"xmap <leader>nf  <Plug>(coc-format-selected)
+"nmap <leader>nf  <Plug>(coc-format-selected)
 
+xmap <leader>nf  <Plug>(coc-format)
+nmap <leader>nf  <Plug>(coc-format)
 " Apply AutoFix to problem on the current line.
 nmap <leader>nq  <Plug>(coc-fix-current)
 """""""""""""""""""""""""""""""""""""
@@ -875,13 +895,13 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Tab>"
 
 "To make <cr> select the first completion item and confirm the completion when no item has been selected:
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 "To make coc.nvim format your code on <cr>, use keymap:
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-"Close the preview window when completion is done.
-
-autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"Close the preview window when completion is done. bug in buffer commandline
+"with ctrl-F. to disable in this
+"autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif
 
 """""""""""""""""""""""""""""""""""""""""""
 " coc-explorer
