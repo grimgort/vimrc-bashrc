@@ -35,6 +35,7 @@ let g:coc_global_extensions = [
       \]
 
 call plug#begin('~/vimDebugPlugin')
+Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-surround' "surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' "color pair of bracket for better lisibility
@@ -74,7 +75,7 @@ Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
 "Plug 'sjl/splice.vim' "tool for resolve threeMerge conflict
 "Plug 'sirver/ultisnips' "UltiSnips is the ultimate solution for snippets in Vim (coc_ultisnip used but documentation available here)
 Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
-Plug 'Raimondi/delimitMate'
+"Plug 'Raimondi/delimitMate' "close bracket
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
 Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
@@ -285,6 +286,8 @@ endif
 "-----------------
 autocmd BufReadPost fugitive://* set bufhidden=delete
 autocmd QuickFixCmdPost *grep* cwindow "alow to choose file in quickFiXList whit :Ggrep command
+nnoremap <silent> <leader>a :Gstatus<cr>
+
 " let g:EasyGrepOpenWindowOnMatch=0
 
 """"""""""""""""""""""
@@ -541,7 +544,7 @@ set cursorcolumn        " Show highlight in current column
 set wrap              " not wrap the long line
 set colorcolumn=80      " Display the limit of text width.
 "au BufRead,BufNewFile CMakeLists.txt setlocal textwidth=80"
-set textwidth=79        " Restrict text width.
+"set textwidth=79        " Restrict text width.
 set mouse=a             " Enable mouse to use (all mode)
 
 set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
@@ -664,6 +667,8 @@ vnoremap >> <gv
 nnoremap dd "_dd
 nnoremap d "_d
 vnoremap d "_d
+nnoremap D "_D
+vnoremap D "_D
 
 nnoremap x "_x
 vnoremap x "_x
@@ -678,10 +683,11 @@ noremap <Del> "_x
 
 "grep word under cursor
 nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" Keymapping for grep word under cursor with interactive mode
+"nnoremap <silent> K :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
 "Clear highlight on pressing ESC
 nnoremap <esc> :noh<return><esc>
-nnoremap <silent> <leader>a :Gstatus<cr>
 "map terminal
 tnoremap <C-k> <UP>
 tnoremap <C-j> <DOWN>
@@ -891,10 +897,10 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Tab>"
 
 "To make <cr> select the first completion item and confirm the completion when no item has been selected:
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 "To make coc.nvim format your code on <cr>, use keymap:
 
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 "Close the preview window when completion is done.
 
 autocmd! CompleteDone * if pumvisible() == 0 | pclose | endif

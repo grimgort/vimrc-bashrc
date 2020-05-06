@@ -10,6 +10,7 @@
   "tslint.enable": true,
   "tslint.autoFixOnSave": true,
   "todolist.autoUpload": true,
+  /*"suggest.triggerAfterInsertEnter": false,*/
 
   "coc.preferences.formatOnSaveFiletypes": [
     "css",
@@ -32,24 +33,25 @@
   "diagnostic.errorSign": "•",
   "diagnostic.warningSign": "•",
   "diagnostic.infoSign": "•",
-  "languageserver": {
-    "ccls": {
-      "command": "ccls",
-      "filetypes": ["c", "cpp", "objc", "objcpp"],
-      "rootPatterns": [
-        ".ccls",
-        "compile_commands.json",
-        ".vim/",
-        ".git/",
-        ".hg/"
-      ],
-      "initializationOptions": {
-        "cache": {
-          "directory": "/tmp/ccls"
-        }
-      }
-    }
-  },
+  "clangd.semanticHighlighting":true,
+  /*"languageserver": {*/
+    /*"ccls": {*/
+      /*"command": "ccls",*/
+      /*"filetypes": ["c", "cpp", "objc", "objcpp"],*/
+      /*"rootPatterns": [*/
+        /*".ccls",*/
+        /*"compile_commands.json",*/
+        /*".vim/",*/
+        /*".git/",*/
+        /*".hg/"*/
+      /*],*/
+      /*"initializationOptions": {*/
+        /*"cache": {*/
+          /*"directory": "/tmp/ccls"*/
+        /*}*/
+      /*}*/
+    /*}*/
+  /*},*/
   "coc.preferences.extensionUpdateCheck": "weekly",
   "cSpell.enabled": false,
   "cSpell.language": "fr,en",
