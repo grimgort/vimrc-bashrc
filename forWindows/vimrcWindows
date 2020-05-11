@@ -724,6 +724,7 @@ function! CloseAll()
   silent! call Close_gstatus() "close gstatu
   silent! call MyCloseDiff() "close git diff
   call DeleteBufferByExtension(".git") "close git windows
+  silent! :CocCommand explorer --quit
 endfunction
 noremap  <silent>  q :call CloseAll()<cr>
 "function! MyCloseFugitive()
@@ -844,10 +845,6 @@ autocmd CursorHold * silent call CocActionAsync('highlight')
 
 " Symbol renaming.
 nmap <leader>na <Plug>(coc-rename)
-
-" Formatting selected code.
-"xmap <leader>nf  <Plug>(coc-format-selected)
-"nmap <leader>nf  <Plug>(coc-format-selected)
 
 xmap <leader>nf  <Plug>(coc-format)
 nmap <leader>nf  <Plug>(coc-format)
