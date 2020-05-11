@@ -1,6 +1,7 @@
 {
   /*"http.proxy": "proxy.onera:80",*/
   /*"http.proxyStrictSSL": true,*/
+  "prettier.printWidth": 80,
 
   /*"python.jediEnabled": false*/
   /*"suggest.noselect": false,*/
