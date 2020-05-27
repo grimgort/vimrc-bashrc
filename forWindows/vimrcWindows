@@ -152,10 +152,10 @@ filetype plugin indent on   " enable loading indent file for filetype
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "augroup Foo
-  "au CursorHoldI * stopinsert"
-  "" set 'updatetime' to 15 seconds when in insert mode
-  "au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
-  "au InsertLeave * let &updatetime=updaterestore
+"au CursorHoldI * stopinsert"
+"" set 'updatetime' to 15 seconds when in insert mode
+"au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+"au InsertLeave * let &updatetime=updaterestore
 "augroup END
 "autocmd! Foo
 
@@ -444,7 +444,7 @@ syntax enable
 "set guifont=Monospace\ Bold\ 16
 "colorscheme solarized
 "colorscheme gruvbox
-colorscheme solarized8 
+colorscheme solarized8
 "set guifont=Source_Code_Pro:h13
 set guifont=Consolas:h14:cANSI
 set background=dark
@@ -750,7 +750,7 @@ function! CloseAll()
   silent! call Close_gstatus() "close gstatu
   silent! call MyCloseDiff() "close git diff
   call DeleteBufferByExtension(".git") "close git windows
-  "call Close_gina() "don t work 
+  "call Close_gina() "don t work
   silent! :CocCommand explorer --quit
 endfunction
 noremap  <silent>  q :call CloseAll()<cr>
@@ -807,20 +807,20 @@ endfunction
 
 function Close_gina()
   "for l:winnr in range(1, winnr('$'))
- "don t show unlisted buffer with bufnr (:ls!)" 
+  "don t show unlisted buffer with bufnr (:ls!)"
   let s:bufNr = bufnr("$")
   while s:bufNr > 0
     if buflisted(s:bufNr)
-    echom s:bufNr
-    echom getbufvar(s:bufNr, 'current_syntax')
-    if (getbufvar(s:bufNr, 'current_syntax')==#'gina-status')
-      echom "fred2"
+      echom s:bufNr
       echom getbufvar(s:bufNr, 'current_syntax')
-      execute s:bufNr.'close'
+      if (getbufvar(s:bufNr, 'current_syntax')==#'gina-status')
+        echom "fred2"
+        echom getbufvar(s:bufNr, 'current_syntax')
+        execute s:bufNr.'close'
+      endif
     endif
-  endif
     let s:bufNr = s:bufNr-1
-endwhile
+  endwhile
 endfunction
 
 "pip install cmake_format to launch for this command
@@ -934,9 +934,9 @@ endfunction
 inoremap <silent><expr> <c-space> coc#refresh()
 "for working with git gutter
 if has('nvim')
-set signcolumn=yes:2
+  set signcolumn=yes:2
 else
-set signcolumn=yes
+  set signcolumn=yes
 endif
 
 
@@ -1179,10 +1179,37 @@ nnoremap <silent> <leader>a :CocCommand clangd.switchSourceHeader<cr>
 
 "if (g:GuiLoaded==1)
 "au VimEnter * GuiPopupmenu 0
-  ":GuiPopupmenu 0
+":GuiPopupmenu 0
 "au BufEnter *  :GuiPopupmenu 0
 "endif
 "call s:GuiPopupmenu(0)
 "au VimEnter * :GuiPopupmenu 0 "disable nvim-qt popup menu who bug
 "
 "au UIEnter *  :GuiPopupmenu 0 "disable nvim-qt popup menu who bug
+"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" function for fold preprocessor directive in c/c++
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! Foldpreprocessor()
+  set foldtext=myfoldtext()
+  set foldmarker=#if,#endif
+  set foldmethod=marker
+endfunction
+function! UnFoldpreprocessor()
+  set foldmethod=syntax
+endfunction
+" This function customises what is displayed on the folded line:
+function! MyFoldText()
+  let line = getline(v:foldstart)
+  let linecount = v:foldend + 1 - v:foldstart
+  let plural = ""
+  if linecount != 1
+    let plural = "s"
+  endif
+  let foldtext = printf(" +%s %d line%s: %s", v:folddashes, linecount, plural, line)
+  return foldtext
+endfunction
+com! Foldpreprocessor silent! call Foldpreprocessor()<cr>
+com! UnFoldpreprocessor silent! call UnFoldpreprocessor()<cr>
+" This is the line that works the magic
