@@ -1,0 +1,63 @@
+# A valid snippet should starts with:
+#
+#		snippet trigger_word [ "description" [ options ] ]
+#
+# and end with:
+#
+#		endsnippet
+#
+# Snippet options:
+#
+#		b - Beginning of line.
+#		i - In-word expansion.
+#		w - Word boundary.
+#		r - Regular expression
+#		e - Custom context snippet
+#		A - Snippet will be triggered automatically, when condition matches.
+#
+# Basic example:
+#
+#		snippet emitter "emitter properties" b
+#		private readonly ${1} = new Emitter<$2>()
+#		public readonly ${1/^_(.*)/$1/}: Event<$2> = this.$1.event
+#		endsnippet
+#
+# Online reference: https://github.com/SirVer/ultisnips/blob/master/doc/UltiSnips.txt
+
+snippet fr_json_string_item "" w
+${1:variable} = cJSON_GetObjectItemCaseSensitive(${2:object}, "$1");
+if (cJSON_IsString($1) && $1->valuestring != NULL) {
+	${3:zev_remplissage}
+}
+endsnippet
+
+snippet fr_json_object_item "Description" b
+${1:variable}= cJSON_GetObjectItemCaseSensitive(${2:object}, "$1");
+endsnippet
+
+snippet fr_json_number_item "Description" b
+${1:variable} = cJSON_GetObjectItemCaseSensitive(${2:object}, "$1");
+if (cJSON_IsNumber($1)) {
+	${3:zev_remplissage}
+}
+endsnippet
+
+snippet fr_add_string_with_zev "Description" b
+if (strcmp(word, "$1") == 0) {
+	add_string_with_zev_number(schema_json, local_illumination, zev.${2:zev_attribut},
+														word);
+}
+endsnippet
+
+snippet fr_cmp "Description" b
+if (strcmp(word, "$1") == 0) {
+$2
+}
+
+endsnippet
+
+snippet fr_add_number "Description" b
+if (strcmp(word, "$1") == 0) {
+	cJSON_AddNumberToObject(local_illumination, word, zev.$2);
+}
+endsnippet

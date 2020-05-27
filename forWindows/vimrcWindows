@@ -26,7 +26,7 @@ let g:coc_global_extensions = [
       \ 'coc-tabnine',
       \ 'coc-cspell-dicts',
       \ 'coc-spell-checker',
-      \ 'coc-browser', 
+      \ 'coc-browser',
       \ 'cspell-dict-vimlang',
       \'coc-pairs',
       \'coc-dictionary',
@@ -35,13 +35,34 @@ let g:coc_global_extensions = [
       \]
 
 call plug#begin('~/vimDebugPlugin')
+"""""""""""""""""""""""""""""""""""
+" color schema
+"""""""""""""""""""""""""""""""""""
+Plug 'altercation/vim-colors-solarized' " solarized color for vim
+Plug 'lifepillar/vim-solarized8'
+Plug 'morhetz/gruvbox'
+Plug 'romainl/flattened'
+Plug 'drewtempelmeyer/palenight.vim'
+Plug 'ayu-theme/ayu-vim'
+"set termguicolors     " enable true colors support
+"let ayucolor="light"  " for light version of theme
+"let ayucolor="mirage" " for mirage version of theme
+"let ayucolor="dark"   " for dark version of theme
+"colorscheme ayu
+Plug 'arcticicestudio/nord-vim'
+Plug 'rakr/vim-one'
+Plug 'mhartington/oceanic-next'
+""""""""""""""""""""""""""""""""""
 
+Plug 'ncm2/float-preview.nvim'
+Plug 'Yggdroot/indentLine'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'lifepillar/vim-cheat40'
 Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'tpope/vim-surround' "surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' "color pair of bracket for better lisibility
+
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 "Plug 'sbdchd/neoformat'
@@ -61,8 +82,6 @@ Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
 Plug 'lambdalisue/gina.vim'
 Plug 'gregsexton/gitv', {'on': ['Gitv']} "top git log
-Plug 'altercation/vim-colors-solarized' " solarized color for vim
-Plug 'morhetz/gruvbox'
 Plug 'majutsushi/tagbar' "display a menu with tag in file
 "Plug 'vim-scripts/Gundo' "Gundo.vim is Vim plugin to visualize your Vim undo tree
 Plug 'mbbill/undotree' "show vim history
@@ -84,8 +103,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 "Plug 'dpelle/vim-Grammalecte'
 Plug 'mhinz/vim-grepper'
-Plug 'dpelle/vim-LanguageTool'
-"Plug 'rhysd/vim-grammarous'
+Plug 'vigoux/LanguageTool.nvim'
+"Plug 'dpelle/vim-LanguageTool'
+Plug 'rhysd/vim-grammarous'
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
@@ -131,18 +151,19 @@ filetype plugin indent on   " enable loading indent file for filetype
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-augroup Foo
-  au CursorHoldI * stopinsert"
-  " set 'updatetime' to 15 seconds when in insert mode
-  au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
-  au InsertLeave * let &updatetime=updaterestore
-augroup END
-autocmd! Foo
+"augroup Foo
+  "au CursorHoldI * stopinsert"
+  "" set 'updatetime' to 15 seconds when in insert mode
+  "au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+  "au InsertLeave * let &updatetime=updaterestore
+"augroup END
+"autocmd! Foo
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " return on normal mode when vim lost focus
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FocusLost * call feedkeys("\<esc>")
+"autocmd FocusLost * call feedkeys("\<esc>")
+
 """""""""""""""""
 " set powershell by terminal default
 """""""""""""""""
@@ -154,7 +175,7 @@ autocmd FocusLost * call feedkeys("\<esc>")
 "set shellpipe=|
 "set shellredir=>
 "set shell=powershell.exe\ -NoLogo\ -NoProfile\ -NonInteractive\ -ExecutionPolicy\ RemoteSigned
-" if shellcmdflag starts with '-' then tempname() uses forward slashes, see 
+" if shellcmdflag starts with '-' then tempname() uses forward slashes, see
 " https://groups.google.com/forum/#!topic/vim_dev/vTR05EZyfE0
 "set shellcmdflag=\ -Command
 "set shellquote=
@@ -183,7 +204,7 @@ let g:mkdp_auto_start = 0
 "-----------------
 "" Plugin GRAMMALECT
 "-----------------
-let g:grammalecte_cli_py='D:/ftarroux/Logiciel/Grammalecte-fr-v1.5.0/grammalecte-cli.py'
+"let g:grammalecte_cli_py='D:/ftarroux/Logiciel/Grammalecte-fr-v1.5.0/grammalecte-cli.py'
 "let g:grammalecte_cli_py='D:\ftarroux\Logiciel\Grammalecte-fr-v1.5.0\build\scripts-3.7\grammalecte-cli.py'
 "-----------------
 "" Plugin DEOPLETE
@@ -208,8 +229,9 @@ let loaded_delimitMate = 1
 "-----------------
 "" Plugin languageTool
 "-----------------
-"let g:grammarous#languagetool_cmd = 'D:/ftarroux/Logiciel/LanguageTool-4.7/languagetool-commandline.jar'
-:let g:languagetool_jar='D:/ftarroux/Logiciel/LanguageTool-4.7/languagetool-commandline.jar'
+"let g:grammarous#languagetool_cmd = '~\scoop/apps/languagetool/current/languagetool-commandline.jar'
+":let g:languagetool_jar='~\scoop/apps/languagetool/current/languagetool-commandline.jar'
+:let g:languagetool_server_jar='~/scoop/apps/languagetool/current/languagetool-server.jar'
 "____________________
 "vdebug
 "---------------------
@@ -237,8 +259,10 @@ if has('nvim')
     if win_gotoid(g:term_win)
       hide
     else
-      botright new
-      exec "resize " . a:height
+      "botright new
+      vertical rightb new
+      "belowright new
+      "exec "resize " . a:height
       try
         exec "buffer " . g:term_buf
       catch
@@ -288,8 +312,8 @@ endif
 "" Plugin fugitive
 "-----------------
 autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd QuickFixCmdPost *grep* cwindow "alow to choose file in quickFiXList whit :Ggrep command
-nnoremap <silent> <leader>a :Gstatus<cr>
+"autocmd QuickFixCmdPost *grep* cwindow "alow to choose file in quickFiXList whit :Ggrep command
+"nnoremap <silent> <leader>a :Gstatus<cr>
 
 " let g:EasyGrepOpenWindowOnMatch=0
 
@@ -335,19 +359,19 @@ let g:lightline.tabline = {
       \ }
 
 
-  let g:lightline = {
-	\ 'colorscheme': 'wombat',
-	\ 'active': {
-	\   'left': [ [ 'mode', 'paste' ],
-	\             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-	\ },
-	\ 'component_function': {
-	\   'cocstatus': 'coc#status'
-	\ },
-	\ }
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
 
-  " Use auocmd to force lightline update.
-  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 set showtabline=2  " Show tabline
 set guioptions-=e  " Don't use GUI tabline
 """""""""""""""""""
@@ -416,12 +440,15 @@ nnoremap <F12> :YcmCompleter Format<CR>
 "" Plugin solarized
 "-----------------
 syntax enable
-set background=dark
+"set background=dark
 "set guifont=Monospace\ Bold\ 16
 "colorscheme solarized
-colorscheme gruvbox
+"colorscheme gruvbox
+colorscheme solarized8 
 "set guifont=Source_Code_Pro:h13
-set guifont=Consolas:h13:cANSI
+set guifont=Consolas:h14:cANSI
+set background=dark
+":GuiFont! Consolas:h13:cANSI
 "set guifont=*:h13
 "set guifont=Source_Code_Pro:b:h13.5
 
@@ -492,14 +519,14 @@ nnoremap <F4> :UndotreeToggle<CR>
 ""-----------------
 "let g:SuperTabDefaultCompletionType = "<c-n>"
 
-
+"
 "-----------------
 "" Configure gvim
 "-----------------
-set guioptions-=T   " remove Tool bar
-set guioptions-=r   " remove Right bar
-set guioptions-=L   " remove Left bar
-set guioptions=c
+"set guioptions-=T   " remove Tool bar
+"set guioptions-=r   " remove Right bar
+"set guioptions-=L   " remove Left bar
+"set guioptions=c
 " you can copy with maj in insert modeuu
 " cause big lag on visual mode (set guioption+=a
 ":set guioptions+=a keymodel=startsel,stopsel
@@ -560,9 +587,9 @@ set cursorcolumn        " Show highlight in current column
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength /\%81v.\+/"
 set wrap              " not wrap the long line
-set colorcolumn=80      " Display the limit of text width.
+set colorcolumn=81      " Display the limit of text width.
 "au BufRead,BufNewFile CMakeLists.txt setlocal textwidth=80"
-"set textwidth=79        " Restrict text width.
+"set textwidth=80        " Restrict text width.
 set mouse=a             " Enable mouse to use (all mode)
 
 set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
@@ -648,25 +675,22 @@ autocmd FileType c,cpp,h set comments+=://!<
 """"""""""""""""""""""""""""
 " Add fr and en dictionary
 """"""""""""""""""""""""""""
-setlocal spell spelllang=fr
+"setlocal spell spelllang=fr
 map <silent> <F7> "<Esc>:silent setlocal spell! spelllang=en<CR>"
 map <silent> <F6> "<Esc>:silent setlocal spell! spelllang=fr<CR>"
-map <silent> <leader>ze :GrammarousCheck --lang=en<cr>
-map <silent> <leader>zf :GrammarousCheck --lang=fr<cr>
-map <silent> <leader>zr :GrammarousReset<cr>
- "hi clear SpellBad "disable udernlined error for spell"
- "hi clear SpellCap "disable udernlined error for spell"
- "hi clear SpellRare "disable udernlined error for spell"
- "hi clear SpellLocal "disable udernlined error for spell"
+"hi clear SpellBad "disable udernlined error for spell"
+"hi clear SpellCap "disable udernlined error for spell"
+"hi clear SpellRare "disable udernlined error for spell"
+"hi clear SpellLocal "disable udernlined error for spell"
 
- "hi SpellBad   cterm=underline ctermfg=9  ctermbg=0 gui=undercurl
- "hi SpellCap   cterm=underline ctermfg=14 ctermbg=0 gui=undercurl
- "hi SpellRare  cterm=underline ctermfg=13 ctermbg=0 gui=undercurl
- "hi SpellLocal cterm=underline ctermfg=11 ctermbg=0 gui=undercurl
+"hi SpellBad   cterm=underline ctermfg=9  ctermbg=0 gui=undercurl
+"hi SpellCap   cterm=underline ctermfg=14 ctermbg=0 gui=undercurl
+"hi SpellRare  cterm=underline ctermfg=13 ctermbg=0 gui=undercurl
+"hi SpellLocal cterm=underline ctermfg=11 ctermbg=0 gui=undercurl
 
 set nospell "disable spell on vim start (push F6 or F7 for enable)"
 set keymodel-=stopsel
-
+set dictionary=D:\ftarroux\Documents\FRED\baseGit\vimrc-bashrc\liste.de.mots.francais.frgut.txt
 
 """"""""""""""""""""""""""
 " Personal remap
@@ -718,12 +742,15 @@ set list
 " Function to allow to quit all secondary window.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 function! CloseAll()
+  silent! :CocCommand explorer --quit
+  "silent! :CocCommand explorer --quit
   silent! pclose "close preview YCM
   silent! ccl "close result ggrep
   silent! helpclose "close help
   silent! call Close_gstatus() "close gstatu
   silent! call MyCloseDiff() "close git diff
   call DeleteBufferByExtension(".git") "close git windows
+  "call Close_gina() "don t work 
   silent! :CocCommand explorer --quit
 endfunction
 noremap  <silent>  q :call CloseAll()<cr>
@@ -778,6 +805,24 @@ function! Close_gstatus()
   endfor
 endfunction
 
+function Close_gina()
+  "for l:winnr in range(1, winnr('$'))
+ "don t show unlisted buffer with bufnr (:ls!)" 
+  let s:bufNr = bufnr("$")
+  while s:bufNr > 0
+    if buflisted(s:bufNr)
+    echom s:bufNr
+    echom getbufvar(s:bufNr, 'current_syntax')
+    if (getbufvar(s:bufNr, 'current_syntax')==#'gina-status')
+      echom "fred2"
+      echom getbufvar(s:bufNr, 'current_syntax')
+      execute s:bufNr.'close'
+    endif
+  endif
+    let s:bufNr = s:bufNr-1
+endwhile
+endfunction
+
 "pip install cmake_format to launch for this command
 function! CmakeFormat()
   execute "!cmake-format.exe -i " bufname("%")
@@ -806,7 +851,7 @@ set cmdheight=2
 
 " Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
 " delays and poor user experience.
-set updatetime=100
+set updatetime=500
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -839,7 +884,9 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
-
+"showSignatureHelp
+autocmd User CocJumpPlaceholder call
+      \ CocActionAsync('showSignatureHelp')
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
 
@@ -866,8 +913,10 @@ let g:coc_snippet_prev = '<c-h>'
 
 " Use <C-j> for both expand and jump (make expand higher priority.)
 "imap <C-j> <Plug>(coc-snippets-expand-jump)
+" Use <C-l> for trigger snippet expand.
 
-
+" Use <C-j> for select text for visual placeholder of snippet.
+"nmap <C-z> coc#expandableOrJumpable()
 "Map <tab> for trigger completion, completion confirm, snippet expand and jump
 "like VSCode. >
 inoremap <silent><expr> <TAB>
@@ -884,7 +933,11 @@ endfunction
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 "for working with git gutter
+if has('nvim')
 set signcolumn=yes:2
+else
+set signcolumn=yes
+endif
 
 
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
@@ -966,7 +1019,7 @@ map <leader><leader>h <Plug>(easymotion-b)
 ""map <A-S-K> <Plug>(easymotion-K)
 map <leader><leader>L <Plug>(easymotion-W)
 map <leader><leader>H <Plug>(easymotion-B)
-
+map e <Plug>(easymotion-s)
 "map <A-j> <Plug>(easymotion-j)
 "map <A-k> <Plug>(easymotion-k)
 "map <A-l> <Plug>(easymotion-w)
@@ -1001,7 +1054,7 @@ map <leader><leader>H <Plug>(easymotion-B)
 let g:translator_target_lang  = 'fr'
 let g:translator_source_lang = 'en'
 " Echo translation in the cmdline
-nmap <silent> <Leader>te <Plug>Translate 
+nmap <silent> <Leader>te <Plug>Translate
 vmap <silent> <Leader>te <Plug>TranslateV
 " Display translation in a window
 nmap <silent> <Leader>tt <Plug>TranslateW
@@ -1013,7 +1066,7 @@ vmap <silent> <Leader>tr <Plug>TranslateRV
 nmap <silent> <Leader>tx <Plug>TranslateX
 
 " Echo translation in the cmdline
-nmap <silent> <Leader>te! <Plug>Translate! 
+nmap <silent> <Leader>te! <Plug>Translate!
 vmap <silent> <Leader>te! <Plug>TranslateV!
 " Display translation in a window
 nmap <silent> <Leader>tt! <Plug>TranslateW!
@@ -1028,7 +1081,7 @@ nmap <silent> <Leader>tx! <Plug>TranslateX!
 " rainbow_active"
 """"""""""""""""""""""""""""""""""""""""""""""""
 let g:rainbow_active = 1 "set to 0 if you want to enable it later via :RainbowToggle
-
+au FileType cmake RainbowToggleOff "bug syntax higlighting
 
 
 
@@ -1053,6 +1106,7 @@ nmap <Leader>bx <Plug>BookmarkClearAll
 nmap <Leader>bkk <Plug>BookmarkMoveUp
 nmap <Leader>bjj <Plug>BookmarkMoveDown
 nmap <Leader>bg <Plug>BookmarkMoveToLine
+nmap <Leader>bt <Plug>BookmarkToggle
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " coc-list" replace fzf
@@ -1061,4 +1115,74 @@ nmap <leader>fb :CocList -A buffers<cr>
 nmap <leader>fg :CocList -A gfiles<cr>
 nmap <C-:> :CocList cmdhistory<cr>
 
+"""""""""""""""""""""""""""""""""""""""""""""""
+" grammarous"
+"""""""""""""""""""""""""""""""""""""""""""""""
+nmap <silent> <leader>ze :GrammarousCheck --lang=en --no-move-to-first-error<cr>
+nmap <silent> <leader>zz :GrammarousCheck --lang=fr --no-move-to-first-error<cr>
+nmap <silent> <leader>zr :GrammarousReset<cr>
+nmap <silent> <leader>zi<Plug>(grammarous-move-to-info-window)  Move the cursor to the info window
+nmap <silent> <leader>zo<Plug>(grammarous-open-info-window) Open the info window for the error under the cursor
+nmap <silent> <leader>zr <Plug>(grammarous-reset) Reset the current check
+nmap <silent> <leader>zf <Plug>(grammarous-fixit) Fix the error under the cursor automatically
+nmap <silent> <leader>za <Plug>(grammarous-fixall)  Fix all the errors in a current buffer automatically
+nmap <silent> <leader>zc <Plug>(grammarous-close-info-window) Close the information window from checked buffer
+nmap <silent> <leader>zqq <Plug>(grammarous-remove-error) Remove the error under the cursor
+nmap <silent> <leader>zdd <Plug>(grammarous-disable-rule) Disable the grammar rule under the cursor
+nmap <silent> <leader>zl <Plug>(grammarous-move-to-next-error)  Move cursor to the next error
+nmap <silent> <leader>zh <Plug>(grammarous-move-to-previous-error)
+" autocorrect text on insert leave
+augroup gram
+  "au CursorHoldI * stopinsert"
+  " set 'updatetime' to 15 seconds when in insert mode
+  "au InsertEnter * let updaterestore=&updatetime | set updatetime=15000
+  "au InsertLeave *  :GrammarousCheck --lang=fr --no-move-to-first-error<cr>
+augroup END
+nmap <silent> <leader>zt gram
+"autocmd Foo
 
+
+"let g:grammarous#use_vim_spelllang=1
+"
+"
+"g:languagetool_port=8082
+"let g:languagetool_server_command="java -cp ~/scoop/apps/languagetool/current/languagetool-server.jar org.languagetool.server.HTTPServer --port 8082"
+
+"let g:languagetool = {
+"'.' : {
+"{model1} for all filetypes
+"}
+"}
+
+"{model1} = {
+""'enabledRules' : list of enabled rules,
+""'disabledRules' : list of disabled rules,
+""'enabledCategories' : list of enabled categories,
+""'disabledCategories' : list of disabled categories,
+"'language' : ['fr']
+"}
+"
+"
+""""""""""""""""""""""""""""""""""
+"GINA
+"""""""""""""""""""""""""""""""""""
+nnoremap <leader>pc :Gina commit --opener="to split"<cr>
+nnoremap <leader>ps :Gina status --opener="to split"<cr>
+nnoremap <leader>pb :Gina branch --opener=vsplit<cr>
+nnoremap <leader>pg :Gina grep --opener=vsplit<cr>
+nnoremap <leader>pt :Gina tag --opener=vsplit <cr>
+
+"""""""""""""""""""""""""""""""""""""
+"coc-clang
+""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>a :CocCommand clangd.switchSourceHeader<cr>
+
+"if (g:GuiLoaded==1)
+"au VimEnter * GuiPopupmenu 0
+  ":GuiPopupmenu 0
+"au BufEnter *  :GuiPopupmenu 0
+"endif
+"call s:GuiPopupmenu(0)
+"au VimEnter * :GuiPopupmenu 0 "disable nvim-qt popup menu who bug
+"
+"au UIEnter *  :GuiPopupmenu 0 "disable nvim-qt popup menu who bug
