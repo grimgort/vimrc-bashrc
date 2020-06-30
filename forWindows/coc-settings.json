@@ -1,5 +1,11 @@
 {
-  /*"http.proxy": "proxy.onera:80",*/
+  "diagnostic.refreshOnInsertMode": true,
+  /*"git.enableGutters": true,*/
+  /*"git.enableGutters": false,*/
+  /*"git.signOffset":2,*/
+  "python.formatting.provider": "black",
+  "python.jediEnabled": true,
+  "http.proxy": "proxy.onera:80",
   /*"http.proxyStrictSSL": true,*/
   "json.format.enable": true,
   /*"coc.preferences.formatOnType": true,*/
@@ -18,6 +24,7 @@
     "json",
     "jsonc"
   ],
+  "prettier.proseWrap":"always",
   "prettier.printWidth": 80,
   "coc.source.dictionary.filetypes": ["markdown"],
 
@@ -38,10 +45,11 @@
     "javascriptreact",
     "typescript.tsx"
   ],
-  "diagnostic.errorSign": "•",
-  "diagnostic.warningSign": "•",
-  "diagnostic.infoSign": "•",
+  /*"diagnostic.errorSign": "•",*/
+  /*"diagnostic.warningSign": "•",*/
+  /*"diagnostic.infoSign": "•",*/
   "clangd.semanticHighlighting":true,
+  /*"clangd.arguments": ["_CRT_SECURE_NO_WARNINGS"],*/
   /*"languageserver": {*/
     /*"ccls": {*/
       /*"command": "ccls",*/
@@ -106,6 +114,4 @@
   },
   "coc.preferences.bracketEnterImprove": true,
   "clangd.path": "D:\\ftarroux\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\10.0.0\\clangd_10.0.0\\bin\\clangd.exe"
-  /*"git.enableGutters": true*/
-
 }

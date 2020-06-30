@@ -28,17 +28,17 @@ let g:coc_global_extensions = [
       \ 'coc-spell-checker',
       \ 'coc-browser',
       \ 'cspell-dict-vimlang',
-      \'coc-pairs',
-      \'coc-dictionary',
-      \'coc-bookmark',
-      \'coc-cmake'
+      \ 'coc-dictionary',
+      \ 'coc-bookmark',
+      \ 'coc-cmake'
       \]
 
 call plug#begin('~/vimDebugPlugin')
+Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
 """""""""""""""""""""""""""""""""""
 " color schema
 """""""""""""""""""""""""""""""""""
-Plug 'altercation/vim-colors-solarized' " solarized color for vim
+"Plug 'altercation/vim-colors-solarized' " solarized color for vim
 Plug 'lifepillar/vim-solarized8'
 Plug 'morhetz/gruvbox'
 Plug 'romainl/flattened'
@@ -54,14 +54,15 @@ Plug 'rakr/vim-one'
 Plug 'mhartington/oceanic-next'
 """"""""""""""""""""""""""""""""""
 
-Plug 'ncm2/float-preview.nvim'
-Plug 'Yggdroot/indentLine'
+"Plug 'Yggdroot/indentLine' " bug for json file were '' disparait
+Plug 'nathanaelkane/vim-indent-guides'
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 Plug 'lifepillar/vim-cheat40'
 Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
-Plug 'MattesGroeger/vim-bookmarks'
-Plug 'tpope/vim-surround' "surround word under cursor with flag (\"\" or ()...)
-Plug 'luochen1990/rainbow' "color pair of bracket for better lisibility
+"Plug 'MattesGroeger/vim-bookmarks'
+"Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
+Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility
+Plug 'jiangmiao/auto-pairs' " ef
 
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -73,6 +74,13 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'neoclide/jsonc.vim'
 if has('nvim')
+  Plug 'TheZoq2/neovim-auto-autoread.git'
+  "Plug 'huawenyu/new.vim'
+  "Plug 'huawenyu/new-gdb.vim' "don t work on windows os
+  "Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
+  "Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
+  ""suspected to bug snippet "
+  "Plug 'ncm2/float-preview.nvim'
 else
   Plug 'pakutoma/toggle-terminal'
 endif
@@ -93,13 +101,13 @@ Plug 'Chiel92/vim-autoformat' "autoformat
 Plug 'itchyny/lightline.vim'
 Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>'
 "Plug 'ludovicchabant/vim-gutentags' "auto tag git project
-Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
+"Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
 "Plug 'sjl/splice.vim' "tool for resolve threeMerge conflict
 "Plug 'sirver/ultisnips' "UltiSnips is the ultimate solution for snippets in Vim (coc_ultisnip used but documentation available here)
 Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
 "Plug 'Raimondi/delimitMate' "close bracket
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 "Plug 'dpelle/vim-Grammalecte'
 Plug 'mhinz/vim-grepper'
@@ -143,10 +151,44 @@ map! <F8> <Nop>
 map! <F7> <Nop>
 map! <F6> <Nop>
 map! <F4> <Nop>
-packadd termdebug " add gdb to vim
 syntax on                   " syntax highlighting
 filetype on                 " try to detect filetypes
 filetype plugin indent on   " enable loading indent file for filetype
+if has('nvim')
+else
+  packadd termdebug " add gdb to vim
+  noremap <leader>,r :Run <cr>
+  "run the program with args or the previous arguments
+  noremap <leader>,a :Arguments<cr>
+  "{args}  set arguments for the next :Run
+  noremap <leader>,b :Break<cr>
+  "set a breakpoint at the cursor position
+  "Break {position} "    set a breakpoint at the specified position
+  noremap <leader>,c :Clear <cr>
+  " delete the breakpoint at the cursor position
+  noremap <leader>,s :Step <cr>
+  "  execute the gdb step command
+  noremap <leader>,o :Over <cr>
+  "execute the gdb next command (`:Next` is a Vim command)
+  noremap <leader>,f :Finish <cr>
+  "execute the gdb finish command
+  noremap <leader>,c :Continue <cr>
+  "execute the gdb ontinue command
+  noremap <leader>,w :Stop <cr>
+  "interrupt the program
+  noremap <leader>,e :Evaluate<cr>
+  vnoremap <leader>,e :'<,'>Evaluate<cr>
+
+  "debug json matisse
+  "
+  "com! CmakeFormat silent! call CmakeFormat()<cr>
+  function! Toto()
+    silent! :Run D:/ftarroux/Documents/FRED/baseGit/Otamat/BaseDeTest/aero_5_1/T350-VE-NA-5-1_1.scm D:/ftarroux/Documents/FRED/baseGit/Otamat/BaseDeTest/aero_5_1/matisse.cfg
+    "silent! :CocCommand explorer --quit
+  endfunction
+  com! RunMatisse call Toto()
+endif
+
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
@@ -259,8 +301,9 @@ if has('nvim')
     if win_gotoid(g:term_win)
       hide
     else
-      "botright new
-      vertical rightb new
+      botright new
+      "vertical bo split new
+      "vertical bo 80vsplit new
       "belowright new
       "exec "resize " . a:height
       try
@@ -282,8 +325,8 @@ if has('nvim')
 
 else
   " map <C-@> to toggle
-  tnoremap <silent> <C-@> <C-w>:ToggleTerminal<CR>
-  nnoremap <silent> <C-@> :ToggleTerminal<CR>
+  tnoremap <silent>  <leader>à <C-w>:ToggleTerminal<CR>
+  nnoremap <silent>  <leader>à :ToggleTerminal<CR>
 
   " set your favorite shell
   "let g:toggle_terminal#command = 'pwsh'
@@ -419,13 +462,6 @@ let g:ycm_clangd_uses_ycmd_caching = 0
 " Use installed clangd, not YCM-bundled clangd which doesn't get updates.
 let g:ycm_clangd_binary_path = exepath("clangd")
 let g:ycm_autoclose_preview_window_after_insertion = 1
-if has('nvim')
-else
-  "set pythondll=D:\ftarroux\Logiciel\Python2\python27.dll
-  "set pythonthreedll=D:\ftarroux\Logiciel\Python36\python36.dll
-  "set pythonthreedll=D:\LOGICELW7\Python3.7.7\python37.dll
-endif
-
 noremap <leader>gr :YcmCompleter GoToReferences <CR>
 nnoremap <leader>gg :YcmCompleter GoTo<CR>
 nnoremap <leader>ge :YcmCompleter GoToDeclaration<CR>
@@ -523,6 +559,19 @@ nnoremap <F4> :UndotreeToggle<CR>
 "-----------------
 "" Configure gvim
 "-----------------
+if has('nvim')
+else
+  set guioptions-=T   " remove Tool bar
+  set guioptions-=r   " remove Right bar
+  set guioptions-=L   " remove Left bar
+  set guioptions=c
+  "you can copy with maj in insert modeuu
+  "cause big lag on visual mode (set guioption+=a
+  ":set guioptions+=a keymodel=startsel,stopsel
+
+endif
+
+
 "set guioptions-=T   " remove Tool bar
 "set guioptions-=r   " remove Right bar
 "set guioptions-=L   " remove Left bar
@@ -618,7 +667,7 @@ set cmdheight=1
 "set backup
 "set wb
 set swapfile
-"set shortmess=A
+set shortmess+=A " disable warniong message with swapfile
 if !isdirectory($HOME . "/.vim/.backup")
   call mkdir($HOME . "/.vim/.backup", "p", 0700)
 endif
@@ -736,92 +785,28 @@ tnoremap <C-j> <DOWN>
 tnoremap <C-h> <LEFT>
 tnoremap <C-l> <RIGHT>
 "show hidden char
-set listchars=nbsp:☠,tab:▸␣
+autocmd FileType python set listchars=nbsp:☠,tab:▸␣
 set list
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Function to allow to quit all secondary window.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CloseAll()
-  silent! :CocCommand explorer --quit
-  "silent! :CocCommand explorer --quit
-  silent! pclose "close preview YCM
-  silent! ccl "close result ggrep
-  silent! helpclose "close help
-  silent! call Close_gstatus() "close gstatu
-  silent! call MyCloseDiff() "close git diff
-  call DeleteBufferByExtension(".git") "close git windows
-  "call Close_gina() "don t work
-  silent! :CocCommand explorer --quit
-endfunction
-noremap  <silent>  q :call CloseAll()<cr>
+"function! CloseAll()
+"silent! :CocCommand explorer --quit
+""silent! :CocCommand explorer --quit
+"silent! pclose "close preview YCM
+"silent! ccl "close result ggrep
+"silent! helpclose "close help
+"silent! call Close_gstatus() "close gstatu
+"silent! call MyCloseDiff() "close git diff
+"call DeleteBufferByExtension(".git") "close git windows
+"call Close_gina() "don t work
+"silent! :CocCommand explorer --quit
+"CloseAll
+"endfunction
+
+"noremap  <silent>  q :call CloseAll()<cr>
 "function! MyCloseFugitive()
 "if &filetype('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
-
-function!  DeleteBufferByExtension(strExt)
-  let s:bufNr = bufnr("$")
-  while s:bufNr > 0
-    if buflisted(s:bufNr)
-      if (matchstr(bufname(s:bufNr), a:strExt) == a:strExt )
-        if getbufvar(s:bufNr, '&modified') == 0
-          execute "bd ".s:bufNr
-        endif
-      endif
-    endif
-    let s:bufNr = s:bufNr-1
-  endwhile
-endfunction
-
-function! MyCloseDiff()
-  if (&diff == 0 || getbufvar('#', '&diff') == 0)
-        \ && (bufname('%') !~ '^fugitive:' && bufname('#') !~ '^fugitive:')
-    echom "Not in diff view."
-    return
-  endif
-
-  " close current buffer if alternate is not fugitive but current one is
-  if bufname('#') !~ '^fugitive:' && bufname('%') =~ '^fugitive:'
-    if bufwinnr("#") == -1
-      b #
-      bd #
-      <C-W>k
-      diffoff
-      close
-    else
-      bd
-    endif
-  else
-    bd #
-    <C-W>k
-    diffoff
-    close
-  endif
-endfunction
-
-function! Close_gstatus()
-  for l:winnr in range(1, winnr('$'))
-    if !empty(getwinvar(l:winnr, 'fugitive_status'))
-      execute l:winnr.'close'
-    endif
-  endfor
-endfunction
-
-function Close_gina()
-  "for l:winnr in range(1, winnr('$'))
-  "don t show unlisted buffer with bufnr (:ls!)"
-  let s:bufNr = bufnr("$")
-  while s:bufNr > 0
-    if buflisted(s:bufNr)
-      echom s:bufNr
-      echom getbufvar(s:bufNr, 'current_syntax')
-      if (getbufvar(s:bufNr, 'current_syntax')==#'gina-status')
-        echom "fred2"
-        echom getbufvar(s:bufNr, 'current_syntax')
-        execute s:bufNr.'close'
-      endif
-    endif
-    let s:bufNr = s:bufNr-1
-  endwhile
-endfunction
 
 "pip install cmake_format to launch for this command
 function! CmakeFormat()
@@ -833,8 +818,27 @@ com! CmakeFormat silent! call CmakeFormat()<cr>
 :command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> - |fmt -csw78
 
 
+function Close_all()
+  let list_file_type = [ 'cpp.doxygen','c.doxygen','json','python','vim','cjson' ]
+  let nodelete = 0
+  echom getbufvar('%', 'current_syntax')
+  for word in list_file_type
+    if getbufvar('%', 'current_syntax') ==# word
+      let  nodelete = 1
+      break
+    endif
+  endfor
 
-
+  if nodelete !=# 1
+    execute "bw"
+  endif
+  "echom getbufvar('%', 'current_syntax')
+  "if getbufvar('%', 'current_syntax') !=# 'cpp.doxygen'
+  "execute "bw "
+  "endif
+endfunction
+command! CloseAll windo call Close_all()
+noremap <silent> q :CloseAll<cr>
 """""""""""""""""""""""""""""""""""""
 " coc-config-general
 """""""""""""""""""""""""""""""""""""
@@ -1088,31 +1092,31 @@ au FileType cmake RainbowToggleOff "bug syntax higlighting
 """"""""""""""""""""""""""""""""""""""""""""""""
 " coc-bookmark"" to use when debugged
 """"""""""""""""""""""""""""""""""""""""""""""""
-"nmap <Leader>bl <Plug>(coc-bookmark-next)
-"nmap <Leader>bh <Plug>(coc-bookmark-prev)
-"nmap <leader>bt <plug>(coc-bookmark-toggle)
-"nmap <leader>ba <plug>(coc-bookmark-annotate)
-"nmap <leader>bz :CocList -A --tab bookmark<cr>
+nmap <Leader>bl <Plug>(coc-bookmark-next)
+nmap <Leader>bh <Plug>(coc-bookmark-prev)
+nmap <leader>bt <plug>(coc-bookmark-toggle)
+nmap <leader>ba <plug>(coc-bookmark-annotate)
+nmap <leader>bz :CocList -A --tab bookmark<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " vim-bookmark"
 """""""""""""""""""""""""""""""""""""""""""""""
-nmap <Leader>bi <Plug>BookmarkAnnotate
-nmap <Leader>ba <Plug>BookmarkShowAll
-nmap <Leader>bj <Plug>BookmarkNext
-nmap <Leader>bk <Plug>BookmarkPrev
-nmap <Leader>bc <Plug>BookmarkClear
-nmap <Leader>bx <Plug>BookmarkClearAll
-nmap <Leader>bkk <Plug>BookmarkMoveUp
-nmap <Leader>bjj <Plug>BookmarkMoveDown
-nmap <Leader>bg <Plug>BookmarkMoveToLine
-nmap <Leader>bt <Plug>BookmarkToggle
+"nmap <Leader>bi <Plug>BookmarkAnnotate
+"nmap <Leader>ba <Plug>BookmarkShowAll
+"nmap <Leader>bj <Plug>BookmarkNext
+"nmap <Leader>bk <Plug>BookmarkPrev
+"nmap <Leader>bc <Plug>BookmarkClear
+"nmap <Leader>bx <Plug>BookmarkClearAll
+"nmap <Leader>bkk <Plug>BookmarkMoveUp
+"nmap <Leader>bjj <Plug>BookmarkMoveDown
+"nmap <Leader>bg <Plug>BookmarkMoveToLine
+"nmap <Leader>bt <Plug>BookmarkToggle
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " coc-list" replace fzf
 """""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>fb :CocList -A buffers<cr>
-nmap <leader>fg :CocList -A gfiles<cr>
+nmap <leader>fb :CocList  buffers<cr>
+nmap <leader>fg :CocList  gfiles<cr>
 nmap <C-:> :CocList cmdhistory<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -1166,11 +1170,12 @@ nmap <silent> <leader>zt gram
 """"""""""""""""""""""""""""""""""
 "GINA
 """""""""""""""""""""""""""""""""""
-nnoremap <leader>pc :Gina commit --opener="to split"<cr>
-nnoremap <leader>ps :Gina status --opener="to split"<cr>
-nnoremap <leader>pb :Gina branch --opener=vsplit<cr>
-nnoremap <leader>pg :Gina grep --opener=vsplit<cr>
-nnoremap <leader>pt :Gina tag --opener=vsplit <cr>
+nnoremap <leader>pc :Gina commit --opener="to split" --group="test"<cr>
+nnoremap <leader>pe :Gcommit %<cr>
+nnoremap <leader>ps :Gina status --opener="to split" --group="test"<cr>
+nnoremap <leader>pb :Gina branch --opener=vsplit --group="test"<cr>
+nnoremap <leader>pg :Gina grep -A --opener=tabnew --group="test" -ie
+nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
 
 """""""""""""""""""""""""""""""""""""
 "coc-clang
@@ -1213,3 +1218,99 @@ endfunction
 com! Foldpreprocessor silent! call Foldpreprocessor()<cr>
 com! UnFoldpreprocessor silent! call UnFoldpreprocessor()<cr>
 " This is the line that works the magic
+"
+"""""""""""""""""""""""""""""""""""""
+"  vim-indent-guides'
+"""""""""""""""""""""""""""""""""""""
+let g:indent_guides_enable_on_vim_startup = 1
+"let g:indent_guides_guide_size = 1
+
+"""""""""""""""""""""""""""""""""""""
+" auto-pair
+""""""""""""""""""""""""""""""""""""
+"<CR> : Insert new indented line after return if cursor in blank brackets
+"or quotes.
+"<BS> : Delete brackets in pair
+"<M-p>: Toggle Autopairs (|g:AutoPairsShortcutToggle|)
+"<M-e>: Fast Wrap (|g:AutoPairsShortcutFastWrap|)
+"<M-n>: Jump to next closed pair (|g:AutoPairsShortcutJump|)
+"<M-b>: BackInsert (|g:AutoPairsShortcutBackInsert|)
+"let g:AutoPairsShortcutToggle = '<leader>$t'
+"let g:AutoPairsShortcutFastWrap= '<leader>$w'
+"let g:AutoPairsShortcutShortcutJump= '<leader>$j'
+"let g:AutoPairsShortcutBackInsert= '<leader>$b'
+"let g:AutoPairsShortcutFastWrap='<leader>$'
+"
+"let g:AutoPairsFlyMode = 1
+"""""""""""""""""""""
+" compile quickli a main cpp code
+"""""""""""""""""""""
+function ExecuteCpp()
+  :!g++ -o  %:r.outexe % -std=c++17
+  :!%:r.outexe
+endfunction
+com! ExecuteCpp call ExecuteCpp()
+
+
+
+function! GetBufferList()
+  return filter(range(1,bufnr('$')), 'buflisted(v:val)')
+endfunction
+
+function! GetMatchingBuffers(pattern)
+  return filter(GetBufferList(), 'bufname(v:val) =~ a:pattern')
+endfunction
+
+function! WipeMatchingBuffers(pattern)
+  let l:matchList = GetMatchingBuffers(a:pattern)
+
+  let l:count = len(l:matchList)
+  if l:count < 1
+    echo 'No buffers found matching pattern ' . a:pattern
+    return
+  endif
+
+  if l:count == 1
+    let l:suffix = ''
+  else
+    let l:suffix = 's'
+  endif
+
+  exec 'bw ' . join(l:matchList, ' ')
+
+  echo 'Wiped ' . l:count . ' buffer' . l:suffix . '.'
+endfunction
+
+command! -nargs=1 WMB call WipeMatchingBuffers('<args>')
+if has('nvim')
+
+  let g:python3_host_prog = "D:/ftarroux/Logiciel/Python38-32/python.exe"
+else
+  "set pythondll=D:\ftarroux\Logiciel\Python2\python27.dll
+  set pythonthreedll="D:/ftarroux/Logiciel/Python38-32/python38.dll"
+
+endif
+
+
+
+let g:vimspector_enable_mappings = 'HUMAN'
+"packadd! vimspector
+"
+"
+"""""""""""""""""""""""
+"float-preview.nvim'
+"""""""""""""""""
+if has('nvim')
+  "let g:float_preview#docked = 0
+endif
+
+
+
+"""""""""""
+" surround with "
+"""""""""""
+noremap <leader>" ciw""<Esc>P
+
+"noremap : :<C-f>
+"
+noremap <leader>$ :colorscheme  solarized8<cr>

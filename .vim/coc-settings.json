@@ -37,5 +37,6 @@
     }
   },
   "coc.preferences.extensionUpdateCheck": "daily",
-"cSpell.enabled": false
+"cSpell.enabled": false,
+"python.jediEnabled": false
 }
