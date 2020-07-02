@@ -34,6 +34,7 @@ let g:coc_global_extensions = [
       \]
 
 call plug#begin('~/vimDebugPlugin')
+Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
 """""""""""""""""""""""""""""""""""
 " color schema
@@ -107,7 +108,7 @@ Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>'
 Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
 "Plug 'Raimondi/delimitMate' "close bracket
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
-"Plug 'airblade/vim-gitgutter'
+Plug 'airblade/vim-gitgutter'
 Plug 'vim-scripts/DoxygenToolkit.vim'
 "Plug 'dpelle/vim-Grammalecte'
 Plug 'mhinz/vim-grepper'
@@ -819,11 +820,24 @@ com! CmakeFormat silent! call CmakeFormat()<cr>
 
 
 function Close_all()
-  let list_file_type = [ 'cpp.doxygen','c.doxygen','json','python','vim','cjson' ]
+pclose
+helpclose
+ccl
   let nodelete = 0
-  echom getbufvar('%', 'current_syntax')
-  for word in list_file_type
-    if getbufvar('%', 'current_syntax') ==# word
+  let list_file_to_delete= []
+  let list_file_to_keep = [ ]
+  if expand('%:e') !=# ''
+    let nodelete = 1
+  endif
+  for word in list_file_to_delete
+    if expand('%:e') ==# word || expand('%:t') ==# word
+      let  nodelete = 0
+      break
+    endif
+  endfor
+
+  for word in list_file_to_keep
+    if expand('%:e') ==# word || expand('%:t') ==# word
       let  nodelete = 1
       break
     endif
@@ -837,8 +851,24 @@ function Close_all()
   "execute "bw "
   "endif
 endfunction
-command! CloseAll windo call Close_all()
-noremap <silent> q :CloseAll<cr>
+
+function CloseWindo()
+  "cache le terminal
+  if win_gotoid(g:term_win)
+    hide
+  endif
+  let saved_winnr = winnr()
+  windo call Close_all()
+  exec saved_winnr . 'wincmd w'
+endfunction
+
+command! CloseAll call CloseWindo()
+noremap <silent> q <esc>:CloseAll<cr><esc>
+noremap <silent> ² <esc>:CloseAll<cr><esc>
+vm <silent> ² <esc>:CloseAll<cr><esc>
+im <silent> ² <esc>:CloseAll<cr><esc>
+tmap <leader>²  <C-\><C-n><esc>:CloseAll<cr><esc>
+
 """""""""""""""""""""""""""""""""""""
 " coc-config-general
 """""""""""""""""""""""""""""""""""""
@@ -904,7 +934,7 @@ nmap <leader>nq  <Plug>(coc-fix-current)
 """""""""""""""""""""""""""""""""""""
 " coc-prettier configuration
 """""""""""""""""""""""""""""""""""""
-nmap ² :CocCommand prettier.formatFile<cr>
+"nmap ² :CocCommand prettier.formatFile<cr>
 
 """""""""""""""""""""""""""""""""""""
 " coc-snippets configuration
@@ -1174,7 +1204,7 @@ nnoremap <leader>pc :Gina commit --opener="to split" --group="test"<cr>
 nnoremap <leader>pe :Gcommit %<cr>
 nnoremap <leader>ps :Gina status --opener="to split" --group="test"<cr>
 nnoremap <leader>pb :Gina branch --opener=vsplit --group="test"<cr>
-nnoremap <leader>pg :Gina grep -A --opener=tabnew --group="test" -ie
+nnoremap <leader>pg :Gina grep --opener=tabnew --group="test" -ie
 nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
 
 """""""""""""""""""""""""""""""""""""
