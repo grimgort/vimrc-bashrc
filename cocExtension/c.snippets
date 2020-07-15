@@ -38,14 +38,14 @@ endsnippet
 snippet fr_json_number_item "Description" b
 ${1:variable} = cJSON_GetObjectItemCaseSensitive(${2:object}, "$1");
 if (cJSON_IsNumber($1)) {
-      scenario_struct->$1= $1->valuedouble;
+      zev->$1= $1->valuedouble;
 }
 endsnippet
 
 snippet fr_add_string_with_zev "Description" b
-if (scenario_struct.${1:test} != scenario_init.$1) {
+if (zev.${1:test} != scenario_init.$1) {
     strcpy(word, "$1");
-	  add_string_with_zev_number(schema_json, observation_geometry, scenario_struct.$1,
+	  add_string_with_zev_number(schema_json, observation_geometry, zev.$1,
 														word);
 }
 endsnippet
@@ -58,10 +58,10 @@ $2
 endsnippet
 
 #snippet fr_add_number "Description" b
-#if (scenario_struct.${1:test} != scenario_init.$1) {
+#if (zev.${1:test} != scenario_init.$1) {
     #strcpy(word, "$1");
     #cJSON_AddNumberToObject(observation_geometry, word,
-                            #scenario_struct.$1);
+                            #zev.$1);
 #}
 #endsnippet
 
@@ -70,10 +70,17 @@ strcpy(list_of_word[index_word], "$1");
 index_word += 1;
 endsnippet
 
-snippet fr_add_number "Description" b
-if (!isnan(scenario_struct.${1:varname})) {
+snippet fr_add_double "Description" b
+if (!isnan(zev.${1:varname})) {
 	strcpy(word, "$1");
 	cJSON_AddNumberToObject(observation_geometry, word,
-													scenario_struct.$1);
+													zev.$1);
+}
+endsnippet
+snippet fr_add_int "Description" b
+if (zev.${1:varname} != zev_init.$1) {
+	strcpy(word, "${2:$1}");
+	cJSON_AddNumberToObject(${3:grounds}, word,
+													zev.$1);
 }
 endsnippet
