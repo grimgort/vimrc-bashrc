@@ -885,7 +885,7 @@ function! CloseWindo()
   "let saved_winnr = winnr()
   "let saved_winnr = bufname()
   let saved_winnr = win_getid()
-  echom saved_winnr
+  "echom saved_winnr
   pclose
   helpclose
   ccl
