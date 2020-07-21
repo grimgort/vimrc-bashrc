@@ -903,7 +903,7 @@ noremap <silent> q <esc>:CloseAll<cr><esc>
 noremap <silent> ² <esc>:CloseAll<cr><esc>
 vm <silent> ² <esc>:CloseAll<cr><esc>
 im <silent> ² <esc>:CloseAll<cr><esc>
-tmap <leader>²  <C-\><C-n>:CloseAll<cr><esc>
+tmap <silent>²  <C-\><C-n>:CloseAll<cr>
 
 """""""""""""""""""""""""""""""""""""
 " coc-config-general
