@@ -883,7 +883,9 @@ endfunction
 
 function! CloseWindo()
   "let saved_winnr = winnr()
-  let saved_winnr = bufname()
+  "let saved_winnr = bufname()
+  let saved_winnr = win_getid()
+  echom saved_winnr
   pclose
   helpclose
   ccl
@@ -895,7 +897,9 @@ function! CloseWindo()
   endif
   windo call Close_all()
   "exec "silent! saved_winnr . 'wincmd w'"
-  exec "silent! saved_winnr . 'bufload'"
+  "exec "silent! saved_winnr . 'bufload'"
+  "exec "silent! saved_winnr . 'win_gotoid'"
+  call win_gotoid(saved_winnr)
 endfunction
 
 command! CloseAll call CloseWindo()
