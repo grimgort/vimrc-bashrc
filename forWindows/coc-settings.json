@@ -1,4 +1,5 @@
 {
+  "translator.toLang": "fr",
   /*"diagnostic.refreshOnInsertMode": false,*/
   /*"diagnostic.virtualText": true,*/
   /*"diagnostic.refreshOnInsertMode": true,*/
@@ -15,8 +16,8 @@
   /*"coc.preferences.formatOnInsertLeave": true,*/
   /*"coc.preferences.formatOnTypeFiletypes": ["c","c++","markdown"],*/
   "coc.preferences.formatOnSaveFiletypes": [
-    /*"c",*/
-    /*"c++",*/
+    "c",
+    "c++",
     "css",
     "markdown",
     "Markdown",

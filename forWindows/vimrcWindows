@@ -44,7 +44,10 @@ let g:coc_global_extensions = [
       "\ 'coc-yaml',
 
 call plug#begin('~/vimDebugPlugin')
-Plug 'PProvost/vim-ps1' "display mark and allow new shortcut
+Plug 'apalmer1377/factorus' "factoring c++ code
+
+Plug 'sheerun/vim-polyglot'
+"Plug 'PProvost/vim-ps1' "display mark and allow new shortcut
 Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 "Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
 """""""""""""""""""""""""""""""""""
@@ -794,6 +797,20 @@ noremap <Del> "_x
 
 "grep word under cursor
 nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+
+
+"replace word under cursor in all git base
+"function GitGrepReplace(word)
+"let l:WordValue = expand("<cword>")
+"execute "Ggrep <cword>"
+"execute "cw"
+":cdo %s/WordValue/word/gc
+":cfdo %s/<search term>/<replace term>/gc 'search in all file'
+""3. (If you want to save the changes in all files) :cdo update
+"endfunction
+"command! -nargs=1 GitGrepReplace  call GitGrepReplace('<args>')
+"command! -nargs=1 WMB call WipeMatchingBuffers('<args>')
+
 " Keymapping for grep word under cursor with interactive mode
 "nnoremap <silent> K :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
 
@@ -864,8 +881,9 @@ function Close_all()
   endif
 endfunction
 
-function CloseWindo()
-  let saved_winnr = winnr()
+function! CloseWindo()
+  "let saved_winnr = winnr()
+  let saved_winnr = bufname()
   pclose
   helpclose
   ccl
@@ -876,7 +894,8 @@ function CloseWindo()
     endif
   endif
   windo call Close_all()
-  exec saved_winnr . 'wincmd w'
+  "exec "silent! saved_winnr . 'wincmd w'"
+  exec "silent! saved_winnr . 'bufload'"
 endfunction
 
 command! CloseAll call CloseWindo()
@@ -1103,6 +1122,7 @@ map e <Plug>(easymotion-s)
 """"""""""""""""""""""""""""""""""""""""""""""""
 " vim-translator"
 """"""""""""""""""""""""""""""""""""""""""""""""
+let g:translator_proxy_url = "http://proxy.onera:80"
 let g:translator_target_lang  = 'fr'
 let g:translator_source_lang = 'en'
 " Echo translation in the cmdline
