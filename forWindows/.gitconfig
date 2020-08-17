@@ -1,0 +1,13 @@
+[credential "helperselector"]
+	selected = manager
+[user]
+	email = frederic.tarroux@onera.fr
+	name = tarroux
+[credential]
+	helper = manager
+[core]
+	editor = nvim-qt
+[http "https://github.com/"]
+  proxy = proxy.onera:80
+[https "https://github.com/"]
+  proxy = proxy.onera:80
