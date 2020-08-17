@@ -20,9 +20,16 @@ def install_gitconfig():
     print("install gitconfig")
     shutil.copy2(os.path.join(local_path , "forWindows/.gitconfig"),expanduser("~") )
 
+def install_powershell():
+    print("install powershell")
+    if (os.path.exists(os.path.join(expanduser("~") , "Documents/WindowsPowerShell"))):
+        shutil.rmtree(os.path.join(expanduser("~") , "Documents/WindowsPowerShell"))
+    shutil.copytree(os.path.join(local_path , "forWindows/WindowsPowerShell"),os.path.join(expanduser("~") , "Documents/WindowsPowerShell"))
+
 def main():
     install_vim()
     install_ginit()
     install_gitconfig()
+    install_powershell()
 
 main()
