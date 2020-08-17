@@ -1,52 +1,33 @@
-#$tempFile = [IO.Path]::GetTempFileName()  
+new-alias frmscv86 d:\ftarroux\documents\windowspowershell\script\frmscv86.ps1
+new-alias frproxy ~/proxypowershell.ps1
 
-### Store the output of cmd.exe.  We also ask cmd.exe to output   
-### the environment table after the batch file completes  
+function frperso { set-location "d:\ftarroux\documents\fred"}
 
-#cmd /c " `"C:\Program Files (x86)\Microsoft Visual Studio\2017\Professional\VC\Auxiliary\Build\vcvars32.bat`" && set > `"$tempFile`" " 
+new-alias frbash d:\ftarroux\documents\windowspowershell\script\frbash.ps1
+new-alias archive_function d:\ftarroux\documents\windowspowershell\script\archivegit.ps1
 
-### Go through the environment variables in the temp file.  
-### For each of them, set the variable in our local environment.  
-#Get-Content $tempFile | Foreach-Object {   
-    #if($_ -match "^(.*?)=(.*)$")  
-    #{ 
-        #Set-Content "env:\$($matches[1])" $matches[2]  
-    #} 
-#}  
+. (join-path -path (split-path -parent -path $profile) -childpath $(switch($host.ui.rawui.backgroundcolor.tostring()){'white'{'set-solarizedlightcolordefaults.ps1'}'black'{'set-solarizeddarkcolordefaults.ps1'}default{return}}))
 
-#Remove-Item $tempFile
-
-. (Join-Path -Path (Split-Path -Parent -Path $PROFILE) -ChildPath $(switch($HOST.UI.RawUI.BackgroundColor.ToString()){'White'{'Set-SolarizedLightColorDefaults.ps1'}'Black'{'Set-SolarizedDarkColorDefaults.ps1'}default{return}}))
-
-
-
-
-Import-Module posh-git
-Set-PSReadlineKeyHandler -Chord Tab -Function MenuComplete
-#function Start-gvimdiff{
-#Start-Process "D:\ftarroux\Logiciel\Vim64\vim81\gvim.exe" -d
+import-module posh-git
+set-psreadlinekeyhandler -chord tab -function menucomplete
+#function start-gvimdiff{
+#start-process "d:\ftarroux\logiciel\vim64\vim81\gvim.exe" -d
 #}
 #function vimrcmod{
-#Start-Process "D:\ftarroux\Logiciel\Vim64\vim81\gvim.exe" ~/.vimrc 
+#start-process "d:\ftarroux\logiciel\vim64\vim81\gvim.exe" ~/.vimrc 
 #}
 
 
-#New-Alias gvim D:\ftarroux\Logiciel\Vim64\vim81\gvim.exe
-#New-Alias frvimrc vimrcmod
-#New-Alias gvimdiff Start-gvimdiff
-New-Alias frproxy ~/proxyPowerShell.ps1
+#new-alias gvim d:\ftarroux\logiciel\vim64\vim81\gvim.exe
+#new-alias frvimrc vimrcmod
+#new-alias gvimdiff start-gvimdiff
 
-function frperso { set-location "D:\ftarroux\Documents\FRED"}
 
-New-Alias frbash D:\ftarroux\Documents\WindowsPowerShell\Script\frbash.ps1
-New-Alias archive_function D:\ftarroux\Documents\WindowsPowerShell\Script\archiveGit.ps1
 
-New-Alias frmscv86 D:\ftarroux\Documents\WindowsPowerShell\Script\frmscv86.ps1
-
-# Chocolatey profile
-#$ChocolateyProfile = "$env:ChocolateyInstall\helpers\chocolateyProfile.psm1"
-#if (Test-Path($ChocolateyProfile)) {
-#  Import-Module "$ChocolateyProfile"
+# chocolatey profile
+#$chocolateyprofile = "$env:chocolateyinstall\helpers\chocolateyprofile.psm1"
+#if (test-path($chocolateyprofile)) {
+#  import-module "$chocolateyprofile"
 #}
 
 
