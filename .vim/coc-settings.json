@@ -38,5 +38,6 @@
   },
   "coc.preferences.extensionUpdateCheck": "daily",
 "cSpell.enabled": false,
-"python.jediEnabled": false
+"python.jediEnabled": false,
+"python.formatting.provider": "autopep8"
 }

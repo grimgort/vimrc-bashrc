@@ -7,6 +7,7 @@
   /*"git.enableGutters": true,*/
   /*"git.enableGutters": false,*/
   /*"git.signOffset":3,*/
+  "python.pipenvPath": "D:/ftarroux/Logiciel/Python38/Scripts/pip.exe",
   "python.formatting.provider": "black",
   "python.jediEnabled": true,
   "http.proxy": "http://proxy.onera:80",
