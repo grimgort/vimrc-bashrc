@@ -1,9 +1,9 @@
 {
-  "translator.toLang": "fr",
+  /*"translator.toLang": "fr",*/
   /*"diagnostic.refreshOnInsertMode": false,*/
   /*"diagnostic.virtualText": true,*/
   /*"diagnostic.refreshOnInsertMode": true,*/
-  "coc.preferences.diagnostic.refreshOnInsertMode":true,
+  /*"coc.preferences.diagnostic.refreshOnInsertMode":true,*/
   /*"git.enableGutters": true,*/
   /*"git.enableGutters": false,*/
   /*"git.signOffset":3,*/
@@ -72,10 +72,10 @@
       /*}*/
     /*}*/
   /*},*/
-  "coc.preferences.extensionUpdateCheck": "daily",
+  "coc.preferences.extensionUpdateCheck": "never",
   "cSpell.enabled": false,
   "cSpell.language": "fr,en",
-  "cSpellExt.enableDictionaries": ["french"],
+  /*"cSpellExt.enableDictionaries": ["french"],*/
   "cSpell.enabledLanguageIds": [
     "asciidoc",
     "c",
@@ -117,6 +117,6 @@
     /*"line_length": false*/
   },
   "coc.preferences.bracketEnterImprove": true,
-  /*"clangd.path": "D:\\ftarroux\\AppData\\Local\\coc\\extensions\\coc-clangd-data\\install\\10.0.0\\clangd_10.0.0\\bin\\clangd.exe",*/
+  "clangd.path": "D:/ftarroux/scoop/apps/llvm/current/bin/clangd.exe",
   "git.enableGutters": false
 }
