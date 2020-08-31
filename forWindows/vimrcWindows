@@ -856,6 +856,45 @@ com! CmakeFormat silent! call CmakeFormat()<cr>
 
 :command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> - |fmt -csw78
 
+  "let g:saved_winnr_previous =0
+let g:history_win_id = []
+function History_cursor_window()
+  echomsg("history_cursor_window")
+  "echomsg(g:saved_winnr_previous)
+  let saved_winnr = win_getid()
+    "echom(g:saved_winnr_previous)
+  "if saved_winnr != g:saved_winnr_previous 
+    "let g:saved_winnr_previous = saved_winnr
+    "echom("saved_winnr")
+    "echom(saved_winnr)
+    "echom("saved_winnr_prev")
+    "echom(g:saved_winnr_previous)
+    call add(g:history_win_id,saved_winnr)
+  "endif
+    "let history_win_reverse = g:history_win_id
+    "call reverse(history_win_reverse)
+    "call len(history_win_id)
+    let indice = 0
+  for elem in g:history_win_id
+    let indice += 1 
+    "echom(indice)
+      "echo(win_id2win(elem))
+      echom("indoce")
+      echom(indice)
+    if win_id2win(g:history_win_id[-indice]) != 0 
+      echo("g:history_win_id[-indice]")
+      echo(g:history_win_id[-indice])
+      "echom(elem)
+      let toto = g:history_win_id[-indice]
+      echom("toto")
+      echom(toto)
+      return toto
+    endif
+  endfor
+endfunction
+"autocmd WinEnter * call History_cursor_window()
+"autocmd CursorMoved * call History_cursor_window()
+
 
 function Close_all()
   let nodelete = 0
@@ -884,6 +923,7 @@ function Close_all()
 endfunction
 
 function! CloseWindo()
+  echomsg("closewindo")
   "let saved_winnr = winnr()
   "let saved_winnr = bufname()
   let saved_winnr = win_getid()
@@ -901,6 +941,10 @@ function! CloseWindo()
   "exec "silent! saved_winnr . 'wincmd w'"
   "exec "silent! saved_winnr . 'bufload'"
   "exec "silent! saved_winnr . 'win_gotoid'"
+  "let saved_winnr = History_cursor_window()
+  echom("saved_winnr")
+  echom(saved_winnr)
+  "echo saved_winnr
   call win_gotoid(saved_winnr)
 endfunction
 
@@ -914,6 +958,8 @@ tmap <silent>²  <C-\><C-n>:CloseAll<cr>
 """""""""""""""""""""""""""""""""""""
 " coc-config-general
 """""""""""""""""""""""""""""""""""""
+" reste en normal mode aprés une recherche fuzzy
+autocmd WinEnter * "normal <Esc>"
 
 " TextEdit might fail if hidden is not set.
 set hidden
