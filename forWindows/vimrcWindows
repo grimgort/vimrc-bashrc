@@ -329,7 +329,7 @@ if has('nvim')
       try
         exec "buffer " . g:term_buf
       catch
-        call termopen("powershell", {"detach": 0})
+        call termopen("pwsh", {"detach": 0})
         let g:term_buf = bufnr("")
       endtry
       startinsert!
@@ -355,7 +355,7 @@ else
 
   " set your favorite shell
   "let g:toggle_terminal#command = 'pwsh'
-  let g:toggle_terminal#command = 'powershell'
+  let g:toggle_terminal#command = 'pwsh'
 
   " set terminal window position
   " (see possible options at :help vertical)
