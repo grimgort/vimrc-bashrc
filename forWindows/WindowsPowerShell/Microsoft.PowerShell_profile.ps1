@@ -1,6 +1,6 @@
 new-alias frmscv86 d:\ftarroux\documents\windowspowershell\script\frmscv86.ps1
 new-alias frproxy ~/proxypowershell.ps1
-
+new-alias spacevim 'nvim-qt.exe -- -u ~/.SpaceVim/vimrc'
 function frperso { set-location "d:\ftarroux\documents\fred"}
 
 new-alias frbash d:\ftarroux\documents\windowspowershell\script\frbash.ps1
