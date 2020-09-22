@@ -17,7 +17,6 @@ let g:coc_global_extensions = [
       \ 'coc-marketplace',
       \ 'coc-snippets',
       \ 'coc-calc',
-      \ 'coc-explorer',
       \ 'coc-tslint',
       \ 'coc-todolist',
       \ 'coc-tabnine',
@@ -37,6 +36,8 @@ let g:coc_global_extensions = [
       \'coc-syntax',
       \ 'coc-lists'
       \]
+
+      "\ 'coc-explorer',
       "\ 'coc-tsserver',
       "\ 'coc-powershell',
       "\ 'coc-cspell-dicts',
@@ -152,6 +153,9 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
 "Plug 'universal-ctags/ctags', {'do' : nmake -f mk_mvc.mak}
 Plug 'universal-ctags/ctags'
 Plug 'voldikss/vim-translator'
+"fzf for buffer
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
 call plug#end()
 """"""""""""""""""""""""""""""""""""
 " disable to print FX on insert mode
@@ -380,6 +384,8 @@ endif
 "" Plugin fugitive
 "-----------------
 autocmd BufReadPost fugitive://* set bufhidden=delete
+nnoremap <leader>pdl :diffget //2<CR>
+nnoremap <leader>pdr :diffget //3<CR>
 "autocmd QuickFixCmdPost *grep* cwindow "alow to choose file in quickFiXList whit :Ggrep command
 "nnoremap <silent> <leader>a :Gstatus<cr>
 
@@ -402,17 +408,16 @@ set tags=./tags;,tags;
 " lightline setting
 """""""""""""""""""""""""""""""""""
 let g:lightline = {
+      \ 'colorscheme': 'wombat',
       \   'active': {
       \     'left':[ [ 'mode', 'paste' ],
       \              [ 'gitbranch', 'cocstatus','readonly', 'filename', 'modified' ]
       \     ]
       \   },
-      \   'component': {
-      \     'lineinfo': ' %3l:%-2v',
-      \   },
       \   'component_function': {
       \     'gitbranch': 'fugitive#head',
-      \   }
+      "\   'filename': 'CompleteRelativePath',
+      \ },
       \ }
 let g:lightline.separator = {
       \   'left': '|', 'right': '|'
@@ -426,18 +431,25 @@ let g:lightline.tabline = {
       \   'right': [ ['close'] ]
       \ }
 
-
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status'
-      \ },
-      \ }
-
+func! CompleteRelativePath()
+"return system("git ls-files","%")
+"return execute("Git ls-files %")
+endfu
+"func! CompleteRelativePath()
+  "let p = expand('%:p:h')
+  "let rp = system("realpath --relative-to=".p." /my/project/directory")
+  "call fzf#vim#complete#path("cd ".p." && find ".rp." -path '*/\.*' -prune -o -print \| sed '1d;s:^..::'")
+  "return ""
+"endfu
+"function! LightlineFilename()
+  "let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  "let path = expand('%:p')
+  "if path[:len(root)-1] ==# root
+    "return path[len(root)+1:]
+  "endif
+  "return expand('%')
+  ""return "toto"
+"endfunction
 " Use auocmd to force lightline update.
 autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 set showtabline=2  " Show tabline
@@ -798,7 +810,9 @@ vnoremap c d
 noremap <Del> "_x
 
 "grep word under cursor
-nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+"nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+nnoremap K  :Gina grep --opener="to split" --group="test" -ie "\b<C-R><C-W>\b"<CR>:cw<CR>
+
 
 
 "replace word under cursor in all git base
@@ -1235,7 +1249,9 @@ nmap <leader>bz :CocList -A --tab bookmark<cr>
 """""""""""""""""""""""""""""""""""""""""""""""
 " coc-list" replace fzf
 """""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>fb :CocList  buffers<cr>
+"nmap <leader>fb :CocList  buffers<cr>
+"nmap <leader>fb :Buffer<cr>
+nmap <leader>fb :CocList --number-select mru -A <cr>
 nmap <leader>fg :CocList  gfiles<cr>
 nmap <C-:> :CocList cmdhistory<cr>
 
