@@ -937,7 +937,7 @@ function Close_all()
 endfunction
 
 function! CloseWindo()
-  echomsg("closewindo")
+  "echomsg("closewindo")
   "let saved_winnr = winnr()
   "let saved_winnr = bufname()
   let saved_winnr = win_getid()
@@ -956,8 +956,8 @@ function! CloseWindo()
   "exec "silent! saved_winnr . 'bufload'"
   "exec "silent! saved_winnr . 'win_gotoid'"
   "let saved_winnr = History_cursor_window()
-  echom("saved_winnr")
-  echom(saved_winnr)
+  "echom("saved_winnr")
+  "echom(saved_winnr)
   "echo saved_winnr
   call win_gotoid(saved_winnr)
 endfunction
