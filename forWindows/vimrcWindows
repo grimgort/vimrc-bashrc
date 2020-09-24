@@ -78,7 +78,7 @@ Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
 "Plug 'MattesGroeger/vim-bookmarks'
 "Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility
-Plug 'jiangmiao/auto-pairs' " ef
+"Plug 'jiangmiao/auto-pairs' " ef
 
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -133,7 +133,7 @@ Plug 'rhysd/vim-grammarous'
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'puremourning/vimspector'
+Plug 'puremourning/vimspector' "don't really work on windows os"
 "Plug 'mphe/grayout.vim'
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
@@ -154,8 +154,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
 Plug 'universal-ctags/ctags'
 Plug 'voldikss/vim-translator'
 "fzf for buffer
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+"Plug 'junegunn/fzf.vim'
 call plug#end()
 """"""""""""""""""""""""""""""""""""
 " disable to print FX on insert mode
@@ -348,6 +348,9 @@ if has('nvim')
   tmap <Esc> <C-\><C-n>
   tmap <C-w> <C-\><C-n><C-w>
   au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+  au BufEnter * if &buftype == 'terminal' | :setlocal scrolloff=0 | endif
+  au BufLeave * if &buftype == 'terminal' | :setlocal scrolloff=999 | endif
+  "au TermEnter * startinsert
 
 else
   " map <C-@> to toggle
@@ -407,6 +410,7 @@ set tags=./tags;,tags;
 """""""""""""""""""""""""""""""""""
 " lightline setting
 """""""""""""""""""""""""""""""""""
+
 let g:lightline = {
       \ 'colorscheme': 'wombat',
       \   'active': {
@@ -679,6 +683,9 @@ set colorcolumn=81      " Display the limit of text width.
 set mouse=a             " Enable mouse to use (all mode)
 
 set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
+" avoid buf on terminal
+"au TermEnter * setlocal scrolloff=0
+"au TermLeave * setlocal scrolloff=999
 
 set laststatus=2        " Alway show status bar at bottom
 """ Tab setting
@@ -811,8 +818,7 @@ noremap <Del> "_x
 
 "grep word under cursor
 "nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-nnoremap K  :Gina grep --opener="to split" --group="test" -ie "\b<C-R><C-W>\b"<CR>:cw<CR>
-
+nnoremap K  :Gina grep --opener="to split" --group="test" -ie "\b<C-R><C-W>\b"
 
 
 "replace word under cursor in all git base
@@ -1430,6 +1436,9 @@ endif
 
 
 
+"""""""""""""""""""""""
+"vimspector
+"""""""""""""""""
 "let g:vimspector_enable_mappings = 'HUMAN'
 "packadd! vimspector
 "
@@ -1438,7 +1447,7 @@ endif
 "float-preview.nvim'
 """""""""""""""""
 if has('nvim')
-  "let g:float_preview#docked = 0
+  let g:float_preview#docked = 0
 endif
 
 
@@ -1473,3 +1482,19 @@ noremap <leader>$ :colorscheme  solarized8<cr>
     let g:terminal_color_14 = '#34e2e2'
     let g:terminal_color_15 = '#eeeeec'
   endif
+
+
+  """""""""""""""""""""""
+  " vim benchmarck"""""
+  " """"""""""""""""""""
+function Profil_benchmark()
+  :profile start profile.log
+:profile func *
+:profile file *
+      
+endfunction
+command ProfilBenchmark call Profil_benchmark()
+
+"""""""""""""""""""""
+noremap <leader>ww :tabclose<cr>
+""""""""""""""""""""""
