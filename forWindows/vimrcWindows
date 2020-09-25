@@ -523,6 +523,7 @@ syntax enable
 "colorscheme gruvbox
 colorscheme solarized8
 "set guifont=Source_Code_Pro:h13
+"au :GuiFont! Consolas:h14:cANSI
 set guifont=Consolas:h14:cANSI
 set background=dark
 ":GuiFont! Consolas:h13:cANSI
@@ -1497,4 +1498,7 @@ command ProfilBenchmark call Profil_benchmark()
 
 """""""""""""""""""""
 noremap <leader>ww :tabclose<cr>
+noremap <leader>wq :q<cr>
 """"""""""""""""""""""
+
+set diffopt+=vertical
