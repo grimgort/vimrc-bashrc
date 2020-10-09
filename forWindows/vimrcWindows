@@ -620,7 +620,7 @@ endif
 "set guioptions=c
 " you can copy with maj in insert modeuu
 " cause big lag on visual mode (set guioption+=a
-":set guioptions+=a keymodel=startsel,stopsel
+:set guioptions+=a keymodel=startsel,stopsel
 "use system clipboard
 set clipboard=unnamed
 "correct cursor bug for gnome terminal
@@ -1040,7 +1040,7 @@ autocmd User CocJumpPlaceholder call
       \ CocActionAsync('showSignatureHelp')
 " Highlight the symbol and its references when holding the cursor.
 autocmd CursorHold * silent call CocActionAsync('highlight')
-autocmd CursorHold * silent call CocActionAsync('doHover')
+"autocmd CursorHold * silent call CocActionAsync('doHover')
 
 """""""""""""""""""""""""""""""""""""
 " coc-prettier configuration
@@ -1499,10 +1499,54 @@ command ProfilBenchmark call Profil_benchmark()
 
 """""""""""""""""""""
 noremap <leader>ww :tabclose<cr>
+noremap <leader>wx :only<cr>
 noremap <leader>wq :q<cr>
 """"""""""""""""""""""
 
 set diffopt+=vertical
 
+"quick  tab navigation (alt-f)
+nnoremap <A-&> 1gt
+nnoremap <A-é> 2gt
+nnoremap <A-"> 3gt
+nnoremap <A-'> 4gt
+nnoremap <A-(> 5gt
+nnoremap <A--> 6gt
+nnoremap <A-è> 7gt
+nnoremap <A-_> 8gt
+nnoremap <A-ç> 9gt
+nnoremap <A-à> 10gt
+
+tnoremap <A-&> <C-\><C-n>1gt
+tnoremap <A-é> <C-\><C-n>2gt
+tnoremap <A-"> <C-\><C-n>3gt
+tnoremap <A-'> <C-\><C-n>4gt
+tnoremap <A-(> <C-\><C-n>5gt
+tnoremap <A--> <C-\><C-n>6gt
+tnoremap <A-è> <C-\><C-n>7gt
+tnoremap <A-_> <C-\><C-n>8gt
+tnoremap <A-ç> <C-\><C-n>9gt
+tnoremap <A-à> <C-\><C-n>10gt
+
+"enable copy paste with ctrl
+if has("clipboard")
+    " CTRL-X and SHIFT-Del are Cut
+    vnoremap <C-X> "+x
+    vnoremap <S-Del> "+x
+
+    " CTRL-C and CTRL-Insert are Copy
+    vnoremap <C-C> "+y
+    vnoremap <C-Insert> "+y
+
+    " CTRL-V and SHIFT-Insert are Paste
+    map <C-V>		"+gP
+    map <S-Insert>		"+gP
+
+    cmap <C-V>		<C-R>+
+    cmap <S-Insert>		<C-R>+
 
 
+   tmap <C-V>		<C-\><C-n>"+gP
+   tmap <S-Insert>		<C-\><C-n>"+gP
+
+endif
