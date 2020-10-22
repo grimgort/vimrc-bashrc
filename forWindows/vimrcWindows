@@ -51,6 +51,10 @@ Plug 'sheerun/vim-polyglot'
 "Plug 'PProvost/vim-ps1' "display mark and allow new shortcut
 Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 "Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
+"Plug 'cdelledonne/vim-cmake'
+"Plug 'ilyachur/cmake4vim' 'not async so unusable
+"Plug 'vhdirk/vim-cmake'
+"Plug 'jalcine/cmake.vim' 'don't work
 """""""""""""""""""""""""""""""""""
 " color schema
 """""""""""""""""""""""""""""""""""
@@ -90,13 +94,13 @@ Plug 'liuchengxu/vim-which-key'
 Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
 Plug 'neoclide/jsonc.vim'
 if has('nvim')
-  "Plug 'TheZoq2/neovim-auto-autoread.git'
+  Plug 'TheZoq2/neovim-auto-autoread'
   "Plug 'huawenyu/new.vim'
   "Plug 'huawenyu/new-gdb.vim' "don t work on windows os
   "Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
   "Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   ""suspected to bug snippet "
-  "Plug 'ncm2/float-preview.nvim'
+  Plug 'ncm2/float-preview.nvim'
 else
   Plug 'pakutoma/toggle-terminal'
 endif
@@ -133,12 +137,13 @@ Plug 'rhysd/vim-grammarous'
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim'
 Plug 'octol/vim-cpp-enhanced-highlight'
-Plug 'puremourning/vimspector' "don't really work on windows os"
+Plug 'puremourning/vimspector' "don't really work on windows os
 "Plug 'mphe/grayout.vim'
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
 Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'MaskRay/ccls', {'do': 'yarn install --frozen-lockfile'}
+"Plug 'wsdjeg/vim-todo' "dont work
 "Note: You may need to execute these commands in the "Developer Command Prompt for VS"
 "git clone https://github.com/llvm/llvm-project.git
 "cd llvm-project
@@ -520,8 +525,10 @@ syntax enable
 "set background=dark
 "set guifont=Monospace\ Bold\ 16
 "colorscheme solarized
-"colorscheme gruvbox
-colorscheme solarized8
+colorscheme gruvbox
+let g:gruvbox_contrast_dark="soft"
+hi Search guibg=lightmagenta guifg=Darkblue
+"colorscheme solarized8
 "set guifont=Source_Code_Pro:h13
 "au :GuiFont! Consolas:h14:cANSI
 set guifont=Consolas:h14:cANSI
@@ -1062,6 +1069,10 @@ let g:coc_snippet_prev = '<c-h>'
 
 " Use <C-j> for select text for visual placeholder of snippet.
 "nmap <C-z> coc#expandableOrJumpable()
+"
+"
+"cnoremap <silent><expr> <TAB> coc#expandableOrJumpable()
+"
 "Map <tab> for trigger completion, completion confirm, snippet expand and jump
 "like VSCode. >
 inoremap <silent><expr> <TAB>
@@ -1152,7 +1163,8 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 """"""""""""""""""""""""""""""""""""""""""""
 " coc-todolist
 """"""""""""""""""""""""""""""""""""""""""""
-:nmap <space>ll :CocList -A --tab todolist<cr>
+":nmap <space>ll :CocList -A --tab todolist<cr> "preview dont work well
+:nmap <space>ll :CocList --tab todolist<cr>
 :nmap <space>lc :CocCommand todolist.create<cr>
 
 
@@ -1390,10 +1402,16 @@ let g:indent_guides_enable_on_vim_startup = 1
 " compile quickli a main cpp code
 """""""""""""""""""""
 function ExecuteCpp()
-  :!g++ -o  %:r.outexe % -std=c++17
+  :!g++ -ggdb -o  %:r.outexe % -std=c++17
   :!%:r.outexe
 endfunction
 com! ExecuteCpp call ExecuteCpp()
+
+function CExecute()
+  :!gcc -ggdb -o  %:r.outexe % 
+  :!%:r.outexe
+endfunction
+com! CExecute call CExecute()
 
 
 
@@ -1550,3 +1568,11 @@ if has("clipboard")
    tmap <S-Insert>		<C-\><C-n>"+gP
 
 endif
+"""""""""""""""""""""
+" autoread plugin
+""""""""""""""""""""
+    "Autoreload files when changed externally
+    set autoread
+    if has('nvim') "Prevent errors when using standard vim
+        autocmd VimEnter * AutoreadLoop
+    endif
