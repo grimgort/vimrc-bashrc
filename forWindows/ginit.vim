@@ -4,5 +4,6 @@ if exists('g:GuiLoaded')
     GuiFont! Consolas:h14
     inoremap <silent>  <S-Insert>  <C-R>+
 
+    hi Search guibg=lightgrey guifg=darkblue
 
 endif
