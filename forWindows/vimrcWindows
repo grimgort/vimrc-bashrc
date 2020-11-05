@@ -34,6 +34,7 @@ let g:coc_global_extensions = [
       \'coc-tag',
       \ 'coc-word',
       \'coc-syntax',
+      \'coc-explorer',
       \ 'coc-lists'
       \]
 
@@ -91,7 +92,8 @@ Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 Plug 'easymotion/vim-easymotion'
 Plug 'jreybert/vimagit'
 Plug 'liuchengxu/vim-which-key'
-Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] }
+"Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] } #create
+"a bug on map name key
 Plug 'neoclide/jsonc.vim'
 if has('nvim')
   Plug 'TheZoq2/neovim-auto-autoread'
@@ -176,7 +178,17 @@ map! <F8> <Nop>
 map! <F7> <Nop>
 map! <F6> <Nop>
 map! <F4> <Nop>
+"color syntaxe available
 syntax on                   " syntax highlighting
+" speed up vim with limit syntaxe line number (really important)
+ augroup vimrc
+
+   autocmd!
+
+   autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
+
+ augroup END
+""""""""""""""""""""""""
 filetype on                 " try to detect filetypes
 filetype plugin indent on   " enable loading indent file for filetype
 if has('nvim')
@@ -493,29 +505,29 @@ set guioptions-=e  " Don't use GUI tabline
 "YouCompleteMe
 """""""""""""""""""
 "disable arrow key and use tab for selection
-let g:ycm_key_list_select_completion = ['<TAB>']
-let g:ycm_key_list_previous_completion = ['<S-TAB>']
-let g:ycm_key_list_stop_completion = ['<C-y>', '<UP>', '<DOWN>']
-let g:ycm_global_ycm_extra_conf =  '~/.vim/.ycm_extra_conf.py'
-"let g:ycm_clangd_binary_path = exepath('clangd')
-"let g:loaded_youcompleteme = 1
-"-----------------
-" let g:ycm_log_level = 'debug'
-" let g:ycm_show_diagnostics_ui = 0
-"let g:enable_ycm_at_startup = 0
-""""""" Let clangd fully control code completion
-let g:ycm_clangd_uses_ycmd_caching = 0
-" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
-let g:ycm_clangd_binary_path = exepath("clangd")
-let g:ycm_autoclose_preview_window_after_insertion = 1
-noremap <leader>gr :YcmCompleter GoToReferences <CR>
-nnoremap <leader>gg :YcmCompleter GoTo<CR>
-nnoremap <leader>ge :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gt :YcmCompleter GetType<CR>
-nnoremap <leader>gd :YcmCompleter GetDoc<CR>
-nnoremap <leader>gf :YcmCompleter FixIt<CR>
-nnoremap <F9> :YcmForceCompileAndDiagnostics<CR>
-nnoremap <F12> :YcmCompleter Format<CR>
+"let g:ycm_key_list_select_completion = ['<TAB>']
+"let g:ycm_key_list_previous_completion = ['<S-TAB>']
+"let g:ycm_key_list_stop_completion = ['<C-y>', '<UP>', '<DOWN>']
+"let g:ycm_global_ycm_extra_conf =  '~/.vim/.ycm_extra_conf.py'
+""let g:ycm_clangd_binary_path = exepath('clangd')
+""let g:loaded_youcompleteme = 1
+""-----------------
+"" let g:ycm_log_level = 'debug'
+"" let g:ycm_show_diagnostics_ui = 0
+""let g:enable_ycm_at_startup = 0
+"""""""" Let clangd fully control code completion
+"let g:ycm_clangd_uses_ycmd_caching = 0
+"" Use installed clangd, not YCM-bundled clangd which doesn't get updates.
+"let g:ycm_clangd_binary_path = exepath("clangd")
+"let g:ycm_autoclose_preview_window_after_insertion = 1
+"noremap <leader>gr :YcmCompleter GoToReferences <CR>
+"nnoremap <leader>gg :YcmCompleter GoTo<CR>
+"nnoremap <leader>ge :YcmCompleter GoToDeclaration<CR>
+"nnoremap <leader>gt :YcmCompleter GetType<CR>
+"nnoremap <leader>gd :YcmCompleter GetDoc<CR>
+"nnoremap <leader>gf :YcmCompleter FixIt<CR>
+"nnoremap <F9> :YcmForceCompileAndDiagnostics<CR>
+"nnoremap <F12> :YcmCompleter Format<CR>
 "nnoremap ² :YcmCompleter Format<CR>
 
 "-----------------
@@ -527,7 +539,6 @@ syntax enable
 "colorscheme solarized
 colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
-hi Search guibg=lightmagenta guifg=Darkblue
 "colorscheme solarized8
 "set guifont=Source_Code_Pro:h13
 "au :GuiFont! Consolas:h14:cANSI
@@ -739,6 +750,7 @@ set autoread
 " No shearch sensitive case
 set ignorecase
 map <leader>cd :cd %:p:h<cr>:pwd<cr>
+map <leader>cg :Gcd<cr>
 
 
 """"""""""""""""""""""
@@ -1013,7 +1025,7 @@ set shortmess+=c
 "" Find symbol of current document.
 nnoremap <silent> <space>no  :<C-u>CocList -A --tab outline<cr>
 "" Search workspace symbols.
-nnoremap <silent> <space>ns  :<C-u>CocList -I symbols<cr>
+nnoremap <silent> <space>nt  :<C-u>CocList -I symbols<cr>
 " Use `[g` and `]g` to navigate diagnostics
 nmap <silent> <space>nh <Plug>(coc-diagnostic-prev)
 nmap <silent> <space>nl <Plug>(coc-diagnostic-next)
@@ -1024,6 +1036,12 @@ nmap <silent> <space>ny <Plug>(coc-type-definition)
 nmap <silent> <space>ni <Plug>(coc-implementation)
 nmap <silent> <space>nr <Plug>(coc-references)
 nmap <silent> <space>nz <Plug>(coc-declaration)
+
+nmap <silent> <space>nsd :call CocAction('jumpDefinition', 'split') <cr>
+nmap <silent> <space>nsz :call CocAction('jumpDeclaration', 'split') <cr>
+nmap <silent> <space>nvd :call CocAction('jumpDefinition', 'vsplit') <cr>
+nmap <silent> <space>nvz :call CocAction('jumpDeclaration', 'vsplit') <cr>
+nmap <silent> <space>nsz <Plug>(coc-declaration)
 nmap <silent> <space>np <Plug>(coc-codeaction)
 vmap <silent> <space>np <Plug>(coc-codeaction-selected)
 " Symbol renaming.
@@ -1038,6 +1056,8 @@ nnoremap <silent> <space>nk :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
+  elseif (index(['cmake'], &filetype) >= 0)
+          :CocCommand cmake.onlineHelp
   else
     call CocAction('doHover')
   endif
@@ -1154,12 +1174,41 @@ nnoremap <leader>m :Magit<cr>
 """""""""""""""""""""""""""""""""""""""""""
 " vim-which-key
 """"""""""""""""""""""""""""""""""""""""""
-nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
+
+nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+let g:which_key_map =  {}
+let g:which_key_map.b = { 'name' : '+bookmark' }
+let g:which_key_map.c = { 'name' : '+nerdcommenter' }
+let g:which_key_map.f = { 'name' : '+file_search' }
+let g:which_key_map.g = { 'name' : '+gina' }
+let g:which_key_map.i = { 'name' : '+indent_guide' }
+let g:which_key_map.b = { 'name' : '+todolist' }
+let g:which_key_map.n = { 'name' : '+coc' }
+let g:which_key_map.p = { 'name' : '+git_principal' }
+let g:which_key_map.t = { 'name' : '+translate' }
+let g:which_key_map.w = { 'name' : '+windows_focus' }
+let g:which_key_map.z = { 'name' : '+grammarous' }
+let g:which_key_map.SPC = { 'name' : '+easymotion' }
+call which_key#register(' ', "g:which_key_map")
+
+"nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 "vnoremap <silent> <leader> :WhichKey '<Space>'<CR>
 "set timeoutlen=1000
+"
+
+"
+"
+"
 autocmd! FileType which_key
 autocmd  FileType which_key set laststatus=0 noshowmode noruler
       \| autocmd BufLeave <buffer> set laststatus=2 showmode ruler
+
+
+
+
+
+
 """"""""""""""""""""""""""""""""""""""""""""
 " coc-todolist
 """"""""""""""""""""""""""""""""""""""""""""
@@ -1332,6 +1381,72 @@ nnoremap <leader>ps :Gina status --opener="to split" --group="test"<cr>
 nnoremap <leader>pb :Gina branch --opener=vsplit --group="test"<cr>
 nnoremap <leader>pg :Gina grep --opener=tabnew --group="test" -ie
 nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
+
+
+
+	nnoremap <silent> <leader>ga :Gina add %:p<CR>
+	nnoremap <silent> <leader>gd :Gina compare<CR>
+	nnoremap <silent> <leader>gc :Gina commit<CR>
+	nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
+	nnoremap <silent> <leader>gs :Gina status -s<CR>
+	nnoremap <silent> <leader>gl :Gina log --graph --all<CR>
+	nnoremap <silent> <leader>gF :Gina! fetch<CR>
+	nnoremap <silent> <leader>gp :Gina! push<CR>
+	nnoremap <silent> <leader>go :,Gina browse :<CR>
+	vnoremap <silent> <leader>go :Gina browse :<CR>
+call gina#custom#command#alias('status', 'st')
+call gina#custom#command#option('st', '-s')
+call gina#custom#command#option('status', '-b')
+
+" call gina#custom#command#option('/\v(status|branch|ls|grep|changes)', '--opener', 'botright 10split')
+" call gina#custom#command#option('/\v(blame|diff|log)', '--opener', 'tabnew')
+call gina#custom#command#option('commit', '--opener', 'below vnew')
+call gina#custom#command#option('commit', '--verbose')
+
+let s:width_quarter = string(winwidth(0) / 4)
+let s:width_half = string(winwidth(0) / 2)
+
+call gina#custom#command#option('blame', '--width', s:width_quarter)
+let g:gina#command#blame#formatter#format = '%au: %su%= on %ti %ma%in'
+
+" Open in vertical split
+call gina#custom#command#option(
+	\ '/\%(branch\|changes\|status\|grep\|log\|reflog\)',
+	\ '--opener', 'vsplit'
+	\)
+
+" Fixed medium width types
+call gina#custom#execute(
+	\ '/\%(changes\|status\|ls\)',
+	\ 'vertical resize ' . s:width_half . ' | setlocal winfixwidth'
+	\)
+
+" Fixed small width special types
+call gina#custom#execute(
+	\ '/\%(branch\)',
+	\ 'vertical resize ' . s:width_quarter . ' | setlocal winfixwidth'
+	\)
+
+" Alias 'p'/'dp' globally
+call gina#custom#action#alias('/.*', 'dp', 'diff:preview')
+call gina#custom#mapping#nmap('/.*', 'dp', ':<C-u>call gina#action#call(''dp'')<CR>', {'noremap': 1, 'silent': 1})
+" call gina#custom#action#alias('/\%(blame\|log\)', 'preview', 'botright show:commit:preview')
+call gina#custom#mapping#nmap('/.*', 'p',
+	\ ':<C-u>call gina#action#call(''preview'')<CR>',
+	\ {'noremap': 1, 'silent': 1, 'nowait': 1})
+
+" Echo chunk info with K
+call gina#custom#mapping#nmap('blame', 'K', '<Plug>(gina-blame-echo)')
+
+" Blame mappings
+let g:gina#command#blame#use_default_mappings = 0
+call gina#custom#mapping#nmap('blame', '<Return>', '<Plug>(gina-blame-open)')
+call gina#custom#mapping#nmap('blame', '<Backspace>', '<Plug>(gina-blame-back)')
+call gina#custom#mapping#nmap('blame', '<C-r>', '<Plug>(gina-blame-C-L)')
+""""""""""""""""""""""""""""""""""
+"coc-git
+"""""""""""""""""""""""""""""""""""
+nnoremap <leader>pp :CocCommand git.push<cr>
 
 """""""""""""""""""""""""""""""""""""
 "coc-clang
@@ -1576,3 +1691,6 @@ endif
     if has('nvim') "Prevent errors when using standard vim
         autocmd VimEnter * AutoreadLoop
     endif
+
+
+
