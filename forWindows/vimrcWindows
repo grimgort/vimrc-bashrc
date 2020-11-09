@@ -668,10 +668,13 @@ nmap q: <Nop>
 map <C-c> y
 "imap <C-h> :%s/
 nmap <C-h> :%s/
-vmap <C-h> :s/
+"vmap <C-h> :s/
 " vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>map <C-f> /
 "Allow to shearch visula selection with *
+
 vnoremap * y/\V<C-r>=escape(@",'/\')<CR><CR>
+"subsitute word under cursor
+nnoremap <leader>hh :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i
 " Smart way to move between windows
 map <C-S-Left> <C-W>h
 map <C-S-Right> <C-W>l
@@ -1190,6 +1193,8 @@ let g:which_key_map.t = { 'name' : '+translate' }
 let g:which_key_map.w = { 'name' : '+windows_focus' }
 let g:which_key_map.z = { 'name' : '+grammarous' }
 let g:which_key_map.SPC = { 'name' : '+easymotion' }
+let g:which_key_map.l = { 'name' : '+todolist' }
+let g:which_key_map.h = { 'name' : '+vim-command' }
 call which_key#register(' ', "g:which_key_map")
 
 "nnoremap <silent> <leader> :WhichKey '<Space>'<CR>
