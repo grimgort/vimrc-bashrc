@@ -41,6 +41,6 @@ Set-PSReadlineOption -Color @{
 }
 
 
-/*. (join-path -path (split-path -parent -path $profile) -childpath $(switch($host.ui.rawui.backgroundcolor.tostring()){'white'{'set-solarizedlightcolordefaults.ps1'}'black'{'set-solarizeddarkcolordefaults.ps1'}default{return}}))*/
+#/*. (join-path -path (split-path -parent -path $profile) -childpath $(switch($host.ui.rawui.backgroundcolor.tostring()){'white'{'set-solarizedlightcolordefaults.ps1'}'black'{'set-solarizeddarkcolordefaults.ps1'}default{return}}))*/
 
 
