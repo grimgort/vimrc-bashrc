@@ -10,7 +10,6 @@ let g:coc_global_extensions = [
       \ 'coc-ultisnips',
       \ 'coc-json',
       \ 'coc-prettier',
-      \ 'coc-html',
       \ 'coc-css',
       \ 'coc-highlight',
       \ 'coc-eslint',
@@ -38,6 +37,7 @@ let g:coc_global_extensions = [
       \ 'coc-lists'
       \]
 
+      "\ 'coc-html',
       "\ 'coc-explorer',
       "\ 'coc-tsserver',
       "\ 'coc-powershell',
@@ -540,9 +540,10 @@ syntax enable
 colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
 "colorscheme solarized8
+""gui font must be set in ginit
 "set guifont=Source_Code_Pro:h13
 "au :GuiFont! Consolas:h14:cANSI
-set guifont=Consolas:h14:cANSI
+"set guifont=Consolas:h14:cANSI
 set background=dark
 ":GuiFont! Consolas:h13:cANSI
 "set guifont=*:h13
