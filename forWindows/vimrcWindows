@@ -3,6 +3,7 @@ filetype off                " required, so vundle will be loaded properly
 
 "let g:mapleader = ","
 let mapleader=" "
+let localleader = ","
 
 set rtp+=~/vimDebugPlugin
 set rtp+=~/.vim
@@ -23,7 +24,6 @@ let g:coc_global_extensions = [
       \ 'coc-browser',
       \ 'coc-dictionary',
       \ 'coc-bookmark',
-      \ 'coc-cmake',
       \ 'coc-clangd',
       \ 'coc-vimlsp',
       \ 'coc-template',
@@ -37,6 +37,7 @@ let g:coc_global_extensions = [
       \ 'coc-lists'
       \]
 
+      "\ 'coc-cmake',
       "\ 'coc-html',
       "\ 'coc-explorer',
       "\ 'coc-tsserver',
@@ -46,16 +47,36 @@ let g:coc_global_extensions = [
       "\ 'coc-angular',
 
 call plug#begin('~/vimDebugPlugin')
-Plug 'apalmer1377/factorus' "factoring c++ code
-
+" """"""""""""""""""""""""""""""""""""
+" vim-lsp can replace coc. to test !
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
+"asyncomplete.vim
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"deoplete.nvim
+"Plug 'Shougo/deoplete.nvim'
+"Plug 'lighttiger2505/deoplete-vim-lsp'
+"
+"
+""nvim lsp builtin to look later in a release built can be interesting
+":Plug 'neovim/nvim-lspconfig'
+"""""""""""""""""""""""""""""""""""""""""""""""""
+" 
+"
+"
+"Plug 'apalmer1377/factorus' "factoring c++ code. replaced by clangd 11 
 Plug 'sheerun/vim-polyglot'
 "Plug 'PProvost/vim-ps1' "display mark and allow new shortcut
 Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 "Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
-"Plug 'cdelledonne/vim-cmake'
+"Plug 'cdelledonne/vim-cmake' "only linux
 "Plug 'ilyachur/cmake4vim' 'not async so unusable
 "Plug 'vhdirk/vim-cmake'
 "Plug 'jalcine/cmake.vim' 'don't work
+"https://github.com/Shatur95/vim-cmake-projects
+"
+"https://github.com/regen100/cmake-language-server
 """""""""""""""""""""""""""""""""""
 " color schema
 """""""""""""""""""""""""""""""""""
@@ -96,7 +117,7 @@ Plug 'liuchengxu/vim-which-key'
 "a bug on map name key
 Plug 'neoclide/jsonc.vim'
 if has('nvim')
-  Plug 'TheZoq2/neovim-auto-autoread'
+  "Plug 'TheZoq2/neovim-auto-autoread'
   "Plug 'huawenyu/new.vim'
   "Plug 'huawenyu/new-gdb.vim' "don t work on windows os
   "Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
@@ -107,6 +128,7 @@ else
   Plug 'pakutoma/toggle-terminal'
 endif
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
+Plug 'conornewton/vim-latex-preview' "latex live preview"
 Plug 'will133/vim-dirdiff' "diff between directory
 Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
@@ -164,33 +186,19 @@ Plug 'voldikss/vim-translator'
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'junegunn/fzf.vim'
 call plug#end()
-""""""""""""""""""""""""""""""""""""
-" disable to print FX on insert mode
-""""""""""""""""""""""""""""""""""""
-map! <F5> <Nop>
-map! <F2> <Nop>
-map! <F3> <Nop>
-map! <F12> <Nop>
-map! <F11> <Nop>
-map! <F10> <Nop>
-map! <F9> <Nop>
-map! <F8> <Nop>
-map! <F7> <Nop>
-map! <F6> <Nop>
-map! <F4> <Nop>
-"color syntaxe available
-syntax on                   " syntax highlighting
-" speed up vim with limit syntaxe line number (really important)
- augroup vimrc
 
-   autocmd!
+"let g:nvim_config_root = stdpath('config')
+""let path = expand('%:p:h')
 
-   autocmd BufWinEnter,Syntax * syn sync minlines=500 maxlines=500
+let g:path = expand('<sfile>:p:h') . "/pluginConfig/"
+let g:config_file_list = ['vimBasic.vim' ]
 
- augroup END
-""""""""""""""""""""""""
-filetype on                 " try to detect filetypes
-filetype plugin indent on   " enable loading indent file for filetype
+for f in g:config_file_list
+  "echom g:path
+    execute 'source ' . g:path . '/' . f
+endfor
+
+
 if has('nvim')
 else
   packadd termdebug " add gdb to vim
@@ -378,8 +386,8 @@ else
   nnoremap <silent>  à :ToggleTerminal<CR>
 
   " set your favorite shell
-  "let g:toggle_terminal#command = 'pwsh'
-  let g:toggle_terminal#command = 'powershell'
+  let g:toggle_terminal#command = 'pwsh'
+  "let g:toggle_terminal#command = 'powershell'
 
   " set terminal window position
   " (see possible options at :help vertical)
@@ -432,13 +440,15 @@ let g:lightline = {
       \ 'colorscheme': 'wombat',
       \   'active': {
       \     'left':[ [ 'mode', 'paste' ],
-      \              [ 'gitbranch', 'cocstatus','readonly', 'filename', 'modified' ]
+      "\              [ 'gitbranch', 'cocstatus','readonly', 'LightlineFilename', 'modified' ]
+      \              [ 'gitbranch', 'cocstatus','readonly', 'absolutepath', 'modified' ]
       \     ]
       \   },
       \   'component_function': {
       \     'gitbranch': 'fugitive#head',
       "\   'filename': 'CompleteRelativePath',
-      \ },
+      \   'filename': 'LightlineFilename',
+      \ }
       \ }
 let g:lightline.separator = {
       \   'left': '|', 'right': '|'
@@ -451,6 +461,15 @@ let g:lightline.tabline = {
       \   'left': [ ['tabs'] ],
       \   'right': [ ['close'] ]
       \ }
+
+function! LightlineFilename()
+  let root = fnamemodify(get(b:, 'git_dir'), ':h')
+  let path = expand('%:p')
+  if path[:len(root)-1] ==# root
+    return path[len(root)+1:]
+  endif
+  return expand('%')
+endfunction
 
 func! CompleteRelativePath()
 "return system("git ls-files","%")
@@ -536,8 +555,8 @@ set guioptions-=e  " Don't use GUI tabline
 syntax enable
 "set background=dark
 "set guifont=Monospace\ Bold\ 16
-"colorscheme solarized
-colorscheme gruvbox
+colorscheme solarized8
+"colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
 "colorscheme solarized8
 ""gui font must be set in ginit
@@ -664,18 +683,20 @@ set nu
 map <C-a> GVgg
 nnoremap <C-s> :w<cr>
 inoremap <C-s> <c-o>:w<cr>
-noremap <leader>h :history<cr>
+"noremap <leader>h :history<cr>
 nmap q: <Nop>
 map <C-c> y
 "imap <C-h> :%s/
 nmap <C-h> :%s/
-"vmap <C-h> :s/
+vmap <C-h> :s/
 " vnoremap <C-h> "hy:%s/<C-r>h//gc<left><left><left>map <C-f> /
 "Allow to shearch visula selection with *
 
 vnoremap * y/\V<C-r>=escape(@",'/\')<CR><CR>
 "subsitute word under cursor
-nnoremap <leader>hh :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i
+"nnoremap <leader>hh :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i "use command mode
+"but need to debug this mode
+nnoremap <leader>hh :%s/<c-r><c-w>/<c-r><c-w>/g
 " Smart way to move between windows
 map <C-S-Left> <C-W>h
 map <C-S-Right> <C-W>l
@@ -1060,8 +1081,8 @@ nnoremap <silent> <space>nk :call <SID>show_documentation()<CR>
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
-  elseif (index(['cmake'], &filetype) >= 0)
-          :CocCommand cmake.onlineHelp
+  "elseif (index(['cmake'], &filetype) >= 0)
+          ":CocCommand cmake.onlineHelp
   else
     call CocAction('doHover')
   endif
@@ -1158,7 +1179,9 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Tab>"
 """""""""""""""""""""""""""""""""""""""""""
 " coc-explorer
 """"""""""""""""""""""""""""""""""""""""""""
-:nmap <space>e :CocCommand explorer --toggle<CR>
+:nmap <space>ee :CocCommand explorer --toggle --sources=file+,   --quit-on-open  <CR>
+:nmap <space>eb :CocCommand explorer --toggle --sources=buffer+, --quit-on-open<CR>
+:nmap <space>em :CocCommand explorer --toggle --sources=bookmark+,  --quit-on-open<CR>
 
 """""""""""""""""""""""""""""""""""""""""""
 " coc-json
@@ -1225,6 +1248,7 @@ autocmd  FileType which_key set laststatus=0 noshowmode noruler
 
 "map <A-j> <Plug>(easymotion-j)
 "map <A-k> <Plug>(easymotion-k)
+let g:EasyMotion_smartcase = 1
 map <leader><leader>l <Plug>(easymotion-w)
 map <leader><leader>h <Plug>(easymotion-b)
 ""map <A-S-J> <Plug>(easymotion-J)
@@ -1640,6 +1664,7 @@ command ProfilBenchmark call Profil_benchmark()
 noremap <leader>ww :tabclose<cr>
 noremap <leader>wx :only<cr>
 noremap <leader>wq :q<cr>
+nnoremap <leader>wv <c-v>
 """"""""""""""""""""""
 
 set diffopt+=vertical
@@ -1693,10 +1718,55 @@ endif
 " autoread plugin
 """"""""""""""""""""
     "Autoreload files when changed externally
-    set autoread
-    if has('nvim') "Prevent errors when using standard vim
-        autocmd VimEnter * AutoreadLoop
-    endif
+    "set autoread
+    "if has('nvim') "Prevent errors when using standard vim
+        "autocmd VimEnter * AutoreadLoop
+    "endif
+      " trigger `autoread` when files changes on disk
+      set autoread
+      autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+    " notification after file change
+      autocmd FileChangedShellPost *
+        \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+if has('nvim')
+
+endif
+"""""""""""""""""""""""""
+" neovim lspbuiltin
+""""""""""""""""""""""""
+"vim.cmd('packadd nvim-lspconfig') 
+"require'lspconfig'.clangd.setup{}
+
+  ""Commands:
+  ""- ClangdSwitchSourceHeader: Switch between source/header
+  
+  ""Default Values:
+    ""capabilities = default capabilities, with offsetEncoding utf-8
+    "cmd = { "clangd", "--background-index" }
+    "filetypes = { "c", "cpp", "objc", "objcpp" }
+    ""on_init = function to handle changing offsetEncoding
+    "root_dir = root_pattern("compile_commands.json", "compile_flags.txt", ".git") or dirname
+
+"""""""""""""""""""""""""""""""""
+"VIM-LSP CONFIG"
+"let g:lsp_settings = {
+"\  'clangd': {'cmd': ['D:\ftarroux\Logiciel\clangd_11.0.0-rc1\bin\clangd.exe']},
+"\  'efm-langserver': {'disabled': v:false}
+"\}
+"""""""""""""""""""""""""""""""""""""
 
 
-
+"""""""""""""""""""""""""""""""""""""
+"NETRW
+""""""""""""""""""""""""""""""""""""""
+"let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+":nmap <leader>e :Vexplore<CR>
+"augroup ProjectDrawer
+  "autocmd!
+  "autocmd VimEnter * :Vexplore
+"augroup END
