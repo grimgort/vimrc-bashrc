@@ -1,6 +1,6 @@
 
 
-function! s:show_documentation()
+function! Show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
     execute 'h '.expand('<cword>')
   "elseif (index(['cmake'], &filetype) >= 0)

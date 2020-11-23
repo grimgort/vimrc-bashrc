@@ -121,7 +121,26 @@ nmap <leader>nf  <Plug>(coc-format)
 " Apply AutoFix to problem on the current line.
 nmap <leader>nq  <Plug>(coc-fix-current)
 " Use K to show documentation in preview window.
-nnoremap <silent> <space>nk :call <SID>show_documentation()<CR>
+"function! s:show_documentation()
+  "if (index(['vim','help'], &filetype) >= 0)
+    "execute 'h '.expand('<cword>')
+  ""elseif (index(['cmake'], &filetype) >= 0)
+          "":CocCommand cmake.onlineHelp
+  "else
+    "call CocAction('doHover')
+  "endif
+"endfunction
+"
+"function! Show_documentation()
+  "if (index(['vim','help'], &filetype) >= 0)
+    "execute 'h '.expand('<cword>')
+  ""elseif (index(['cmake'], &filetype) >= 0)
+          "":CocCommand cmake.onlineHelp
+  "else
+    "call CocAction('doHover')
+  "endif
+"endfunction
+nnoremap <silent> <space>nk :call Show_documentation()<CR>
 
 
 " Use <c-space> to trigger completion.

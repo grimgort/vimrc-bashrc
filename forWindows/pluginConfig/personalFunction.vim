@@ -220,3 +220,29 @@ function Profil_benchmark()
 endfunction
 command ProfilBenchmark call Profil_benchmark()
 
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"" toggle terminal
+""""""""""""""""""""""""""""""""""""""""""""""""""""
+  let g:term_buf = 0
+  let g:term_win = 0
+  function! Term_toggle(height)
+    if win_gotoid(g:term_win)
+      hide
+    else
+      botright new
+      "vertical bo split new
+      "vertical bo 80vsplit new
+      "belowright new
+      "exec "resize " . a:height
+      try
+        exec "buffer " . g:term_buf
+      catch
+        call termopen("powershell", {"detach": 0})
+        let g:term_buf = bufnr("")
+      endtry
+      startinsert!
+      let g:term_win = win_getid()
+    endif
+  endfunction
+

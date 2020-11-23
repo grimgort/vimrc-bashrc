@@ -11,6 +11,10 @@
       }
     }
   },
+	"vimlsp.filetypes": [
+		"vim"
+	],
+	"vimlsp.debug": true,
   /*"coc.preferences.maxFileSize": "999MB",*/
 	"translator.toLang": "fr",
   /*"diagnostic.refreshOnInsertMode": false,*/

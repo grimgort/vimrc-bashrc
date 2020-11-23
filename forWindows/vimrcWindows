@@ -1,7 +1,6 @@
 set nocompatible            " be iMproved, required
 filetype off                " required, so vundle will be loaded properly
 
-"let g:mapleader = ","
 let mapleader=" "
 let localleader = ","
 
@@ -34,10 +33,10 @@ let g:coc_global_extensions = [
       \ 'coc-word',
       \'coc-syntax',
       \'coc-explorer',
-      \ 'coc-lists'
+      \ 'coc-lists',
+      \ 'coc-cmake'
       \]
 
-      "\ 'coc-cmake',
       "\ 'coc-html',
       "\ 'coc-explorer',
       "\ 'coc-tsserver',
@@ -47,7 +46,7 @@ let g:coc_global_extensions = [
       "\ 'coc-angular',
 
 call plug#begin('~/vimDebugPlugin')
-" """"""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""""
 " vim-lsp can replace coc. to test !
 "Plug 'prabirshrestha/vim-lsp'
 "Plug 'mattn/vim-lsp-settings'
@@ -215,7 +214,6 @@ let g:config_file_list = [
 \'indent-guide.vim',
 \'language_tool.vim',
 \'lightline.vim',
-\'mapping.vim',
 \'markdownPreview.vim',
 \'neovim-lsp.vim',
 \'nerdtree.vim',
@@ -234,13 +232,15 @@ let g:config_file_list = [
 \'vimBasic.vim',
 \'vimspector.vim',
 \'which_key.vim',
-\'YouCompleteMe.vim'
+\'YouCompleteMe.vim',
+\'mapping.vim',
                   \]
 for f in g:config_file_list
     execute 'source ' . g:path . '/' . f
 endfor
 
 
+"au FileType cmake RainbowToggleOff "bug syntax higlighting
 
 
 
