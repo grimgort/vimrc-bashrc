@@ -365,6 +365,7 @@ nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
 	nnoremap <silent> <leader>gp :Gina! push<CR>
 	nnoremap <silent> <leader>go :,Gina browse :<CR>
 	vnoremap <silent> <leader>go :Gina browse :<CR>
+	vnoremap <silent> <leader>gi :Twiggy <CR>
 
 
 

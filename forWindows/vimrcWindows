@@ -131,6 +131,7 @@ Plug 'conornewton/vim-latex-preview' "latex live preview"
 Plug 'will133/vim-dirdiff' "diff between directory
 Plug 'rstacruz/vim-closer'
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
+Plug 'sodapopcan/vim-twiggy' "Twiggy plugin fugitive inspect branch
 Plug 'lambdalisue/gina.vim'
 Plug 'gregsexton/gitv', {'on': ['Gitv']} "top git log
 Plug 'majutsushi/tagbar' "display a menu with tag in file
