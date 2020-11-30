@@ -366,6 +366,9 @@ nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
 	nnoremap <silent> <leader>go :,Gina browse :<CR>
 	vnoremap <silent> <leader>go :Gina browse :<CR>
 	vnoremap <silent> <leader>gi :Twiggy <CR>
+	vnoremap <silent> <leader>gj :GitGutterNextHunk<CR>
+	vnoremap <silent> <leader>gk :GitGutterPrevHunk<CR>
+	vnoremap <silent> <leader>gh :GitGutterStageHunk<CR>
 
 
 
