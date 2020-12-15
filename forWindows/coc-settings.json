@@ -26,7 +26,7 @@
   /*"git.signOffset":3,*/
 	"list.source.grep.defaultArgs": ["-ie"],
 "coc.preferences.useQuickfixForLocations": true,
-  "python.pipenvPath": "D:/ftarroux/Logiciel/Python38/Scripts/pip.exe",
+	"python.pipenvPath": "D:/ftarroux/Logiciel/Python38/Scripts/pip3.8.exe",
   "python.formatting.provider": "black",
   "python.jediEnabled": true,
   "http.proxy": "http://proxy.onera:80",

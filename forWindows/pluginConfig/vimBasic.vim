@@ -289,6 +289,7 @@ endif
 
 
 set diffopt+=vertical  "set siff in vertical mode by default"
+set diffopt+=iwhiteall "ignore white space"
 
 """""""""""""""""""""
 " autoread

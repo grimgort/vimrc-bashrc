@@ -141,7 +141,7 @@ nmap <leader>nq  <Plug>(coc-fix-current)
   "endif
 "endfunction
 nnoremap <silent> <space>nk :call Show_documentation()<CR>
-
+autocmd FileType cmake nnoremap <space>nK :CocCommand cmake.onlineHelp<CR>;
 
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
@@ -318,7 +318,8 @@ nmap <leader>bz :CocList -A --tab bookmark<cr>
 """""""""""""""""""""""""""""""""""""""""""""""
 "nmap <leader>fb :CocList  buffers<cr>
 "nmap <leader>fb :Buffer<cr>
-nmap <leader>fb :CocList --number-select mru -A <cr>
+nmap <leader>fb :Denite buffer<cr>
+"nmap <leader>fb :CocList --number-select mru -A <cr>
 nmap <leader>fg :CocList  gfiles<cr>
 nmap <C-:> :CocList cmdhistory<cr>
 
@@ -369,6 +370,7 @@ nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
 	nnoremap <silent> <leader>gj :GitGutterNextHunk<CR>
 	nnoremap <silent> <leader>gk :GitGutterPrevHunk<CR>
 	nnoremap <silent> <leader>gh :GitGutterStageHunk<CR>
+	nnoremap <silent> <leader>gu :GitGutterUndoHunk<CR>
 
 
 

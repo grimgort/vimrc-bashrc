@@ -17,7 +17,6 @@ let g:coc_global_extensions = [
       \ 'coc-snippets',
       \ 'coc-calc',
       \ 'coc-tslint',
-      \ 'coc-todolist',
       \ 'coc-tabnine',
       \ 'coc-spell-checker',
       \ 'coc-browser',
@@ -34,6 +33,7 @@ let g:coc_global_extensions = [
       \'coc-syntax',
       \'coc-explorer',
       \ 'coc-lists',
+      \ 'coc-todolist',
       \ 'coc-cmake'
       \]
 
@@ -168,6 +168,8 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'MaskRay/ccls', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'wsdjeg/vim-todo' "dont work
+"Plug 'aserebryakov/vim-todo-lists'
+"
 "Note: You may need to execute these commands in the "Developer Command Prompt for VS"
 "git clone https://github.com/llvm/llvm-project.git
 "cd llvm-project
@@ -185,6 +187,15 @@ Plug 'voldikss/vim-translator'
 "fzf for buffer
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'junegunn/fzf.vim'
+
+if has('nvim')
+  Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/denite.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+
 call plug#end()
 
 "let g:nvim_config_root = stdpath('config')

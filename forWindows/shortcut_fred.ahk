@@ -1,1 +1,1 @@
-﻿!F2::run, "D:\ftarroux\scoop\shims\brave.exe"
+﻿!F2::run, "D:\ftarroux\scoop\apps\vivaldi\current\Application\vivaldi.exe"
