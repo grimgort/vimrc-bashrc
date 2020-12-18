@@ -48,30 +48,30 @@ let g:coc_global_extensions = [
 call plug#begin('~/vimDebugPlugin')
 """""""""""""""""""""""""""""""""""""
 " vim-lsp can replace coc. to test !
-"Plug 'prabirshrestha/vim-lsp'
-"Plug 'mattn/vim-lsp-settings'
+"Plug 'prabirshrestha/vim-lsp' ,{ 'tag': '*' } 
+"Plug 'mattn/vim-lsp-settings' ,{ 'tag': '*' } 
 "asyncomplete.vim
-"Plug 'prabirshrestha/asyncomplete.vim'
-"Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'prabirshrestha/asyncomplete.vim' 
+"Plug 'prabirshrestha/asyncomplete-lsp.vim' ,{ 'tag': '*' } 
 "deoplete.nvim
-"Plug 'Shougo/deoplete.nvim'
-"Plug 'lighttiger2505/deoplete-vim-lsp'
+"Plug 'Shougo/deoplete.nvim' ,{ 'tag': '*' } 
+"Plug 'lighttiger2505/deoplete-vim-lsp' ,{ 'tag': '*' } 
 "
 "
 ""nvim lsp builtin to look later in a release built can be interesting
-":Plug 'neovim/nvim-lspconfig'
+"Plug 'neovim/nvim-lspconfig' ,{ 'tag': '*' } 
 """""""""""""""""""""""""""""""""""""""""""""""""
 " 
 "
 "
 "Plug 'apalmer1377/factorus' "factoring c++ code. replaced by clangd 11 
-Plug 'sheerun/vim-polyglot'
+Plug 'sheerun/vim-polyglot' ,{ 'tag': '*' } 
 "Plug 'PProvost/vim-ps1' "display mark and allow new shortcut
 Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 "Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
 "Plug 'cdelledonne/vim-cmake' "only linux
 "Plug 'ilyachur/cmake4vim' 'not async so unusable
-"Plug 'vhdirk/vim-cmake'
+"Plug 'vhdirk/vim-cmake' ,{ 'tag': '*' } 
 "Plug 'jalcine/cmake.vim' 'don't work
 "https://github.com/Shatur95/vim-cmake-projects
 "
@@ -80,59 +80,59 @@ Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 " color schema
 """""""""""""""""""""""""""""""""""
 "Plug 'altercation/vim-colors-solarized' " solarized color for vim
-Plug 'lifepillar/vim-solarized8'
-Plug 'morhetz/gruvbox'
-Plug 'romainl/flattened'
-Plug 'drewtempelmeyer/palenight.vim'
+Plug 'lifepillar/vim-solarized8' ,{ 'tag': '*' } 
+Plug 'morhetz/gruvbox' ,{ 'tag': '*' } 
+Plug 'romainl/flattened' ,{ 'tag': '*' } 
+Plug 'drewtempelmeyer/palenight.vim' 
 Plug 'ayu-theme/ayu-vim'
 "set termguicolors     " enable true colors support
 "let ayucolor="light"  " for light version of theme
 "let ayucolor="mirage" " for mirage version of theme
 "let ayucolor="dark"   " for dark version of theme
 "colorscheme ayu
-Plug 'arcticicestudio/nord-vim'
-Plug 'rakr/vim-one'
-Plug 'mhartington/oceanic-next'
+Plug 'arcticicestudio/nord-vim' ,{ 'tag': '*' } 
+Plug 'rakr/vim-one' ,{ 'tag': '*' } 
+Plug 'mhartington/oceanic-next' 
 """"""""""""""""""""""""""""""""""
 
 "Plug 'Yggdroot/indentLine' " bug for json file were '' disparait
-Plug 'nathanaelkane/vim-indent-guides'
+Plug 'nathanaelkane/vim-indent-guides' ,{ 'tag': '*' } 
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
-Plug 'lifepillar/vim-cheat40'
+"Plug 'lifepillar/vim-cheat40' ,{ 'tag': '*' } 
 Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
-"Plug 'MattesGroeger/vim-bookmarks'
+Plug 'MattesGroeger/vim-bookmarks' ,{ 'tag': '*' } 
 "Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility
 "Plug 'jiangmiao/auto-pairs' " ef
 
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
-"Plug 'sbdchd/neoformat'
-"Plug 'grailbio/bazel-compilation-database'
-Plug 'easymotion/vim-easymotion'
-Plug 'jreybert/vimagit'
-Plug 'liuchengxu/vim-which-key'
+Plug 'sbdchd/neoformat' ,{ 'tag': '*' } 
+Plug 'grailbio/bazel-compilation-database' ,{ 'tag': '*' } 
+Plug 'easymotion/vim-easymotion' ,{ 'tag': '*' } 
+Plug 'jreybert/vimagit' ,{ 'tag': '*' } 
+Plug 'liuchengxu/vim-which-key' ,{ 'tag': '*' } 
 "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] } #create
 "a bug on map name key
 Plug 'neoclide/jsonc.vim'
 if has('nvim')
-  "Plug 'TheZoq2/neovim-auto-autoread'
-  "Plug 'huawenyu/new.vim'
+Plug 'TheZoq2/neovim-auto-autoread'
+Plug 'huawenyu/new.vim' 
   "Plug 'huawenyu/new-gdb.vim' "don t work on windows os
   "Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
   "Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   ""suspected to bug snippet "
-  Plug 'ncm2/float-preview.nvim'
+Plug 'ncm2/float-preview.nvim' ,{ 'tag': '*' } 
 else
-  Plug 'pakutoma/toggle-terminal'
+Plug 'pakutoma/toggle-terminal' ,{ 'tag': '*' } 
 endif
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'conornewton/vim-latex-preview' "latex live preview"
 Plug 'will133/vim-dirdiff' "diff between directory
-Plug 'rstacruz/vim-closer'
+Plug 'rstacruz/vim-closer' ,{ 'tag': '*' } 
 Plug 'tpope/vim-fugitive' "fugitive =  git wrapper
 Plug 'sodapopcan/vim-twiggy' "Twiggy plugin fugitive inspect branch
-Plug 'lambdalisue/gina.vim'
+Plug 'lambdalisue/gina.vim' ,{ 'tag': '*' } 
 Plug 'gregsexton/gitv', {'on': ['Gitv']} "top git log
 Plug 'majutsushi/tagbar' "display a menu with tag in file
 "Plug 'vim-scripts/Gundo' "Gundo.vim is Vim plugin to visualize your Vim undo tree
@@ -142,8 +142,8 @@ Plug 'Shougo/echodoc' "Displays function signatures from completions in the comm
 Plug 'Chiel92/vim-autoformat' "autoformat
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clangd-completer --clang-completer --clang-tidy --js-completer'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'itchyny/lightline.vim'
-Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>'
+Plug 'itchyny/lightline.vim' ,{ 'tag': '*' } 
+Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>' ,{ 'tag': '*' } 
 "Plug 'ludovicchabant/vim-gutentags' "auto tag git project
 "Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
 "Plug 'sjl/splice.vim' "tool for resolve threeMerge conflict
@@ -151,24 +151,25 @@ Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>'
 Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
 "Plug 'Raimondi/delimitMate' "close bracket
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
-Plug 'airblade/vim-gitgutter'
-Plug 'vim-scripts/DoxygenToolkit.vim'
-"Plug 'dpelle/vim-Grammalecte'
-Plug 'mhinz/vim-grepper'
-Plug 'vigoux/LanguageTool.nvim'
-"Plug 'dpelle/vim-LanguageTool'
-Plug 'rhysd/vim-grammarous'
+Plug 'airblade/vim-gitgutter' 
+Plug 'vim-scripts/DoxygenToolkit.vim' ,{ 'tag': '*' } 
+Plug 'dpelle/vim-Grammalecte' 
+Plug 'mhinz/vim-grepper' ,{ 'tag': '*' } 
+Plug 'vigoux/LanguageTool.nvim' ,{ 'tag': '*' } 
+Plug 'dpelle/vim-LanguageTool' 
+Plug 'rhysd/vim-grammarous' ,{ 'tag': '*' } 
 Plug 'junegunn/vim-easy-align' "align text
-Plug 'skywind3000/asyncrun.vim'
-Plug 'octol/vim-cpp-enhanced-highlight'
+Plug 'skywind3000/asyncrun.vim' ,{ 'tag': '*' } 
+Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'tag': '*' } 
 Plug 'puremourning/vimspector' "don't really work on windows os
-"Plug 'mphe/grayout.vim'
+Plug 'mphe/grayout.vim' 
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
+"Plug 'neoclide/coc.nvim', {'branch': 'release', 'tag': '*'  } "can replaceYCM (more modern)
+Plug 'neoclide/coc.nvim'
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'MaskRay/ccls', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'wsdjeg/vim-todo' "dont work
-"Plug 'aserebryakov/vim-todo-lists'
+Plug 'aserebryakov/vim-todo-lists' ,{ 'tag': '*' } 
 "
 "Note: You may need to execute these commands in the "Developer Command Prompt for VS"
 "git clone https://github.com/llvm/llvm-project.git
@@ -182,18 +183,18 @@ Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
 "cmake -H. -BRelease -G Ninja -DCMAKE_BUILD_TYPE=Release -DCMAKE_CXX_COMPILER=clang-cl -DCMAKE_PREFIX_PATH="D:/llvm/Release;D:/llvm/Release/tools/clang;D:/llvm;D:/llvm/tools/clang"
 "ninja -C Release
 "Plug 'universal-ctags/ctags', {'do' : nmake -f mk_mvc.mak}
-Plug 'universal-ctags/ctags'
-Plug 'voldikss/vim-translator'
+Plug 'universal-ctags/ctags' ,{ 'tag': '*' } 
+Plug 'voldikss/vim-translator' 
 "fzf for buffer
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-"Plug 'junegunn/fzf.vim'
+"Plug 'junegunn/fzf.vim' 
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
 else
-  Plug 'Shougo/denite.nvim'
-  Plug 'roxma/nvim-yarp'
-  Plug 'roxma/vim-hug-neovim-rpc'
+Plug 'Shougo/denite.nvim' ,{ 'tag': '*' } 
+Plug 'roxma/nvim-yarp' ,{ 'tag': '*' } 
+Plug 'roxma/vim-hug-neovim-rpc' ,{ 'tag': '*' } 
 endif
 
 call plug#end()
@@ -245,6 +246,7 @@ let g:config_file_list = [
 \'vimspector.vim',
 \'which_key.vim',
 \'YouCompleteMe.vim',
+\'denite.vim',
 \'mapping.vim',
                   \]
 for f in g:config_file_list
