@@ -82,7 +82,7 @@ Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 "Plug 'altercation/vim-colors-solarized' " solarized color for vim
 Plug 'lifepillar/vim-solarized8' ,{ 'tag': '*' } 
 Plug 'morhetz/gruvbox' ,{ 'tag': '*' } 
-Plug 'romainl/flattened' ,{ 'tag': '*' } 
+Plug 'romainl/flattened' 
 Plug 'drewtempelmeyer/palenight.vim' 
 Plug 'ayu-theme/ayu-vim'
 "set termguicolors     " enable true colors support
@@ -111,7 +111,7 @@ Plug 'sbdchd/neoformat' ,{ 'tag': '*' }
 Plug 'grailbio/bazel-compilation-database' ,{ 'tag': '*' } 
 Plug 'easymotion/vim-easymotion' ,{ 'tag': '*' } 
 Plug 'jreybert/vimagit' ,{ 'tag': '*' } 
-Plug 'liuchengxu/vim-which-key' ,{ 'tag': '*' } 
+Plug 'liuchengxu/vim-which-key' 
 "Plug 'liuchengxu/vim-which-key', { 'on': ['WhichKey', 'WhichKey!'] } #create
 "a bug on map name key
 Plug 'neoclide/jsonc.vim'
@@ -122,7 +122,7 @@ Plug 'huawenyu/new.vim'
   "Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
   "Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   ""suspected to bug snippet "
-Plug 'ncm2/float-preview.nvim' ,{ 'tag': '*' } 
+Plug 'ncm2/float-preview.nvim' 
 else
 Plug 'pakutoma/toggle-terminal' ,{ 'tag': '*' } 
 endif
@@ -142,7 +142,7 @@ Plug 'Shougo/echodoc' "Displays function signatures from completions in the comm
 Plug 'Chiel92/vim-autoformat' "autoformat
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clangd-completer --clang-completer --clang-tidy --js-completer'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
-Plug 'itchyny/lightline.vim' ,{ 'tag': '*' } 
+Plug 'itchyny/lightline.vim' 
 Plug 'alvan/vim-closetag' "close html tag with key '>' or '>>' ,{ 'tag': '*' } 
 "Plug 'ludovicchabant/vim-gutentags' "auto tag git project
 "Plug 'tell-k/vim-autopep8' "allow  command autopep8 in vim for python file
@@ -157,7 +157,7 @@ Plug 'dpelle/vim-Grammalecte'
 Plug 'mhinz/vim-grepper' ,{ 'tag': '*' } 
 Plug 'vigoux/LanguageTool.nvim' ,{ 'tag': '*' } 
 Plug 'dpelle/vim-LanguageTool' 
-Plug 'rhysd/vim-grammarous' ,{ 'tag': '*' } 
+Plug 'rhysd/vim-grammarous' 
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim' ,{ 'tag': '*' } 
 Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'tag': '*' } 
