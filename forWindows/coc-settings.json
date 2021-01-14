@@ -25,16 +25,18 @@
   /*"git.enableGutters": false,*/
   /*"git.signOffset":3,*/
 	"list.source.grep.defaultArgs": ["-ie"],
-"coc.preferences.useQuickfixForLocations": true,
-	"python.pipenvPath": "D:/ftarroux/Logiciel/Python38/Scripts/pip3.8.exe",
+/*"coc.preferences.useQuickfixForLocations": true,*/
+  /*"python.pipenvPath": "D:/ftarroux/Logiciel/Python38/Scripts/pip.exe",*/
   "python.formatting.provider": "black",
-  "python.jediEnabled": true,
+  /*"python.jediEnabled": true,*/
   "http.proxy": "http://proxy.onera:80",
-  /*"http.proxyStrictSSL": true,*/
+  /*"http.proxyCA": null,*/
+  /*"http.proxy": "proxy.onera:80",*/
+  "http.proxyStrictSSL": false,
   "json.format.enable": true,
   "coc.preferences.formatOnType": true,
-  "coc.preferences.formatOnInsertLeave": true,
-  "coc.preferences.formatOnTypeFiletypes": ["c","c++","markdown"],
+  /*"coc.preferences.formatOnInsertLeave": true,*/
+  /*"coc.preferences.formatOnTypeFiletypes": ["c","c++","markdown"],*/
   "coc.preferences.formatOnSaveFiletypes": [
     "c",
     "c++",
@@ -46,6 +48,7 @@
     "typescript",
     "typescriptreact",
     "json",
+    "python",
     "jsonc"
   ],
   "prettier.proseWrap":"always", // allow wrapping for maarkdown
@@ -94,6 +97,8 @@
     /*}*/
   /*},*/
 	"coc.preferences.extensionUpdateCheck": "never",
+  "coc.preferences.colorSupport": true,
+  "coc.preferences.floatActions": true,
   "cSpell.enabled": false,
   "cSpell.language": "fr,en",
   /*"cSpellExt.enableDictionaries": ["french"],*/
@@ -143,6 +148,64 @@
 	"clangd.arguments": ["--query-driver=D:\\ftarroux\\Logiciel\\minGW\\bin\\g*","--log=verbose"],
 	/*"clangd.arguments": ["--query-driver=D:\\ftarroux\\Logiciel\\minGW\\bin\\g*","--log=verbose"],*/
   "clangd.enabled": true,
+  ///////////////////////////////////////////
+/*coc jedi config */
+"diagnostic-languageserver.filetypes": {
+  "python": "pylint"
+},
+"diagnostic-languageserver.linters": {
+  "pylint": {
+    "sourceName": "pylint",
+    "command": "pylint",
+    "args": [
+      "--output-format",
+      "text",
+      "--score",
+      "no",
+      "--msg-template",
+      "'{line}:{column}:{category}:{msg} ({msg_id}:{symbol})'",
+      "%file"
+    ],
+    /*"formatPattern": [*/
+      /*"^(\\d+?):(\\d+?):([a-z]+?):(.*)$",*/
+      /*{*/
+        /*"line": 1,*/
+        /*"column": 2,*/
+        /*"security": 3,*/
+        /*"message": 4*/
+      /*}*/
+    /*],*/
+    "rootPatterns": [".git", "pyproject.toml", "setup.py"],
+    "securities": {
+      "informational": "hint",
+      "refactor": "info",
+      "convention": "info",
+      "warning": "warning",
+      "error": "error",
+      "fatal": "error"
+    },
+    "offsetColumn": 1,
+    "formatLines": 1
+  }
+},
+"diagnostic-languageserver.formatFiletypes": {
+  "python": ["black.exe"]
+},
+"diagnostic-languageserver.formatters": {
+  "black": {
+    "command": "black",
+    "args": ["black.exe", "-q", "-"]
+  },
+  "isort": {
+    "command": "isort",
+    "args": ["-q", "-"]
+  },
+  "docformatter": {
+    "command": "docformatter",
+    "args": ["-"]
+  }
+},
+////////////////////////////////////////////////////////////////////////
   "git.enableGutters": false
 
 }

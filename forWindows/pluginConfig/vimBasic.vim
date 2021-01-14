@@ -52,7 +52,8 @@ endif
 "syntax enable
 "set background=dark
 "set guifont=Monospace\ Bold\ 16
-colorscheme solarized8
+"colorscheme solarized8
+colorscheme palenight
 "colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
 ""gui font must be set in ginit

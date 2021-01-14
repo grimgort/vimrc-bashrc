@@ -23,7 +23,7 @@ if (Test-Path($ChocolateyProfile)) {
 }
 
     $dateTime = get-date -Format "dd.MM.yyyy HH:mm:ss"
-$global:GitPromptSettings.DefaultPromptPrefix = '$(write-host "DATE : $dateTime" -ForegroundColor green)' 
+$global:GitPromptSettings.DefaultPromptPrefix = '$(write-host "DATE : $(Get-Date -format "dd.MM.yyyy HH:mm:ss " )" -ForegroundColor green)' 
 #$global:GitPromptSettings.DefaultPromptPrefix = '$(Get-Date -format "dd.MM.yyyy HH:mm:ss " )' 
 #function prompt {
     #$dateTime = get-date -Format "dd.MM.yyyy HH:mm:ss"
