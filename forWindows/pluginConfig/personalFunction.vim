@@ -39,6 +39,11 @@ endfunction
 com! CmakeFormat silent! call CmakeFormat()<cr>
 
 
+"function! PythonFormat()
+  "execute "black " bufname("%")
+"endfunction
+"com! PythonFormat silent! call PythonFormat()<cr>
+
 :command! -complete=file -nargs=1 Rpdf :r !pdftotext -nopgbrk <q-args> - |fmt -csw78
 
 
@@ -238,7 +243,7 @@ command ProfilBenchmark call Profil_benchmark()
       try
         exec "buffer " . g:term_buf
       catch
-        call termopen("powershell", {"detach": 0})
+        call termopen("pwsh", {"detach": 0})
         let g:term_buf = bufnr("")
       endtry
       startinsert!

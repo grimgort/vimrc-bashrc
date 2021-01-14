@@ -66,13 +66,6 @@ vnoremap c d
 "use black hole for suppr key map
 noremap <Del> "_x
 
-"grep word under cursor
-"nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
-nnoremap K  :Gina grep --opener="to split" --group="test" -ie "\b<C-R><C-W>\b"
-
-" Keymapping for grep word under cursor with interactive mode
-"nnoremap <silent> K :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
-
 "Clear highlight on pressing ESC
 nnoremap <esc> :noh<return><esc>
 "map terminal
@@ -93,7 +86,8 @@ im <silent> ² <esc>:CloseAll<cr><esc>
 tmap <silent>²  <C-\><C-n>:CloseAll<cr>
 
 "" Find symbol of current document.
-nnoremap <silent> <space>no  :<C-u>CocList -A --tab outline<cr>
+"nnoremap <silent> <space>no  :<C-u>CocList -A --tab outline<cr> "bug
+nnoremap <silent> <space>no  :<C-u>CocList outline<cr>
 "" Search workspace symbols.
 nnoremap <silent> <space>nt  :<C-u>CocList -I symbols<cr>
 " Use `[g` and `]g` to navigate diagnostics
@@ -118,6 +112,7 @@ vmap <silent> <space>np <Plug>(coc-codeaction-selected)
 nmap <leader>na <Plug>(coc-rename)
 nmap <leader>n* <Plug>(coc-refactor)
 nmap <leader>nf  <Plug>(coc-format)
+"autocmd FileType python nmap <leader>nf  PythonFormat()<cr>
 " Apply AutoFix to problem on the current line.
 nmap <leader>nq  <Plug>(coc-fix-current)
 " Use K to show documentation in preview window.
@@ -261,42 +256,60 @@ map e <Plug>(easymotion-s)
 "map <leader><leader>L <Plug>(easymotion-W)
 "map <leader><leader>H <Plug>(easymotion-B)
 
+""""""""""""""""""""""""""""""""""""""
+" coc-translator 
+""""""""""""""""""""""""""""""""""""""
+" NOTE: do NOT use `nore` mappings
+" popup
+nmap <Leader>tt <Plug>(coc-translator-p)
+vmap <Leader>tt <Plug>(coc-translator-pv)
+" echo
+nmap <Leader>te <Plug>(coc-translator-e)
+vmap <Leader>te <Plug>(coc-translator-ev)
+" replace
+nmap <Leader>tr <Plug>(coc-translator-r)
+vmap <Leader>tr <Plug>(coc-translator-rv)
+""""""""""""""""""""""""""""""""""""""
+" vim-translator 
+""""""""""""""""""""""""""""""""""""""
 
+"" Echo translation in the cmdline
+"nmap <silent> <Leader>te <Plug>Translate
+"vmap <silent> <Leader>te <Plug>TranslateV
+"" Display translation in a window
+"nmap <silent> <Leader>tt <Plug>TranslateW
+"vmap <silent> <Leader>tt <Plug>TranslateWV
+"" Replace the text with translation
+"nmap <silent> <Leader>tr <Plug>TranslateR
+"vmap <silent> <Leader>tr <Plug>TranslateRV
+"" Translate the text in clipboard
+"nmap <silent> <Leader>tx <Plug>TranslateX
 
-" Echo translation in the cmdline
-nmap <silent> <Leader>te <Plug>Translate
-vmap <silent> <Leader>te <Plug>TranslateV
-" Display translation in a window
-nmap <silent> <Leader>tt <Plug>TranslateW
-vmap <silent> <Leader>tt <Plug>TranslateWV
-" Replace the text with translation
-nmap <silent> <Leader>tr <Plug>TranslateR
-vmap <silent> <Leader>tr <Plug>TranslateRV
-" Translate the text in clipboard
-nmap <silent> <Leader>tx <Plug>TranslateX
-
-" Echo translation in the cmdline
-nmap <silent> <Leader>te! <Plug>Translate!
-vmap <silent> <Leader>te! <Plug>TranslateV!
-" Display translation in a window
-nmap <silent> <Leader>tt! <Plug>TranslateW!
-vmap <silent> <Leader>tt! <Plug>TranslateWV!
-" Replace the text with translation
-nmap <silent> <Leader>tr! <Plug>TranslateR!
-vmap <silent> <Leader>tr! <Plug>TranslateRV!
-" Translate the text in clipboard
-nmap <silent> <Leader>tx! <Plug>TranslateX!
+"" Echo translation in the cmdline
+"nmap <silent> <Leader>te! <Plug>Translate!
+"vmap <silent> <Leader>te! <Plug>TranslateV!
+"" Display translation in a window
+"nmap <silent> <Leader>tt! <Plug>TranslateW!
+"vmap <silent> <Leader>tt! <Plug>TranslateWV!
+"" Replace the text with translation
+"nmap <silent> <Leader>tr! <Plug>TranslateR!
+"vmap <silent> <Leader>tr! <Plug>TranslateRV!
+"" Translate the text in clipboard
+"nmap <silent> <Leader>tx! <Plug>TranslateX!
 
 
 
 """"""""""""""""""""""""""""""""""""""""""""""""
 " coc-bookmark"" to use when debugged
 """"""""""""""""""""""""""""""""""""""""""""""""
-nmap <Leader>bl <Plug>(coc-bookmark-next)
-nmap <Leader>bh <Plug>(coc-bookmark-prev)
-nmap <leader>bt <plug>(coc-bookmark-toggle)
-nmap <leader>ba <plug>(coc-bookmark-annotate)
-nmap <leader>bz :CocList -A --tab bookmark<cr>
+nmap <Leader>bj :CocCommand bookmark.next<cr>
+nmap <Leader>bk :CocCommand bookmark.prev<cr>
+nmap <leader>bb :CocCommand bookmark.toggle<cr>
+nmap <leader>bn :CocCommand bookmark.annotate<cr>
+nmap <leader>bc :CocCommand bookmark.clear.curfile<cr>
+nmap <leader>bx :CocCommand bookmark.clear.all<cr>
+nmap <leader>ba :CocList bookmarkAll<cr>
+nmap <leader>bz :CocList bookmarkCurfile<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -316,11 +329,12 @@ nmap <leader>bz :CocList -A --tab bookmark<cr>
 """""""""""""""""""""""""""""""""""""""""""""""
 " coc-list" replace fzf
 """""""""""""""""""""""""""""""""""""""""""""""
-"nmap <leader>fb :CocList  buffers<cr>
+nmap <leader>fb :CocList  buffers<cr>
 "nmap <leader>fb :Buffer<cr>
-nmap <leader>fb :Denite buffer<cr>
-"nmap <leader>fb :CocList --number-select mru -A <cr>
+"nmap <leader>fb :Denite buffer<cr>
+nmap <leader>fm :CocList --number-select mru -A <cr>
 nmap <leader>fg :CocList  gfiles<cr>
+nmap <leader>ff :CocList  files<cr>
 nmap <C-:> :CocList cmdhistory<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -347,20 +361,20 @@ nmap <silent> <leader>zh <Plug>(grammarous-move-to-previous-error)
 """"""""""""""""""""""""""""""""""
 "GINA
 """""""""""""""""""""""""""""""""""
-nnoremap <leader>pc :Gina commit --opener="to split" --group="test"<cr>
-nnoremap <leader>pe :Gcommit %<cr>
-nnoremap <leader>ps :Gina status --opener="to split" --group="test"<cr>
-nnoremap <leader>pb :Gina branch --opener=vsplit --group="test"<cr>
-nnoremap <leader>pg :Gina grep --opener=tabnew --group="test" -ie
-nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
-
-
+nnoremap <leader>ge :Gcommit %<cr>
+nnoremap <leader>gb :Gina branch --opener=vsplit --group="test"<cr>
+nnoremap <leader>gg :Gina grep --opener=tabnew --group="test" -ie
+nnoremap <leader>gw  :Gina grep --opener="to split" --group="test" -ie "\b<C-R><C-W>\b"
+nnoremap <leader>gx  :CocList grep
+nnoremap <leader>gt :Gina tag --opener=vsplit  --group="test"<cr>
 
 	nnoremap <silent> <leader>ga :Gina add %:p<CR>
 	nnoremap <silent> <leader>gd :Gina compare<CR>
-	nnoremap <silent> <leader>gc :Gina commit<CR>
-	nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
-	nnoremap <silent> <leader>gs :Gina status -s<CR>
+nnoremap <leader>gc :Gina commit --opener="to split" --group="test"<cr>
+	"nnoremap <silent> <leader>gc :Gina commit<CR>
+	"nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
+nnoremap <leader>gs :Gina status -s --opener="to split" --group="test"<cr>
+	"nnoremap <silent> <leader>gs :Gina status -s<CR>
 	nnoremap <silent> <leader>gl :Gina log --graph --all<CR>
 	nnoremap <silent> <leader>gF :Gina! fetch<CR>
 	nnoremap <silent> <leader>gp :Gina! push<CR>
@@ -371,13 +385,20 @@ nnoremap <leader>pt :Gina tag --opener=vsplit  --group="test"<cr>
 	nnoremap <silent> <leader>gk :GitGutterPrevHunk<CR>
 	nnoremap <silent> <leader>gh :GitGutterStageHunk<CR>
 	nnoremap <silent> <leader>gu :GitGutterUndoHunk<CR>
-
+"grep word under cursor
+"nnoremap K :Ggrep! "\b<C-R><C-W>\b"<CR>:cw<CR>
+" Keymapping for grep word under cursor with interactive mode
+"nnoremap <silent> K :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+"""""""""""""""""""""""""""""""""""
+"blame line 
+""""""""""""""""""""""""""""""""""""
+nnoremap <silent> <leader>gz :ToggleBlameLine<CR>
 
 
 """"""""""""""""""""""""""""""""""
 "coc-git
 """""""""""""""""""""""""""""""""""
-nnoremap <leader>pp :CocCommand git.push<cr>
+"nnoremap <leader>pp :CocCommand git.push<cr>
 
 """""""""""""""""""""""""""""""""""""
 "coc-clang
@@ -396,10 +417,14 @@ noremap <leader>$ :colorscheme  solarized8<cr>
 
 
 """""""""""""""""""""
+"windows focus
+"""""""""""""""""""""
 noremap <leader>ww :tabclose<cr>
 noremap <leader>wx :only<cr>
 noremap <leader>wq :q<cr>
 nnoremap <leader>wv <c-v>
+nnoremap <leader>wv <c-v>
+nnoremap <leader>wa :tabnew<cr>
 """"""""""""""""""""""
 
 "quick  tab navigation (alt-f)
@@ -448,3 +473,4 @@ if has("clipboard")
    tmap <S-Insert>		<C-\><C-n>"+gP
 
 endif
+
