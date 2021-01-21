@@ -16,6 +16,7 @@
 	],
 	"vimlsp.debug": true,
   /*"coc.preferences.maxFileSize": "999MB",*/
+  "terminal.shellPath": "pwsh",
 	"translator.toLang": "fr",
   /*"diagnostic.refreshOnInsertMode": false,*/
   /*"diagnostic.virtualText": true,*/

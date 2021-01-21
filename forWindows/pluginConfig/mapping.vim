@@ -16,8 +16,11 @@ vnoremap * y/\V<C-r>=escape(@",'/\')<CR><CR>
 "nnoremap <leader>hh :%s/<c-r><c-w>/<c-r><c-w>/gc<c-f>$F/i "use command mode
 "but need to debug this mode
 nnoremap <leader>hh :%s/<c-r><c-w>/<c-r><c-w>/g
+"remap visual block mode
+nnoremap <leader>hv <c-v> 
 " Smart way to move between windows
 map <C-S-Left> <C-W>h
+
 map <C-S-Right> <C-W>l
 map <C-S-Up> <C-W>k
 map <C-S-Down> <C-W>j
@@ -157,6 +160,13 @@ function! s:check_back_space() abort
 endfunction
 
 
+"allow to scrool floating windows
+nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+ nnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+	  inoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+	  inoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+	  vnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+	  vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Use <C-l> for trigger snippet expand.
 "imap <C-k> <Plug>(coc-snippets-expand)
@@ -302,16 +312,25 @@ vmap <Leader>tr <Plug>(coc-translator-rv)
 """"""""""""""""""""""""""""""""""""""""""""""""
 " coc-bookmark"" to use when debugged
 """"""""""""""""""""""""""""""""""""""""""""""""
-nmap <Leader>bj :CocCommand bookmark.next<cr>
-nmap <Leader>bk :CocCommand bookmark.prev<cr>
-nmap <leader>bb :CocCommand bookmark.toggle<cr>
-nmap <leader>bn :CocCommand bookmark.annotate<cr>
-nmap <leader>bc :CocCommand bookmark.clear.curfile<cr>
-nmap <leader>bx :CocCommand bookmark.clear.all<cr>
-nmap <leader>ba :CocList bookmarkAll<cr>
-nmap <leader>bz :CocList bookmarkCurfile<cr>
+"nmap <Leader>bj :CocCommand bookmark.next<cr>
+"nmap <Leader>bk :CocCommand bookmark.prev<cr>
+"nmap <leader>bb :CocCommand bookmark.toggle<cr>
+"nmap <leader>bn :CocCommand bookmark.annotate<cr>
+"nmap <leader>bc :CocCommand bookmark.clear.curfile<cr>
+"nmap <leader>bx :CocCommand bookmark.clear.all<cr>
+"nmap <leader>ba :CocList bookmarkAll<cr>
+"nmap <leader>bz :CocList bookmarkCurfile<cr>
 
-
+nmap <Leader>bb <Plug>BookmarkToggle
+nmap <Leader>bn <Plug>BookmarkAnnotate
+nmap <Leader>ba <Plug>BookmarkShowAll
+nmap <Leader>bj <Plug>BookmarkNext
+nmap <Leader>bk <Plug>BookmarkPrev
+nmap <Leader>bc <Plug>BookmarkClear
+nmap <Leader>bx <Plug>BookmarkClearAll
+nmap <Leader>bk <Plug>BookmarkMoveUp
+nmap <Leader>bj <Plug>BookmarkMoveDown
+nmap <Leader>bg <Plug>BookmarkMoveToLine
 """""""""""""""""""""""""""""""""""""""""""""""
 " vim-bookmark"
 """""""""""""""""""""""""""""""""""""""""""""""
@@ -371,6 +390,7 @@ nnoremap <leader>gt :Gina tag --opener=vsplit  --group="test"<cr>
 	nnoremap <silent> <leader>ga :Gina add %:p<CR>
 	nnoremap <silent> <leader>gd :Gina compare<CR>
 nnoremap <leader>gc :Gina commit --opener="to split" --group="test"<cr>
+nnoremap <leader>gz :Gina commit --amend --opener="to split" --group="test"<cr>
 	"nnoremap <silent> <leader>gc :Gina commit<CR>
 	"nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
 nnoremap <leader>gs :Gina status -s --opener="to split" --group="test"<cr>
@@ -407,11 +427,12 @@ nnoremap <silent> <leader>a :CocCommand clangd.switchSourceHeader<cr>
 
 
 """""""""""
-" surround with "
+" vim surround 
 """""""""""
-noremap <leader>" ciw""<Esc>P
-
-"noremap : :<C-f>
+"noremap <leader>" ciw""<Esc>P
+nmap <leader>" ysiw
+"
+"
 "
 noremap <leader>$ :colorscheme  solarized8<cr>
 
@@ -423,9 +444,17 @@ noremap <leader>ww :tabclose<cr>
 noremap <leader>wx :only<cr>
 noremap <leader>wq :q<cr>
 nnoremap <leader>wv <c-v>
-nnoremap <leader>wv <c-v>
 nnoremap <leader>wa :tabnew<cr>
 """"""""""""""""""""""
+
+"""""""""""""""""""""
+"floaterm
+"""""""""""""""""""""
+noremap <C-&> :FloatermToggle! --name 1<cr>
+tnoremap <C-&> <C-\><C-n>:FloatermToggle! --name 1<cr>
+noremap <C-é> :FloatermToggle! --name 2<cr>
+tnoremap <C-é> <C-\><C-n>:FloatermToggle! --name 2<cr>
+
 
 "quick  tab navigation (alt-f)
 nnoremap <A-&> 1gt
@@ -450,7 +479,6 @@ tnoremap <A-_> <C-\><C-n>8gt
 tnoremap <A-ç> <C-\><C-n>9gt
 tnoremap <A-à> <C-\><C-n>10gt
 
-
 "enable copy paste with ctrl
 if has("clipboard")
     " CTRL-X and SHIFT-Del are Cut
@@ -473,4 +501,5 @@ if has("clipboard")
    tmap <S-Insert>		<C-\><C-n>"+gP
 
 endif
+
 

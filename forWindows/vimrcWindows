@@ -21,10 +21,8 @@ let g:coc_global_extensions = [
       \ 'coc-spell-checker',
       \ 'coc-browser',
       \ 'coc-dictionary',
-      \ 'coc-bookmark',
       \ 'coc-clangd',
       \ 'coc-vimlsp',
-      \ 'coc-template',
       \ 'coc-markdownlint',
       \ 'coc-highlight',
       \'coc-tag',
@@ -35,9 +33,11 @@ let g:coc_global_extensions = [
       \ 'coc-todolist',
       \ 'coc-pyright',
       \'coc-diagnostic',
+      \'coc-project',
       \ 'coc-cmake'
       \]
 
+      "\ 'coc-bookmark',
       "\ 'coc-html',
       "\ 'coc-explorer',
       "\ 'coc-tsserver',
@@ -101,8 +101,8 @@ Plug 'nathanaelkane/vim-indent-guides' ,{ 'tag': '*' }
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 "Plug 'lifepillar/vim-cheat40' ,{ 'tag': '*' } 
 Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
-"Plug 'MattesGroeger/vim-bookmarks' ,{ 'tag': '*' } 
-"Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
+Plug 'MattesGroeger/vim-bookmarks' ,{ 'tag': '*' } 
+Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility
 "Plug 'jiangmiao/auto-pairs' " ef
 
@@ -188,8 +188,13 @@ Plug 'aserebryakov/vim-todo-lists' ,{ 'tag': '*' }
 Plug 'universal-ctags/ctags' ,{ 'tag': '*' } 
 Plug 'voldikss/vim-translator' 
 "fzf for buffer
-"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'junegunn/fzf.vim' 
+"Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
+Plug 'junegunn/fzf.vim' " needed for previews
+"Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
+"Plug 'yuki-ycino/fzf-preview.vim', { 'branch': 'release/rpc' }
+"Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 
 if has('nvim')
   Plug 'Shougo/denite.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -199,9 +204,11 @@ Plug 'roxma/nvim-yarp' ,{ 'tag': '*' }
 Plug 'roxma/vim-hug-neovim-rpc' ,{ 'tag': '*' } 
 endif
 "Plug 'danishprakash/nvim-blameline'
-"Plug 'APZelos/blamer.nvim'
-Plug 'tveskag/nvim-blame-line'
+Plug 'APZelos/blamer.nvim'
+"Plug 'tveskag/nvim-blame-line' "don't semm work
 "Plug 'skywind3000/vim-quickui' "preview windos better
+"Plug 'voldikss/vim-skylight' "explore term under cursor in popup windows
+Plug 'voldikss/vim-floaterm' "terminal popup management
 call plug#end()
 
 "let g:nvim_config_root = stdpath('config')
@@ -253,6 +260,8 @@ let g:config_file_list = [
 \'YouCompleteMe.vim',
 \'denite.vim',
 \'mapping.vim',
+\'vim-bookmark.vim',
+\'floaterm.vim'
                   \]
 for f in g:config_file_list
     execute 'source ' . g:path . '/' . f

@@ -122,6 +122,8 @@ function! CloseWindo()
   pclose
   helpclose
   ccl
+silent! :FloatermHide!<cr>
+  
   "cache le terminal
   if has('nvim')
     if win_gotoid(g:term_win)
