@@ -163,10 +163,10 @@ endfunction
 "allow to scrool floating windows
 nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
  nnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
-	  inoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
-	  inoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
-	  vnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
-	  vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
+		"inoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(1)\<cr>" : "\<Right>"
+		"inoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? "\<c-r>=coc#float#scroll(0)\<cr>" : "\<Left>"
+		"vnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
+		"vnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
 
 " Use <C-l> for trigger snippet expand.
 "imap <C-k> <Plug>(coc-snippets-expand)
@@ -203,9 +203,14 @@ nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(
 """""""""""""""""""""""""""""""""""""""""""
 " coc-explorer
 """"""""""""""""""""""""""""""""""""""""""""
-:nmap <space>ee :CocCommand explorer --toggle --sources=file+,   --quit-on-open  <CR>
-:nmap <space>eb :CocCommand explorer --toggle --sources=buffer+, --quit-on-open<CR>
-:nmap <space>em :CocCommand explorer --toggle --sources=bookmark+,  --quit-on-open<CR>
+":nmap <space>ee :CocCommand explorer --toggle --sources=file+,   --quit-on-open  <CR>
+":nmap <space>eb :CocCommand explorer --toggle --sources=buffer+, --quit-on-open<CR>
+":nmap <space>em :CocCommand explorer --toggle --sources=bookmark+,  --quit-on-open<CR>
+
+nnoremap <leader>ef  :NERDTreeFocus<CR>
+nnoremap <leader>ed :NERDTree<CR>
+nnoremap <leader>ee   :NERDTreeToggle<CR>
+nnoremap <leader>eg :NERDTreeFind<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
 " MAGIT
@@ -450,11 +455,23 @@ nnoremap <leader>wa :tabnew<cr>
 """""""""""""""""""""
 "floaterm
 """""""""""""""""""""
-noremap <C-&> :FloatermToggle! --name 1<cr>
-tnoremap <C-&> <C-\><C-n>:FloatermToggle! --name 1<cr>
-noremap <C-é> :FloatermToggle! --name 2<cr>
-tnoremap <C-é> <C-\><C-n>:FloatermToggle! --name 2<cr>
+noremap <C-&> :FloatermToggle N1<cr>
+tnoremap <C-&> <C-\><C-n>:FloatermToggle N1<cr>
+noremap <C-é> :FloatermToggle N2<cr>
+tnoremap <C-é> <C-\><C-n>:FloatermToggle N2<cr>
+noremap <C-"> :FloatermToggle N3<cr>
+tnoremap <C-"> <C-\><C-n>:FloatermToggle N3<cr>
 
+
+noremap <C-F1> :FloatermToggle N1<cr>
+tnoremap <C-F1> <C-\><C-n>:FloatermToggle N1<cr>
+noremap <C-F2> :FloatermToggle N2<cr>
+tnoremap <C-F2> <C-\><C-n>:FloatermToggle N2<cr>
+noremap <C-F3> :FloatermToggle N3<cr>
+tnoremap <C-F3> <C-\><C-n>:FloatermToggle N3<cr>
+
+"noremap <leader>& :FloatermToggle N1<cr>
+"noremap <leader>é :FloatermToggle N2<cr>
 
 "quick  tab navigation (alt-f)
 nnoremap <A-&> 1gt

@@ -221,7 +221,7 @@ command! -nargs=1 WMB call WipeMatchingBuffers('<args>')
   " """"""""""""""""""""
 function Profil_benchmark()
   :profile start profile.log
-:profile func *
+":profile func *
 :profile file *
       
 endfunction

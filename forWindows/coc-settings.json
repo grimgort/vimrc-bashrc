@@ -16,7 +16,7 @@
 	],
 	"vimlsp.debug": true,
   /*"coc.preferences.maxFileSize": "999MB",*/
-  "terminal.shellPath": "pwsh",
+  //"terminal.shellPath": "pwsh",
 	"translator.toLang": "fr",
   /*"diagnostic.refreshOnInsertMode": false,*/
   /*"diagnostic.virtualText": true,*/
@@ -60,11 +60,14 @@
   /*"suggest.noselect": false,*/
   /*"html.filetypes": ["html", "handlebars", "htmldjango", "markdown"],*/
   "explorer.file.showHiddenFiles": true,
-	"explorer.previewAction.onHover": false,
+  //"explorer.previewAction.onHover": false,
+  "explorer.previewAction.onHover": "labeling",
+  //"explorer.enableFloatinput": true,
+  "explorer.enableFloatinput": false,
   "snippets.userSnippetsDirectory": "~/Documents/FRED/baseGit/vimrc-bashrc/cocExtension",
   "tslint.enable": true,
   "tslint.autoFixOnSave": true,
-  "todolist.autoUpload": true,
+  //"todolist.autoUpload": true,
   /*"suggest.triggerAfterInsertEnter": false,*/
 
   "eslint.filetypes": [

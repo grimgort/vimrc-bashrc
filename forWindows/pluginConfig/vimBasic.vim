@@ -77,7 +77,7 @@ set wildmenu
 set number              " Show line number
 set cursorline          " Show underline in current cursor
 "highlight CursorLine cterm=underline gui=underline
-set cursorcolumn        " Show highlight in current column
+"set cursorcolumn        " Show highlight in current column
 "red line to 80 column
 "highlight OverLength ctermbg=red ctermfg=white guibg=#592929
 "match OverLength /\%81v.\+/"
@@ -87,7 +87,11 @@ set colorcolumn=81      " Display the limit of text width.
 "set textwidth=80        " Restrict text width.
 "set mouse=a             " Enable mouse to use (all mode)
 
-set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
+augroup augroupcomment
+   autocmd!
+autocmd filetype c,cpp,cxx,python,json,java,markdown,txt setlocal scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
+augroup END
+"set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
 " avoid buf on terminal
 "au TermEnter * setlocal scrolloff=0
 "au TermLeave * setlocal scrolloff=999
@@ -139,62 +143,66 @@ set ignorecase
 """""""""""""""""""""""""""""""""""""""""""""""""""
 "" toggle terminal
 """""""""""""""""""""""""""""""""""""""""""""""""""
-if has('nvim')
-   nnoremap <leader>à  :call Term_toggle(15)<cr>
-   tnoremap <leader>à  <C-\><C-n>:call Term_toggle(15)<cr>
-   nnoremap à  :call Term_toggle(15)<cr>
-   tnoremap à  <C-\><C-n>:call Term_toggle(15)<cr>
-   tmap <Esc> <C-\><C-n>
-   tmap <C-w> <C-\><C-n><C-w>
-   au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-   au BufEnter * if &buftype == 'terminal' | :set scrolloff=0 | endif
-   au BufLeave * if &buftype == 'terminal' | :set scrolloff=999 | endif
-   "au TermEnter * startinsert
-else
-   " map <C-@> to toggle
-   tnoremap <silent>  <leader>à <C-w>:ToggleTerminal<CR>
-   nnoremap <silent>  <leader>à :ToggleTerminal<CR>
-   tnoremap <silent>  à <C-w>:ToggleTerminal<CR>
-   nnoremap <silent>  à :ToggleTerminal<CR>
-   " set your favorite shell
-   let g:toggle_terminal#command = 'pwsh'
-   "let g:toggle_terminal#command = 'powershell'
-   " set terminal window position
-   " (see possible options at :help vertical)
-   let g:toggle_terminal#position = 'topleft'
-endif
+"if has('nvim')
+   "nnoremap <leader>à  :call Term_toggle(15)<cr>
+   "tnoremap <leader>à  <C-\><C-n>:call Term_toggle(15)<cr>
+   "nnoremap à  :call Term_toggle(15)<cr>
+   "tnoremap à  <C-\><C-n>:call Term_toggle(15)<cr>
+   "tmap <Esc> <C-\><C-n>
+   "tmap <C-w> <C-\><C-n><C-w>
+   "au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+   "au BufEnter * if &buftype == 'terminal' | :set scrolloff=0 | endif
+   "au BufLeave * if &buftype == 'terminal' | :set scrolloff=999 | endif
+   ""au TermEnter * startinsert
+"else
+   "" map <C-@> to toggle
+   "tnoremap <silent>  <leader>à <C-w>:ToggleTerminal<CR>
+   "nnoremap <silent>  <leader>à :ToggleTerminal<CR>
+   "tnoremap <silent>  à <C-w>:ToggleTerminal<CR>
+   "nnoremap <silent>  à :ToggleTerminal<CR>
+   "" set your favorite shell
+   "let g:toggle_terminal#command = 'pwsh'
+   ""let g:toggle_terminal#command = 'powershell'
+   "" set terminal window position
+   "" (see possible options at :help vertical)
+   "let g:toggle_terminal#position = 'topleft'
+"endif
 "
 """"""""""""""""""""""
 " enable fold methode
 """"""""""""""""""""""
-autocmd FileType jsonc set foldmethod=indent
-set foldmethod=syntax
-"set foldmethod=indent
-set foldenable
+set foldmethod=indent
+"autocmd FileType jsonc set foldmethod=indent
+"set foldmethod=syntax
+set foldenable 
 set foldlevel=10
-""enable fortran folding
-let fortran_fold=1 " increase drastycely lag
-let fortran_fold_conditionals=1
-""fortran77 insert "&" on a new line column 6
-let fortran_fixed_source=1
-" let fortran_free_source=0
-" let fortran_more_precise=1
-let fortran_dialect="f77"
-let fortran_have_tabs=1
-" syn match fortranContinueMark display "^.\{5}\S"lc=5
-"" unlet! fortran_free_source
-"filetype plugin indent on
-let fortran_do_enddo=1
+"""enable fortran folding
+"let fortran_fold=1 " increase drastycely lag
+"let fortran_fold_conditionals=1
+"""fortran77 insert "&" on a new line column 6
+"let fortran_fixed_source=1
+"" let fortran_free_source=0
+"" let fortran_more_precise=1
+"let fortran_dialect="f77"
+"let fortran_have_tabs=1
+"" syn match fortranContinueMark display "^.\{5}\S"lc=5
+""" unlet! fortran_free_source
+""filetype plugin indent on
+"let fortran_do_enddo=1
 "" add column to left for folder numero and git wrapper
 set foldcolumn=2
 
 
 ""DOXYGEN syntaxe
 let g:load_doxygen_syntax=1
-autocmd FileType c,cpp,h set comments-=://
-autocmd FileType c,cpp,h set comments+=:///<
-autocmd FileType c,cpp,h set comments+=://
-autocmd FileType c,cpp,h set comments+=://!<
+
+augroup augroupcomment
+    autocmd!
+   autocmd FileType c,cpp,h setlocal comments-=://
+   autocmd FileType c,cpp,h setlocal comments+=:///<
+   autocmd FileType c,cpp,h setlocal comments+=://
+   autocmd FileType c,cpp,h setlocal comments+=://!<
+augroup END
 "set comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,bO:///,O://,bO://!<
 "
 "
@@ -222,7 +230,10 @@ set dictionary=D:\ftarroux\Documents\FRED\baseGit\vimrc-bashrc\liste.de.mots.fra
 
 
 "show hidden char
-autocmd FileType python set listchars=nbsp:☠,tab:▸␣
+"
+augroup augrouptab
+autocmd FileType python setlocal listchars=nbsp:☠,tab:▸␣
+augroup END 
 set list
 
 "autocmd WinEnter * call History_cursor_window()
@@ -234,7 +245,7 @@ set list
 " coc-config-general
 """""""""""""""""""""""""""""""""""""
 " reste en normal mode aprés une recherche fuzzy
-autocmd WinEnter * "normal <Esc>"
+"autocmd WinEnter * "normal <Esc>"
 
 " TextEdit might fail if hidden is not set.
 set hidden
@@ -296,13 +307,16 @@ set diffopt+=iwhiteall "ignore white space"
 " autoread
 """"""""""""""""""""
 set autoread
+
+augroup augroupcomment
+autocmd!
 if has('nvim')
    autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
    " notification after file change
    autocmd FileChangedShellPost *
             \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
 endif
-
+augroup END
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " automatically leave insert mode after 'updatetime' milliseconds of inaction
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
