@@ -122,7 +122,8 @@ function! CloseWindo()
   pclose
   helpclose
   ccl
-silent! :FloatermHide!<cr>
+  silent! :FloatermHide!<cr>
+  silent! :CocCommand explorer --quit 
   
   "cache le terminal
   if has('nvim')
