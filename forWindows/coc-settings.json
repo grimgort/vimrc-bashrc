@@ -1,4 +1,5 @@
 {
+  "terminal.shellPath": "pwsh",
   "languageserver": {
     "cmake": {
       "command": "cmake-language-server",

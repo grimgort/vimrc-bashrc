@@ -49,15 +49,16 @@ let g:coc_global_extensions = [
 
 call plug#begin('~/vimDebugPlugin')
 """""""""""""""""""""""""""""""""""""
-" vim-lsp can replace coc. to test !
-"Plug 'prabirshrestha/vim-lsp' ,{ 'tag': '*' } 
-"Plug 'mattn/vim-lsp-settings' ,{ 'tag': '*' } 
-"asyncomplete.vim
-"Plug 'prabirshrestha/asyncomplete.vim' 
-"Plug 'prabirshrestha/asyncomplete-lsp.vim' ,{ 'tag': '*' } 
-"deoplete.nvim
-"Plug 'Shougo/deoplete.nvim' ,{ 'tag': '*' } 
-"Plug 'lighttiger2505/deoplete-vim-lsp' ,{ 'tag': '*' } 
+ "vim-lsp can replace coc. to test !
+"Plug 'prabirshrestha/vim-lsp' ",{ 'tag': '*' } 
+"Plug 'mattn/vim-lsp-settings' ",{ 'tag': '*' } 
+""asyncomplete.vim
+""Plug 'prabirshrestha/asyncomplete.vim' 
+""Plug 'prabirshrestha/asyncomplete-lsp.vim' ,{ 'tag': '*' } 
+""deoplete.nvim
+"Plug 'Shougo/deoplete.nvim' ",{ 'tag': '*' } 
+"Plug 'lighttiger2505/deoplete-vim-lsp' ",{ 'tag': '*' } 
+"Plug 'dense-analysis/ale'
 "
 "
 ""nvim lsp builtin to look later in a release built can be interesting
@@ -105,12 +106,12 @@ Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
 Plug 'MattesGroeger/vim-bookmarks' ,{ 'tag': '*' } 
 Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
 Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility
-"Plug 'jiangmiao/auto-pairs' " ef
+Plug 'jiangmiao/auto-pairs' " ef
 
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
 Plug 'sbdchd/neoformat' ,{ 'tag': '*' } 
-Plug 'grailbio/bazel-compilation-database' ,{ 'tag': '*' } 
+"Plug 'grailbio/bazel-compilation-database' ,{ 'tag': '*' } 
 Plug 'easymotion/vim-easymotion' ,{ 'tag': '*' } 
 Plug 'jreybert/vimagit' ,{ 'tag': '*' } 
 Plug 'liuchengxu/vim-which-key' 
@@ -118,15 +119,15 @@ Plug 'liuchengxu/vim-which-key'
 "a bug on map name key
 Plug 'neoclide/jsonc.vim'
 if has('nvim')
-Plug 'TheZoq2/neovim-auto-autoread'
-Plug 'huawenyu/new.vim' 
+"Plug 'TheZoq2/neovim-auto-autoread'
+"Plug 'huawenyu/new.vim' 
   "Plug 'huawenyu/new-gdb.vim' "don t work on windows os
   "Plug 'sakhnik/nvim-gdb', { 'branch': 'legacy' }
   "Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh \| UpdateRemotePlugins' }
   ""suspected to bug snippet "
-Plug 'ncm2/float-preview.nvim' 
+"Plug 'ncm2/float-preview.nvim' 
 else
-Plug 'pakutoma/toggle-terminal' ,{ 'tag': '*' } 
+"Plug 'pakutoma/toggle-terminal' ,{ 'tag': '*' } 
 endif
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() } }
 Plug 'conornewton/vim-latex-preview' "latex live preview"
@@ -155,19 +156,19 @@ Plug 'scrooloose/nerdcommenter' "allow comment <leader>cc for comment
 Plug 'rchicoli/vim-zoomwin' "zoom with ctl-w-o
 Plug 'airblade/vim-gitgutter' 
 Plug 'vim-scripts/DoxygenToolkit.vim' ,{ 'tag': '*' } 
-Plug 'dpelle/vim-Grammalecte' 
+"Plug 'dpelle/vim-Grammalecte' 
 Plug 'mhinz/vim-grepper' ,{ 'tag': '*' } 
-Plug 'vigoux/LanguageTool.nvim' ,{ 'tag': '*' } 
-Plug 'dpelle/vim-LanguageTool' 
-Plug 'rhysd/vim-grammarous' 
+"Plug 'vigoux/LanguageTool.nvim' ,{ 'tag': '*' } 
+"Plug 'dpelle/vim-LanguageTool' 
+"Plug 'rhysd/vim-grammarous' 
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim' ,{ 'tag': '*' } 
 Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'tag': '*' } 
-Plug 'puremourning/vimspector' "don't really work on windows os
+"Plug 'puremourning/vimspector' "don't really work on windows os
 Plug 'mphe/grayout.vim' 
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
-Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
-"Plug 'neoclide/coc.nvim', { 'tag': 'v0.0.80' } "can replaceYCM (more modern)
+"Plug 'neoclide/coc.nvim', {'branch': 'release'} "can replaceYCM (more modern)
+Plug 'neoclide/coc.nvim', { 'tag': 'v0.0.80' } "can replaceYCM (more modern)
 "Plug 'neoclide/coc.nvim'
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'MaskRay/ccls', {'do': 'yarn install --frozen-lockfile'}
@@ -222,10 +223,6 @@ let g:config_file_list = [
 \'asyncrun.vim',
 \'auto-pair.vim',
 \'autoformat.vim',
-\'coc-json.vim',
-\'coc-snippet.vim',
-\'coc-translator.vim',
-\'coc.vim',
 \'ctags.vim',
 \'ctrlp.vim',
 \'delimitmate.vim',
@@ -263,8 +260,12 @@ let g:config_file_list = [
 \'denite.vim',
 \'mapping.vim',
 \'vim-bookmark.vim',
+\'coc.vim',
 \'floaterm.vim'
                   \]
+"\'coc-json.vim',
+"\'coc-snippet.vim',
+"\'coc-translator.vim',
 for f in g:config_file_list
     execute 'source ' . g:path . '/' . f
 endfor
@@ -273,4 +274,15 @@ endfor
 "au FileType cmake RainbowToggleOff "bug syntax higlighting
 
 
-
+"let g:deoplete#enable_at_startup = 1
+"if executable('cmake-language-server')
+  "au User lsp_setup call lsp#register_server({
+  "\ 'name': 'cmake',
+  "\ 'cmd': {server_info->['cmake-language-server']},
+  "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'build/'))},
+  "\ 'whitelist': ['cmake'],
+  "\ 'initialization_options': {
+  "\   'buildDirectory': 'build',
+  "\ }
+  "\})
+"endif

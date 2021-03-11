@@ -203,13 +203,13 @@ nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(
 """""""""""""""""""""""""""""""""""""""""""
 " coc-explorer
 """"""""""""""""""""""""""""""""""""""""""""
-":nmap <space>ee :CocCommand explorer --toggle --sources=file+,   --quit-on-open  <CR>
-":nmap <space>eb :CocCommand explorer --toggle --sources=buffer+, --quit-on-open<CR>
-":nmap <space>em :CocCommand explorer --toggle --sources=bookmark+,  --quit-on-open<CR>
+:nmap <space>ee :CocCommand explorer --toggle --sources=file+,   --quit-on-open  <CR>
+:nmap <space>eb :CocCommand explorer --toggle --sources=buffer+, --quit-on-open<CR>
+:nmap <space>em :CocCommand explorer --toggle --sources=bookmark+,  --quit-on-open<CR>
 
 nnoremap <leader>ef  :NERDTreeFocus<CR>
-nnoremap <leader>ed :NERDTree<CR>
-nnoremap <leader>ee   :NERDTreeToggle<CR>
+nnoremap <leader>es :NERDTree<CR>
+nnoremap <leader>ed   :NERDTreeToggle<CR>
 nnoremap <leader>eg :NERDTreeFind<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
@@ -519,4 +519,31 @@ if has("clipboard")
 
 endif
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+"" toggle terminal
+"""""""""""""""""""""""""""""""""""""""""""""""""""
+if has('nvim')
+   nnoremap <leader>à  :call Term_toggle(15)<cr>
+   tnoremap <leader>à  <C-\><C-n>:call Term_toggle(15)<cr>
+   nnoremap à  :call Term_toggle(15)<cr>
+   tnoremap à  <C-\><C-n>:call Term_toggle(15)<cr>
+   tmap <Esc> <C-\><C-n>
+   tmap <C-w> <C-\><C-n><C-w>
+   au BufEnter * if &buftype == 'terminal' | :startinsert | endif
+   au BufEnter * if &buftype == 'terminal' | :set scrolloff=0 | endif
+   au BufLeave * if &buftype == 'terminal' | :set scrolloff=999 | endif
+   "au TermEnter * startinsert
+else
+   " map <C-@> to toggle
+   tnoremap <silent>  <leader>à <C-w>:ToggleTerminal<CR>
+   nnoremap <silent>  <leader>à :ToggleTerminal<CR>
+   tnoremap <silent>  à <C-w>:ToggleTerminal<CR>
+   nnoremap <silent>  à :ToggleTerminal<CR>
+   " set your favorite shell
+   let g:toggle_terminal#command = 'pwsh'
+   "let g:toggle_terminal#command = 'powershell'
+   " set terminal window position
+   " (see possible options at :help vertical)
+   let g:toggle_terminal#position = 'topleft'
+endif
 

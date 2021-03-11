@@ -72,7 +72,7 @@ set mouse=a
 set encoding=utf-8      " utf-8 default  (others: big5, gbk, euc-jp)
 set fencs=utf-8 " fileencodings: utf-8 default (others:gbk,ucs-bom)
 set showcmd
-set noshowmode          " not show `Insert,Normal` at bottom left
+"set noshowmode          " not show `Insert,Normal` at bottom left
 set wildmenu
 set number              " Show line number
 set cursorline          " Show underline in current cursor
@@ -140,34 +140,7 @@ set directory=~/.vim/.swp//
 set ignorecase
 
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"" toggle terminal
-"""""""""""""""""""""""""""""""""""""""""""""""""""
-"if has('nvim')
-   "nnoremap <leader>à  :call Term_toggle(15)<cr>
-   "tnoremap <leader>à  <C-\><C-n>:call Term_toggle(15)<cr>
-   "nnoremap à  :call Term_toggle(15)<cr>
-   "tnoremap à  <C-\><C-n>:call Term_toggle(15)<cr>
-   "tmap <Esc> <C-\><C-n>
-   "tmap <C-w> <C-\><C-n><C-w>
-   "au BufEnter * if &buftype == 'terminal' | :startinsert | endif
-   "au BufEnter * if &buftype == 'terminal' | :set scrolloff=0 | endif
-   "au BufLeave * if &buftype == 'terminal' | :set scrolloff=999 | endif
-   ""au TermEnter * startinsert
-"else
-   "" map <C-@> to toggle
-   "tnoremap <silent>  <leader>à <C-w>:ToggleTerminal<CR>
-   "nnoremap <silent>  <leader>à :ToggleTerminal<CR>
-   "tnoremap <silent>  à <C-w>:ToggleTerminal<CR>
-   "nnoremap <silent>  à :ToggleTerminal<CR>
-   "" set your favorite shell
-   "let g:toggle_terminal#command = 'pwsh'
-   ""let g:toggle_terminal#command = 'powershell'
-   "" set terminal window position
-   "" (see possible options at :help vertical)
-   "let g:toggle_terminal#position = 'topleft'
-"endif
-"
+
 """"""""""""""""""""""
 " enable fold methode
 """"""""""""""""""""""

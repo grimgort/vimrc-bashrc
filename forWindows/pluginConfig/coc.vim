@@ -10,9 +10,9 @@ function! Show_documentation()
   endif
 endfunction
 "showSignatureHelp
-autocmd User CocJumpPlaceholder call
-      \ CocActionAsync('showSignatureHelp')
+"autocmd User CocJumpPlaceholder call
+      "\ CocActionAsync('showSignatureHelp')
 " Highlight the symbol and its references when holding the cursor.
-autocmd CursorHold * silent call CocActionAsync('highlight')
+"autocmd CursorHold * silent call CocActionAsync('highlight')
 "autocmd CursorHold * silent call CocActionAsync('doHover')
 
