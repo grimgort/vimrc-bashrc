@@ -2,41 +2,67 @@ set nocompatible            " be iMproved, required
 filetype off                " required, so vundle will be loaded properly
 
 let mapleader=" "
-let localleader = ","
+"let localleader = ","
+let maplocalleader=","
 
 set rtp+=~/vimDebugPlugin
 set rtp+=~/.vim
+
 let g:coc_global_extensions = [
-      \ 'coc-ultisnips',
-      \ 'coc-json',
-      \ 'coc-prettier',
-      \ 'coc-css',
-      \ 'coc-highlight',
-      \ 'coc-eslint',
-      \ 'coc-marketplace',
-      \ 'coc-snippets',
+      \'coc-git',
+      \ 'coc-lists',
       \ 'coc-calc',
-      \ 'coc-tslint',
-      \ 'coc-tabnine',
-      \ 'coc-spell-checker',
-      \ 'coc-browser',
-      \ 'coc-dictionary',
       \ 'coc-clangd',
       \ 'coc-vimlsp',
-      \ 'coc-markdownlint',
-      \ 'coc-highlight',
-      \'coc-tag',
-      \ 'coc-word',
-      \'coc-syntax',
-      \'coc-explorer',
-      \ 'coc-lists',
-      \ 'coc-todolist',
-      \ 'coc-pyright',
-      \'coc-diagnostic',
-      \'coc-project',
-      \'coc-floatinput',
+      \ 'coc-json',
       \ 'coc-cmake'
       \]
+
+
+      "\'coc-project', "suspission de lag pour ce plugin
+"let g:coc_global_extensions = [
+      "\ 'coc-ultisnips',
+      "\ 'coc-css',
+      "\ 'coc-highlight',
+      "\ 'coc-snippets',
+      "\ 'coc-todolist',
+      "\'coc-git',
+      "\]
+
+      "\ 'coc-prettier',
+      "\'coc-explorer',
+      "\ 'coc-pyright',
+"let g:coc_global_extensions = [
+      "\ 'coc-ultisnips',
+      "\ 'coc-json',
+      "\ 'coc-prettier',
+      "\ 'coc-css',
+      "\ 'coc-highlight',
+      "\ 'coc-eslint',
+      "\ 'coc-marketplace',
+      "\ 'coc-snippets',
+      "\ 'coc-calc',
+      "\ 'coc-tslint',
+      "\ 'coc-tabnine',
+      "\ 'coc-spell-checker',
+      "\ 'coc-browser',
+      "\ 'coc-dictionary',
+      "\ 'coc-clangd',
+      "\ 'coc-vimlsp',
+      "\ 'coc-markdownlint',
+      "\ 'coc-highlight',
+      "\'coc-tag',
+      "\ 'coc-word',
+      "\'coc-syntax',
+      "\'coc-explorer',
+      "\ 'coc-lists',
+      "\ 'coc-todolist',
+      "\ 'coc-pyright',
+      "\'coc-diagnostic',
+      "\'coc-project',
+      "\'coc-floatinput',
+      "\ 'coc-cmake'
+      "\]
 
       "\ 'coc-bookmark',
       "\ 'coc-html',
@@ -62,7 +88,12 @@ call plug#begin('~/vimDebugPlugin')
 "
 "
 ""nvim lsp builtin to look later in a release built can be interesting
-"Plug 'neovim/nvim-lspconfig' ,{ 'tag': '*' } 
+"Plug 'neovim/nvim-lspconfig'  
+"Plug 'norcalli/snippets.nvim'
+""Plug 'kabouzeid/nvim-lspinstall' " work on linux only
+"Plug 'alexaandru/nvim-lspupdate'
+"Plug 'hrsh7th/nvim-compe'
+"Plug 'cohama/lexima.vim'
 """""""""""""""""""""""""""""""""""""""""""""""""
 " 
 "
@@ -72,11 +103,13 @@ Plug 'sheerun/vim-polyglot' ,{ 'tag': '*' }
 "Plug 'PProvost/vim-ps1' "display mark and allow new shortcut
 Plug 'kshenoy/vim-signature' "display mark and allow new shortcut
 "Plug 'vhdirk/vim-cmake' "Cmake command available for launch cmake --build build
-"Plug 'cdelledonne/vim-cmake' "only linux
+"Plug 'cdelledonne/vim-cmake' "only linux or with windows terminal
 "Plug 'ilyachur/cmake4vim' 'not async so unusable
 "Plug 'vhdirk/vim-cmake' ,{ 'tag': '*' } 
 "Plug 'jalcine/cmake.vim' 'don't work
 "https://github.com/Shatur95/vim-cmake-projects
+Plug 'Shatur/neovim-cmake'  "dont work
+"
 "
 "https://github.com/regen100/cmake-language-server
 """""""""""""""""""""""""""""""""""
@@ -96,17 +129,26 @@ Plug 'ayu-theme/ayu-vim'
 Plug 'arcticicestudio/nord-vim' ,{ 'tag': '*' } 
 Plug 'rakr/vim-one' ,{ 'tag': '*' } 
 Plug 'mhartington/oceanic-next' 
-""""""""""""""""""""""""""""""""""
-
+"""""""""""""""""""""""""""""""""""
+" coc extension
+"""""""""""""""""""""""""""""""""""
+"Plug 'neoclide/coc-tsserver', {'do': 'yarn install --frozen-lockfile'}
+Plug 'weirongxu/coc-explorer', {'do': 'npm install --frozen-lockfile'}
+Plug 'fannheyward/coc-pyright', {'do': 'npm install --frozen-lockfile'}
+"""""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""""""
+"Plug 'ryanoasis/vim-devicons'
+"Plug 'ryanoasis/nerd-fonts'
 "Plug 'Yggdroot/indentLine' " bug for json file were '' disparait
-Plug 'nathanaelkane/vim-indent-guides' ,{ 'tag': '*' } 
+"Plug 'nathanaelkane/vim-indent-guides' ,{ 'tag': '*' } 
 Plug 'heavenshell/vim-pydocstring', { 'do': 'make install' }
 "Plug 'lifepillar/vim-cheat40' ,{ 'tag': '*' } 
 Plug 'jackguo380/vim-lsp-cxx-highlight' "syntaxe highlight C++ for coc.nvim
 Plug 'MattesGroeger/vim-bookmarks' ,{ 'tag': '*' } 
 Plug 'tpope/vim-surround' " surround word under cursor with flag (\"\" or ()...)
-Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility
-Plug 'jiangmiao/auto-pairs' " ef
+"Plug 'luochen1990/rainbow' " color pair of bracket for better lisibility.
+"provoque des gros lag sur coclist
+"Plug 'jiangmiao/auto-pairs' " ef
 
 Plug 'mhinz/vim-startify' "show last recent opened file to vim startup
 "Plug 'prettier/vim-prettier', { 'do': 'yarn install' }
@@ -142,7 +184,7 @@ Plug 'majutsushi/tagbar' "display a menu with tag in file
 Plug 'mbbill/undotree' "show vim history
 Plug 'Konfekt/FastFold' "empeche les lag avec syntaxe fold method
 Plug 'Shougo/echodoc' "Displays function signatures from completions in the command line
-Plug 'Chiel92/vim-autoformat' "autoformat
+"Plug 'Chiel92/vim-autoformat' "autoformat
 "Plug 'Valloric/YouCompleteMe', { 'do': './install.py  --clangd-completer --clang-completer --clang-tidy --js-completer'  } " YouCompleteMe is a fast, as-you-type, fuzzy-search code completion engine for Vim. command ofr install : python install.py. alternative from omnicompletion + jedi-vim(for pyhton file)
 "Plug 'rdnetto/YCM-Generator', { 'branch': 'stable'}
 Plug 'itchyny/lightline.vim' 
@@ -163,7 +205,7 @@ Plug 'mhinz/vim-grepper' ,{ 'tag': '*' }
 "Plug 'rhysd/vim-grammarous' 
 Plug 'junegunn/vim-easy-align' "align text
 Plug 'skywind3000/asyncrun.vim' ,{ 'tag': '*' } 
-Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'tag': '*' } 
+"Plug 'octol/vim-cpp-enhanced-highlight' ,{ 'tag': '*' } 
 "Plug 'puremourning/vimspector' "don't really work on windows os
 Plug 'mphe/grayout.vim' 
 "Plug 'neoclide/coc.nvim', {'do': { -> coc#util#install()}}
@@ -173,7 +215,7 @@ Plug 'neoclide/coc.nvim', { 'tag': 'v0.0.80' } "can replaceYCM (more modern)
 "Plug 'neoclide/coc.nvim', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'MaskRay/ccls', {'do': 'yarn install --frozen-lockfile'}
 "Plug 'wsdjeg/vim-todo' "dont work
-Plug 'aserebryakov/vim-todo-lists' ,{ 'tag': '*' } 
+"Plug 'aserebryakov/vim-todo-lists' ,{ 'tag': '*' } 
 "
 "Note: You may need to execute these commands in the "Developer Command Prompt for VS"
 "git clone https://github.com/llvm/llvm-project.git
@@ -192,6 +234,7 @@ Plug 'voldikss/vim-translator'
 "fzf for buffer
 "Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 "Plug 'junegunn/fzf.vim' 
+"Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
 "Plug 'junegunn/fzf', {'dir': '~/.fzf','do': './install --all'}
 "Plug 'junegunn/fzf.vim' " needed for previews
 "Plug 'antoinemadec/coc-fzf', {'branch': 'release'}
@@ -212,6 +255,18 @@ Plug 'APZelos/blamer.nvim'
 "Plug 'voldikss/vim-skylight' "explore term under cursor in popup windows
 Plug 'voldikss/vim-floaterm' "terminal popup management
 Plug 'preservim/nerdtree'
+Plug 'freitass/todo.txt-vim' "use todo.txt file for create todolist
+Plug 'amiorin/vim-project'
+Plug 'tibabit/vim-templates'
+Plug 'dominikduda/vim_current_word'
+
+if has('nvim-0.5.0')
+Plug 'mfussenegger/nvim-dap' "debuger adaptater protocol nvim >=0.5
+Plug 'nvim-lua/popup.nvim'
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+endif
+
 call plug#end()
 
 "let g:nvim_config_root = stdpath('config')
@@ -261,7 +316,9 @@ let g:config_file_list = [
 \'mapping.vim',
 \'vim-bookmark.vim',
 \'coc.vim',
-\'floaterm.vim'
+\'floaterm.vim',
+\'vim-project.vim',
+\'echodoc.vim',
                   \]
 "\'coc-json.vim',
 "\'coc-snippet.vim',
@@ -270,19 +327,195 @@ for f in g:config_file_list
     execute 'source ' . g:path . '/' . f
 endfor
 
+"" for buildtin nvim-lsp; to look in futur
+"lua << EOF
+"require'lspconfig'.clangd.setup{}
+"EOF
+"set completeopt=menuone,noselect
+"let g:compe = {}
+"let g:compe.enabled = v:true
+"let g:compe.autocomplete = v:true
+"let g:compe.debug = v:false
+"let g:compe.min_length = 1
+"let g:compe.preselect = 'enable'
+"let g:compe.throttle_time = 80
+"let g:compe.source_timeout = 200
+"let g:compe.incomplete_delay = 400
+"let g:compe.max_abbr_width = 100
+"let g:compe.max_kind_width = 100
+"let g:compe.max_menu_width = 100
+"let g:compe.documentation = v:true
 
-"au FileType cmake RainbowToggleOff "bug syntax higlighting
+"let g:compe.source = {}
+"let g:compe.source.path = v:true
+"let g:compe.source.buffer = v:true
+"let g:compe.source.calc = v:true
+"let g:compe.source.nvim_lsp = v:true
+"let g:compe.source.nvim_lua = v:true
+"let g:compe.source.vsnip = v:true
+"let g:compe.source.ultisnips = v:true
+
+"" NOTE: Order is important. You can't lazy loading lexima.vim.
+"let g:lexima_no_default_rules = v:true
+"call lexima#set_default_rules()
+"inoremap <silent><expr> <C-Space> compe#complete()
+"inoremap <silent><expr> <CR>      compe#confirm(lexima#expand('<LT>CR>', 'i'))
+"inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+"inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+"inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 
-"let g:deoplete#enable_at_startup = 1
-"if executable('cmake-language-server')
-  "au User lsp_setup call lsp#register_server({
-  "\ 'name': 'cmake',
-  "\ 'cmd': {server_info->['cmake-language-server']},
-  "\ 'root_uri': {server_info->lsp#utils#path_to_uri(lsp#utils#find_nearest_parent_file_directory(lsp#utils#get_buffer_path(), 'build/'))},
-  "\ 'whitelist': ['cmake'],
-  "\ 'initialization_options': {
-  "\   'buildDirectory': 'build',
-  "\ }
-  "\})
-"endif
+"lua << EOF
+"local t = function(str)
+  "return vim.api.nvim_replace_termcodes(str, true, true, true)
+"end
+
+"local check_back_space = function()
+    "local col = vim.fn.col('.') - 1
+    "if col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') then
+        "return true
+    "else
+        "return false
+    "end
+"end
+
+"-- Use (s-)tab to:
+"--- move to prev/next item in completion menuone
+"--- jump to prev/next snippet's placeholder
+"_G.tab_complete = function()
+  "if vim.fn.pumvisible() == 1 then
+    "return t "<C-n>"
+  "elseif vim.fn.call("vsnip#available", {1}) == 1 then
+    "return t "<Plug>(vsnip-expand-or-jump)"
+  "elseif check_back_space() then
+    "return t "<Tab>"
+  "else
+    "return vim.fn['compe#complete']()
+  "end
+"end
+"_G.s_tab_complete = function()
+  "if vim.fn.pumvisible() == 1 then
+    "return t "<C-p>"
+  "elseif vim.fn.call("vsnip#jumpable", {-1}) == 1 then
+    "return t "<Plug>(vsnip-jump-prev)"
+  "else
+    "-- If <S-Tab> is not working in your terminal, change it to <C-h>
+    "return t "<S-Tab>"
+  "end
+"end
+
+"vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
+"vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
+"vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+"vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
+"EOF
+""if has("win32")
+""set shell=powershell
+""set shellcmdflag=-c
+""set shellquote=\"
+""set shellxquote=
+""endif
+""
+""
+""
+
+
+
+"lua << EOF
+"local nvim_lsp = require('lspconfig')
+
+"-- Use an on_attach function to only map the following keys 
+"-- after the language server attaches to the current buffer
+"local on_attach = function(client, bufnr)
+  "local function buf_set_keymap(...) vim.api.nvim_buf_set_keymap(bufnr, ...) end
+  "local function buf_set_option(...) vim.api.nvim_buf_set_option(bufnr, ...) end
+
+  "--Enable completion triggered by <c-x><c-o>
+  "buf_set_option('omnifunc', 'v:lua.vim.lsp.omnifunc')
+
+  "-- Mappings.
+  "local opts = { noremap=true, silent=true }
+
+  "-- See `:help vim.lsp.*` for documentation on any of the below functions
+  "buf_set_keymap('n', 'gD', '<Cmd>lua vim.lsp.buf.declaration()<CR>', opts)
+  "buf_set_keymap('n', 'gd', '<Cmd>lua vim.lsp.buf.definition()<CR>', opts)
+  "buf_set_keymap('n', 'K', '<Cmd>lua vim.lsp.buf.hover()<CR>', opts)
+  "buf_set_keymap('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
+  "buf_set_keymap('n', '<C-k>', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
+  "buf_set_keymap('n', '<space>wa', '<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>', opts)
+  "buf_set_keymap('n', '<space>wr', '<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>', opts)
+  "buf_set_keymap('n', '<space>wl', '<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>', opts)
+  "buf_set_keymap('n', '<space>D', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
+  "buf_set_keymap('n', '<space>rn', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
+  "buf_set_keymap('n', '<space>ca', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
+  "buf_set_keymap('n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
+  "buf_set_keymap('n', '<space>e', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  "buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  "buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  "buf_set_keymap('n', '<space>q', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  "buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+
+"end
+
+"-- Use a loop to conveniently call 'setup' on multiple servers and
+"-- map buffer local keybindings when the language server attaches
+"local servers = { "pyright", "rust_analyzer", "tsserver" }
+"for _, lsp in ipairs(servers) do
+  "nvim_lsp[lsp].setup { on_attach = on_attach }
+"end
+"EOF
+"
+"
+"let g:coc_explorer_global_presets = {
+"\   '.vim': {
+"\     'root-uri': '~/.vim',
+"\   },
+"\   'cocConfig': {
+"\      'root-uri': '~/.config/coc',
+"\   },
+"\   'tab': {
+"\     'position': 'tab',
+"\     'quit-on-open': v:true,
+"\   },
+"\   'tab:$': {
+"\     'position': 'tab:$',
+"\     'quit-on-open': v:true,
+"\   },
+"\   'floating': {
+"\     'position': 'floating',
+"\     'open-action-strategy': 'sourceWindow',
+"\   },
+"\   'floatingTop': {
+"\     'position': 'floating',
+"\     'floating-position': 'center-top',
+"\     'open-action-strategy': 'sourceWindow',
+"\   },
+"\   'floatingLeftside': {
+"\     'position': 'floating',
+"\     'floating-position': 'left-center',
+"\     'floating-width': 50,
+"\     'open-action-strategy': 'sourceWindow',
+"\   },
+"\   'floatingRightside': {
+"\     'position': 'floating',
+"\     'floating-position': 'right-center',
+"\     'floating-width': 50,
+"\     'open-action-strategy': 'sourceWindow',
+"\   },
+"\   'simplify': {
+"\     'file-child-template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+"\   },
+"\   'buffer': {
+"\     'sources': [{'name': 'buffer', 'expand': v:true}]
+"\   },
+"\ }
+"nnoremap <space>ed :CocCommand explorer --preset .vim<CR>
+"nnoremap <space>ef :CocCommand explorer --preset floating<CR>
+"nnoremap <space>ec :CocCommand explorer --preset cocConfig<CR>
+"nnoremap <space>eb :CocCommand explorer --preset buffer<CR>
+"function CmakeCompile()
+"let &git_path.= "," . system("git rev-parse --show-toplevel | tr -d '\\n'")
+"echo git_path;
+"execute "!cmake "
+"endfunction
+"com! CmakeCompile silent! call CmakeCompile()<cr>

@@ -52,8 +52,8 @@ endif
 "syntax enable
 "set background=dark
 "set guifont=Monospace\ Bold\ 16
-"colorscheme solarized8
-colorscheme palenight
+colorscheme solarized8_flat
+"colorscheme palenight
 "colorscheme gruvbox
 let g:gruvbox_contrast_dark="soft"
 ""gui font must be set in ginit
@@ -87,11 +87,12 @@ set colorcolumn=81      " Display the limit of text width.
 "set textwidth=80        " Restrict text width.
 "set mouse=a             " Enable mouse to use (all mode)
 
-augroup augroupcomment
-   autocmd!
-autocmd filetype c,cpp,cxx,python,json,java,markdown,txt setlocal scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
-augroup END
+"augroup augroupcomment
+   "autocmd!
+"autocmd filetype c,cpp,cxx,python,json,java,markdown,txt setlocal scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
+"augroup END
 "set scrolloff=999         " Keep space from top and bottom. 999=center cursor vertically
+set scrolloff=3 " Keep space from top and bottom. 999=center cursor vertically
 " avoid buf on terminal
 "au TermEnter * setlocal scrolloff=0
 "au TermLeave * setlocal scrolloff=999
@@ -109,7 +110,7 @@ set smarttab        " handle tab more intelligently.
 set incsearch       " search pattern when still typing
 set backspace=indent,eol,start
 "size of commande line
-set cmdheight=1
+set cmdheight=2 " (need 2 for echodoc)
 "set autochdir "move repository to current buffer
 """"""""""""""""""""""""""""""""""
 "history and backup functionality"
@@ -144,11 +145,11 @@ set ignorecase
 """"""""""""""""""""""
 " enable fold methode
 """"""""""""""""""""""
-set foldmethod=indent
+"set foldmethod=indent
 "autocmd FileType jsonc set foldmethod=indent
-"set foldmethod=syntax
+set foldmethod=syntax
 set foldenable 
-set foldlevel=10
+set foldlevel=90
 """enable fortran folding
 "let fortran_fold=1 " increase drastycely lag
 "let fortran_fold_conditionals=1
@@ -207,7 +208,8 @@ set dictionary=D:\ftarroux\Documents\FRED\baseGit\vimrc-bashrc\liste.de.mots.fra
 augroup augrouptab
 autocmd FileType python setlocal listchars=nbsp:☠,tab:▸␣
 augroup END 
-set list
+"set listchars=tab:>_
+"set list
 
 "autocmd WinEnter * call History_cursor_window()
 "autocmd CursorMoved * call History_cursor_window()
@@ -247,10 +249,10 @@ endif
 
 if has('nvim')
    "let g:python3_host_prog = "D:/ftarroux/Logiciel/Python38-32/python.exe"
-   let g:python3_host_prog = "D:/ftarroux/Logiciel/python38/python.exe"
+   "let g:python3_host_prog = "D:/ftarroux/Logiciel/python38/python.exe"
 else
    "set pythondll=D:\ftarroux\Logiciel\Python2\python27.dll
-   set pythonthreedll="D:/ftarroux/Logiciel/Python38-32/python38.dll"
+   "set pythonthreedll="D:/ftarroux/Logiciel/Python38-32/python38.dll"
 endif
 " ambience theme from terminator
 if has('nvim')
@@ -284,7 +286,8 @@ set autoread
 augroup augroupcomment
 autocmd!
 if has('nvim')
-   autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+   "autocmd FocusGained,BufEnter,CursorHold,CursorHoldI * if mode() != 'c' | checktime | endif
+   autocmd FocusGained,BufEnter * if mode() != 'c' | checktime | endif
    " notification after file change
    autocmd FileChangedShellPost *
             \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None

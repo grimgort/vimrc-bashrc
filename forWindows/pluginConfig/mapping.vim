@@ -1,9 +1,13 @@
+"nnoremap : q:i
+nnoremap <A-:> q:i
+nnoremap <A-/> q/i
+nnoremap <C-s> :w<cr>
 
 map <C-a> GVgg
 nnoremap <C-s> :w<cr>
 inoremap <C-s> <c-o>:w<cr>
 "noremap <leader>h :history<cr>
-nmap q: <Nop>
+"nmap q: <Nop>
 map <C-c> y
 "imap <C-h> :%s/
 nmap <C-h> :%s/
@@ -82,7 +86,6 @@ tnoremap <C-l> <RIGHT>
 nnoremap <silent> <F12>  :silent! call CmakeFormat()<cr>
 
 
-noremap <silent> q <esc>:CloseAll<cr><esc>
 noremap <silent> ² <esc>:CloseAll<cr><esc>
 vm <silent> ² <esc>:CloseAll<cr><esc>
 im <silent> ² <esc>:CloseAll<cr><esc>
@@ -141,25 +144,44 @@ nmap <leader>nq  <Plug>(coc-fix-current)
 nnoremap <silent> <space>nk :call Show_documentation()<CR>
 autocmd FileType cmake nnoremap <space>nK :CocCommand cmake.onlineHelp<CR>;
 
+
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+"" use <tab> for trigger completion and navigate to the next complete item
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
+
+inoremap <silent><expr> <Tab>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<Tab>" :
+      \ coc#refresh()
+
 " Use <c-space> to trigger completion.
 inoremap <silent><expr> <c-space> coc#refresh()
 
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Tab>"
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"see https://github.com/neoclide/coc.nvim/wiki/Using-snippets
+"this mapping crash command line mode with buffer/autocomplete
+"inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : 
+                                           "\"\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-
-
-inoremap <silent><expr> <TAB>
-      \ pumvisible() ? coc#_select_confirm() :
-      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
-      \ <SID>check_back_space() ? "\<TAB>" :
-      \ coc#refresh()
-function! s:check_back_space() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
-endfunction
-
-
+"inoremap <silent><expr> <TAB>
+      "\ pumvisible() ? coc#_select_confirm() :
+      "\ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      "\ <SID>check_back_space() ? "\<TAB>" :
+      "\ coc#refresh()
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
+"let g:coc_snippet_next = '<tab>'
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "allow to scrool floating windows
 nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(1) : "\<C-f>"
  nnoremap <silent><nowait><expr> <C-k> coc#float#has_scroll() ? coc#float#scroll(0) : "\<C-b>"
@@ -204,12 +226,17 @@ nnoremap <silent><nowait><expr> <C-j> coc#float#has_scroll() ? coc#float#scroll(
 " coc-explorer
 """"""""""""""""""""""""""""""""""""""""""""
 :nmap <space>ee :CocCommand explorer --toggle --sources=file+,   --quit-on-open  <CR>
-:nmap <space>eb :CocCommand explorer --toggle --sources=buffer+, --quit-on-open<CR>
+:nmap <space>eb :CocCommand explorer --toggle--sources=buffer+, --quit-on-open<CR>
 :nmap <space>em :CocCommand explorer --toggle --sources=bookmark+,  --quit-on-open<CR>
+:nmap <space>ea :CocCommand explorer --toggle --sources=file+ --root-strategies workspace,  --quit-on-open<CR>
+":nmap <F2> :CocCommand explorer --toggle --sources=file+ --root-strategies workspace,  --quit-on-open<CR>
+":nmap <F2> :CocCommand explorer --toggle --sources=file+,  --quit-on-open<CR>
+":nmap <space>ef :CocCommand explorer --toggle --sources=file+,  --quit-on-open<CR>
 
 nnoremap <leader>ef  :NERDTreeFocus<CR>
 nnoremap <leader>es :NERDTree<CR>
 nnoremap <leader>ed   :NERDTreeToggle<CR>
+nnoremap <F2>   :NERDTreeToggle<CR>
 nnoremap <leader>eg :NERDTreeFind<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""
@@ -249,10 +276,12 @@ call which_key#register(' ', "g:which_key_map")
 " coc-todolist
 """"""""""""""""""""""""""""""""""""""""""""
 ":nmap <space>ll :CocList -A --tab todolist<cr> "preview dont work well
-:nmap <space>ll :CocList --tab todolist<cr>
-:nmap <space>lc :CocCommand todolist.create<cr>
+":nmap <space>ll :CocList --tab todolist<cr>
+":nmap <space>lc :CocCommand todolist.create<cr>
 
-
+"""""""""""""
+" Easy motion
+"""""""""""""
 "map <A-j> <Plug>(easymotion-j)
 "map <A-k> <Plug>(easymotion-k)
 map <leader><leader>l <Plug>(easymotion-w)
@@ -270,6 +299,11 @@ map e <Plug>(easymotion-s)
 "map <A-S-K> <Plug>(easymotion-K)
 "map <leader><leader>L <Plug>(easymotion-W)
 "map <leader><leader>H <Plug>(easymotion-B)
+"
+""""""""""""""""""
+" TODO FILE
+""""""""""""""""""
+:nmap <Leader>ll :e ~/todo.txt<cr>
 
 """"""""""""""""""""""""""""""""""""""
 " coc-translator 
@@ -333,8 +367,8 @@ nmap <Leader>bj <Plug>BookmarkNext
 nmap <Leader>bk <Plug>BookmarkPrev
 nmap <Leader>bc <Plug>BookmarkClear
 nmap <Leader>bx <Plug>BookmarkClearAll
-nmap <Leader>bk <Plug>BookmarkMoveUp
-nmap <Leader>bj <Plug>BookmarkMoveDown
+"nmap <Leader>bk <Plug>BookmarkMoveUp
+"nmap <Leader>bj <Plug>BookmarkMoveDown
 nmap <Leader>bg <Plug>BookmarkMoveToLine
 """""""""""""""""""""""""""""""""""""""""""""""
 " vim-bookmark"
@@ -353,13 +387,21 @@ nmap <Leader>bg <Plug>BookmarkMoveToLine
 """""""""""""""""""""""""""""""""""""""""""""""
 " coc-list" replace fzf
 """""""""""""""""""""""""""""""""""""""""""""""
-nmap <leader>fb :CocList  buffers<cr>
-"nmap <leader>fb :Buffer<cr>
-"nmap <leader>fb :Denite buffer<cr>
-nmap <leader>fm :CocList --number-select mru -A <cr>
+"nmap <leader>fb :CocList  buffers<cr>
+nmap <leader>fb :CocList --number-select mru -A <cr>
+nmap <leader>fm :CocList --number-select mru  <cr>
 nmap <leader>fg :CocList  gfiles<cr>
 nmap <leader>ff :CocList  files<cr>
 nmap <C-:> :CocList cmdhistory<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""
+" fzf" 
+"""""""""""""""""""""""""""""""""""""""""""""""
+"nmap <leader>fb :Buffers<cr>
+"nmap <leader>fb :CocList --number-select mru <cr>
+"nmap <leader>fg :GFiles<cr>
+"nmap <leader>ff :Files<cr>
+"nmap <C-:> :History:<cr>
 
 """""""""""""""""""""""""""""""""""""""""""""""
 " grammarous"
@@ -383,10 +425,11 @@ nmap <silent> <leader>zh <Plug>(grammarous-move-to-previous-error)
 "nmap <silent> <leader>zt gram
 "
 """"""""""""""""""""""""""""""""""
-"GINA
+"GIT
 """""""""""""""""""""""""""""""""""
-nnoremap <leader>ge :Gcommit %<cr>
+nnoremap <leader>ge :Git commit %<cr>
 nnoremap <leader>gb :Gina branch --opener=vsplit --group="test"<cr>
+"nnoremap <leader>gb :Git branch<cr>
 nnoremap <leader>gg :Gina grep --opener=tabnew --group="test" -ie
 nnoremap <leader>gw  :Gina grep --opener="to split" --group="test" -ie "\b<C-R><C-W>\b"
 nnoremap <leader>gx  :CocList grep
@@ -398,7 +441,8 @@ nnoremap <leader>gc :Gina commit --opener="to split" --group="test"<cr>
 nnoremap <leader>gz :Gina commit --amend --opener="to split" --group="test"<cr>
 	"nnoremap <silent> <leader>gc :Gina commit<CR>
 	"nnoremap <silent> <leader>gb :Gina blame --width=40<CR>
-nnoremap <leader>gs :Gina status -s --opener="to split" --group="test"<cr>
+nnoremap <leader>gs :Gina status  --opener="to split" --group="test"<cr>
+"nnoremap <leader>gs :Gstatus<cr>
 	"nnoremap <silent> <leader>gs :Gina status -s<CR>
 	nnoremap <silent> <leader>gl :Gina log --graph --all<CR>
 	nnoremap <silent> <leader>gF :Gina! fetch<CR>

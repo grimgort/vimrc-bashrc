@@ -119,6 +119,11 @@ function! CloseWindo()
   "let saved_winnr = bufname()
   let saved_winnr = win_getid()
   "echom saved_winnr
+  "call feedkeys("\<c-c>")
+  "call feedkeys("\<c-c>")
+  call feedkeys("\<esc>")
+  call feedkeys("\<esc>")
+ "execute 'normal("CTRL-\ CTRL-N")
   pclose
   helpclose
   ccl
@@ -246,7 +251,8 @@ command ProfilBenchmark call Profil_benchmark()
       try
         exec "buffer " . g:term_buf
       catch
-        call termopen("pwsh", {"detach": 0})
+        "call termopen("pwsh", {"detach": 0})
+        call termopen("powershell", {"detach": 0})
         let g:term_buf = bufnr("")
       endtry
       startinsert!
